@@ -11,7 +11,7 @@ import easyaccept.EasyAccept;
  * vez que fizer alguma alteracao relacionada ao tema de cada teste, por menor
  * que seja a alteracao nao hesite, teste. Se quiser adicionar um novo caso de
  * teste basta apenas adicionar o arquivo desejado na pasta 'EasyAccept' e
- * adicionar o caminho do arquivo a lista 'args'.
+ * adicionar o caminho do arquivo a lista 'args' a.
  * 
  * @author Adson Cesar.
  * @author Gerson Sales.
