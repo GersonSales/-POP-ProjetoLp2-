@@ -1,0 +1,90 @@
+package projeto.maispop.sistema;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import projeto.maispop.excecoes.EntradaException;
+import projeto.maispop.excecoes.LogicaException;
+import projeto.maispop.excecoes.RequisicaoException;
+import projeto.maispop.excecoes.UsuarioExistenteException;
+import projeto.maispop.excecoes.UsuarioInexistenteException;
+import projeto.maispop.usuario.Usuario;
+
+public class BancoDeUsuarios {
+
+	private List<Usuario> usuarios;
+
+	public BancoDeUsuarios() {
+		this.usuarios = new ArrayList<>();
+	}
+
+	public void cadastraUsuario(String nome, String email, String senha,
+			String dataNascimento, String imagem)
+			throws EntradaException, UsuarioExistenteException {
+
+		if (verificaEmailExistente(email)) {
+			throw new UsuarioExistenteException();
+		}
+
+		Usuario novoUsuario = new Usuario(nome, email, senha, dataNascimento,
+				imagem);
+		this.usuarios.add(novoUsuario);
+
+	}
+
+	public void cadastraUsuario(String nome, String email, String senha,
+			String dataNascimento) throws EntradaException,
+			UsuarioExistenteException {
+		if (verificaEmailExistente(email)) {
+			throw new UsuarioExistenteException();
+		}
+
+		Usuario novoUsuario = new Usuario(nome, email, senha, dataNascimento);
+		this.usuarios.add(novoUsuario);
+	}
+	
+	public void removeUsuario(String email) throws UsuarioInexistenteException {
+		this.usuarios.remove(getUsuario(email));
+	}
+
+	private boolean verificaEmailExistente(String email) {
+		for (Usuario usuario : usuarios) {
+			if (usuario.getEmail().equals(email)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public Usuario getUsuario(String email) throws UsuarioInexistenteException { 
+		for (Usuario usuario : usuarios) {
+			if (usuario.getEmail().equals(email)) {
+				return usuario;
+			}
+		}
+		return null;
+		throw new UsuarioInexistenteException("Um usuarix com email " + email + " nao esta cadastradx.");
+	}
+
+	public String getInfoUsuario(String atributo, String email)
+			throws EntradaException, LogicaException {
+		Usuario usuario = getUsuario(email);
+
+		switch (atributo) {
+		case "Nome":
+			return usuario.getNome();
+		case "Email":
+			return usuario.getEmail();
+		case "Senha":
+			throw new RequisicaoException("A senha dx usuarix eh protegida.");
+		case "Data de Nascimento":
+			return usuario.getDataNascimento();
+		case "Foto":
+			return usuario.getImagemPerfil();
+		default:
+				throw new EntradaException();
+		}
+
+	}
+
+}

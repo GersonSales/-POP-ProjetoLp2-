@@ -1,0 +1,16 @@
+package projeto.maispop.midia;
+
+public class Video extends Midia {
+	
+	@Override
+	public String getDiretorio() {
+		return super.getDiretorio();
+	}
+	
+	@Override
+	public String toString() {
+		return "$arquivo_audio: " + getDiretorio();
+	}
+	
+
+}

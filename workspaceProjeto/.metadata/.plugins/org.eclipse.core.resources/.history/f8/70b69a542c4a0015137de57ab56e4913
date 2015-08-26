@@ -1,0 +1,128 @@
+package projeto.maispop.usuario;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import projeto.maispop.excecoes.EntradaException;
+import projeto.maispop.midia.Audio;
+import projeto.maispop.midia.Imagem;
+import projeto.maispop.midia.Midia;
+
+public class PostagemFormat {
+
+	public static String getHashTag(String texto) {
+		if (!(texto.contains("#"))) {
+			return "";
+		}
+		
+		texto = texto.substring(texto.indexOf("#"), texto.length());
+		String[] hashTags = texto.split(" ");
+		for (String palavra : hashTags) {
+			if (!(palavra.contains("#"))) {
+				return null;
+			}
+		}
+		return texto;
+	}
+
+	public static String formatHashTag(String hashtag) {
+		return hashtag.replace(" ", ",");
+	}
+
+	public static void formatMidia(List<String> midias) {
+		for (String midia : midias) {
+			midia.replace("<audio>", "$arquivo_audio: ");
+			midia.replace("</audio>", "");
+
+			midia.replace("<imagem>", "$arquivo_imagem: ");
+			midia.replace("</imagem>", "");
+		}
+	}
+	
+	public static List<String> getMidia(String texto) {
+		String marcacao = "";
+		texto = texto.replace(">", "> ");
+		texto = texto.replace("<", " <");
+
+		String[] textoSplit = texto.split(" ");
+		List<String> midia = new ArrayList<>();
+		String caminhoMidia = "$arquivo_";
+
+		boolean adicionaPalavra = false;
+		for (String palavra : textoSplit) {
+			if (palavra.equals(""))
+				continue;// .split() nao remove todos os espacacos.
+
+			if (palavra.equals("<audio>") || palavra.equals("<imagem>")) {
+				caminhoMidia = caminhoMidia
+						+ palavra.substring(1, palavra.length() - 1) + ":";
+				marcacao = palavra;
+
+				adicionaPalavra = true;
+				continue;
+			}
+
+			if (palavra.equals(marcacao.replace("<", "</"))) {
+				midia.add(caminhoMidia);
+				caminhoMidia = "$arquivo_";
+
+				adicionaPalavra = false;
+				continue;
+			}
+
+			if (adicionaPalavra) {
+				caminhoMidia = caminhoMidia + palavra;
+			}
+		}
+		return midia;
+	}
+
+	public static String getMensagem(String texto) {
+
+		int indexAudio = texto.indexOf("<audio>");
+		texto = indexAudio == -1 ? texto : texto.substring(0, indexAudio);
+
+		int indexImagem = texto.indexOf("<imagem>");
+		texto = indexImagem == -1 ? texto : texto.substring(0, indexImagem);
+
+		int indexHashTag = texto.indexOf("#");
+		texto = indexHashTag == -1 ? texto : texto.substring(0, indexHashTag);
+
+		return texto;
+	}
+	
+	public static String getMensagemMidia(String texto) {
+		texto = texto.replace(getHashTag(texto), "");
+		
+		
+		
+		return "";
+	}
+
+	public static List<Midia> parseMidia(List<String> diretorios) {
+		List<Midia> midias = new ArrayList<>();
+
+		for (String diretorio : diretorios) {
+			if (diretorio.contains(".mp3")) {
+				Midia audio = new Audio(diretorio);
+				midias.add(audio);
+			} else if (diretorio.contains("jpg")) {
+				Midia imagem = new Imagem(diretorio);
+				midias.add(imagem);
+			}
+		}
+
+		return midias;
+	}
+
+	public static List<String> getToString(String texto, List<Midia> midias) {
+		List<String> postagem = new ArrayList<>();
+		postagem.add(texto);
+		for (Midia midia : midias) {
+			postagem.add(midia.toString());
+		}
+
+		return postagem;
+	}
+
+}

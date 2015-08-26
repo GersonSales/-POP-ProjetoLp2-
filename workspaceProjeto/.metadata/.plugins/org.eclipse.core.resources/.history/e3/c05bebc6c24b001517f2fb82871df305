@@ -1,0 +1,148 @@
+package projeto.maispop.usuario;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import projeto.maispop.excecoes.EntradaException;
+import projeto.maispop.excecoes.ItemInexistenteException;
+
+/**
+ * Classe <code>Postagem</code> entidade que compoe
+ * 
+ * @author Adson Cesar
+ * @author Gerson Sales
+ * @version 0.3
+ * @see PostagemFormat
+ * @see MuralUsuario
+ *
+ */
+public class Postagem {
+
+    private String texto;
+    private String mensagem;
+    private String hashTags;
+    private String dataPostagem;
+    private List<String> postagem;
+
+    private PostagemFormat postagemFormat;
+
+    private int popularidade;
+    private int curtir;
+    private int rejeitar;
+
+    /**
+     * Construtor da classe <code>Postagem</code> que tem como funcao receber
+     * duas Strigs(texto, dataPostagem) como parametro e organiza-las de acordo
+     * com os seguintes parametros:
+     * <ul>
+     * <li>DataPostagem: Conjunto de numeros e caracteres que representa a data
+     * e hora da postagem.</li>
+     * <li>HashTags: Conjunto de palavras que sejam iniciadas pela <i>tag</i>#.</li>
+     * 
+     * <li>Mensagem: Todas as midias e qualquer caractere antecedido por elas.</li>
+     * <li>Texto: Mensagem, midia, hashTag, data</li>
+     * </ul>
+     * Armazenando-os respectivamente numa lista.
+     * 
+     * @param texto
+     *            . String de onde sera extraida toda informacao(exceto data)
+     *            necessaria para construcao de uma postagem.
+     * @param dataPostagem
+     *            . String que representa a data e hora, para associa-la a
+     *            postagem.
+     * @throws EntradaException. Caso
+     *             as Strings(texto, dataPostagem) sejam inseridos de forma
+     *             incorreta.
+     */
+    public Postagem(String texto, String dataPostagem) throws EntradaException {
+	this.postagemFormat = PostagemFormat.getInstancia();
+	this.postagem = new ArrayList<>();
+
+	this.hashTags = postagemFormat.getHashTag(texto);
+	this.mensagem = postagemFormat.getMensagemMidia(texto);
+	this.dataPostagem = postagemFormat.formatData(dataPostagem);
+	this.texto = texto + " (" + this.dataPostagem + ")";
+
+	this.postagem.add(postagemFormat.getMensagem(texto));
+	this.postagem.addAll(postagemFormat.getMidia(texto));
+
+    }
+
+    /**
+     * Metodo <i>getMensagem</i> responsavel por retonar uma String
+     * representando a mensagem da postagem.
+     * 
+     * @return mensagem.
+     */
+    public String getMensagem() {
+	return this.mensagem;
+    }
+
+    /**
+     * Metodo <i>getHashTags</i> responsavel por retornar uma Strinf
+     * representando todas as <i>hashtags</i> contidas na <code>Postagem</code>.
+     * 
+     * @return hashtags. 
+     */
+    public String getHashTags() {
+	return this.hashTags;
+    }
+
+    /**
+     * 
+     * @param indice
+     * @return
+     * @throws EntradaException
+     * @throws ItemInexistenteException
+     */
+    public String getConteudo(int indice) throws EntradaException,
+	    ItemInexistenteException {
+	Integer postagemTam = this.postagem.size();
+	String strTPostagemTam = postagemTam.toString();
+
+	if (indice < 0) {
+	    throw new EntradaException(
+		    "O indice deve ser maior ou igual a zero.");
+	} else if (indice >= postagemTam) {
+	    throw new ItemInexistenteException(strTPostagemTam);
+	}
+
+	return this.postagem.get(indice);
+    }
+
+    public int getPopularidade() {
+	return this.popularidade;
+    }
+
+    public String getData() {
+	return this.dataPostagem;
+    }
+
+    public int getCurtir() {
+	return this.curtir;
+    }
+
+    public int getRejeitar() {
+	return this.rejeitar;
+    }
+
+    public String getPostagem(int indice) {
+	return this.postagem.get(indice);
+    }
+
+    public void curtir(int curtida) {
+	this.popularidade = getPopularidade() + curtida;
+	this.curtir = getCurtir() + 1;
+    }
+
+    public void rejeitar(int rejeito) {
+	this.popularidade = getPopularidade() - rejeito;
+	this.rejeitar = getRejeitar() + 1;
+    }
+
+    @Override
+    public String toString() {
+	return this.texto;
+    }
+
+}

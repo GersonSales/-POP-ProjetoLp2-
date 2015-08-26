@@ -1,0 +1,18 @@
+1439510922833	Rename resource 'CasoDeTeste1'
+1439512061195	Rename package 'projeto.maispop.facade'
+1439514117474	Rename method 'emailExistente'
+1439523417877	Delete element
+1439524106598	Delete element
+1439526926713	Copy compilation unit
+1439526932684	Delete element
+1439527539501	Delete element
+1439528713312	Rename type 'UsuarioJaExistenteException'
+1439538643788	Rename method 'manipulaData'
+1439538651305	Rename method 'AtribuiData'
+1439542857637	Rename type 'DataInvalidaException'
+1439542872837	Rename type 'EmailInvalidoException'
+1439542899249	Rename type 'EntradaInvalidaException'
+1439542907076	Rename type 'ImagemInvalidaException'
+1439542916351	Rename type 'LogicaInvalidaException'
+1439542924658	Rename type 'NomeInvalidoException'
+1439542932390	Rename type 'SenhaInvalidaException'

@@ -1,0 +1,5 @@
+package projeto.maispop.midia;
+
+public class Audio extends Midia {
+
+}

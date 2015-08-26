@@ -1,0 +1,130 @@
+package projeto.maispop.usuario;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import projeto.maispop.excecoes.EntradaException;
+import projeto.maispop.midia.Audio;
+import projeto.maispop.midia.Imagem;
+import projeto.maispop.midia.Midia;
+import projeto.maispop.midia.Video;
+
+/**
+ * Classe <code>Postagem</code> que representa uma atualizacao realizada pelo
+ * usuario. Onde ele insere texto, audio, musica ou video;
+ * 
+ * @author Gerson Sales
+ * @version 1.0
+ *
+ */
+public class Postagem {
+
+	private String texto;
+	private String mensagem;
+	private List<String> midias;
+	private String hashTags;
+	private String dataPostagem;
+	private List<String> postagem; 
+	
+	private PostagemFormat postagemFormat;
+	
+	private int popularidade;
+	private int curtir;
+	private int rejeitar;
+
+
+	/**
+	 * Construtor da classe <code>Postagem</code> recebe quatro <i>String's</i>
+	 * como parametro representando o texto, audio, musica e video
+	 * respectivamente, adiciona-os como atributo da <i>Postagem</i>.<br>
+	 * <b>Onde:</b>
+	 * 
+	 * @param texto
+	 *            String relacionada ao texto que o usuario ira digitar na
+	 *            postagem.
+	 * @param audio
+	 *            String relacionada ao caminho do audio que o usuario colocara
+	 *            em sua postagem.
+	 * @param musica
+	 *            String relacionada ao caminho da musica que o usuario colocara
+	 *            em sua postagem.
+	 * @param video
+	 *            String relacionada ao caminho do video que o usuario colocara
+	 *            em sua postagem.
+	 * @throws EntradaException 
+	 */
+	public Postagem(String texto, String dataPostagem) throws EntradaException {
+		this.postagemFormat = PostagemFormat.getInstancia();
+		this.postagem = new ArrayList<>();
+		this.midias = new ArrayList<>();
+		
+		this.hashTags = postagemFormat.getHashTag(texto);
+		this.mensagem = postagemFormat.getMensagem(texto);
+		this.hashTags = postagemFormat.formatHashTag(this.hashTags);
+		this.dataPostagem = postagemFormat.formatData(dataPostagem);
+		this.texto = texto + " (" + this.dataPostagem + ")";
+		
+		this.postagem.add(postagemFormat.getMensagem(texto));
+		this.postagem.addAll(postagemFormat.getMidia(texto));
+
+		if (this.mensagem.contains("tapioca")) {
+			System.out.println(this.mensagem);
+		}
+		
+
+	}
+
+	public String getMensagem() {
+		return this.mensagem;
+	}
+
+	public String getHashTags() {
+		return this.hashTags;
+	}
+
+	public int getPopularidade() {
+		return this.popularidade;
+	}
+
+	public String getData() {
+		return this.dataPostagem;
+	}
+
+	public int getCurtir() {
+		return this.curtir;
+	}
+
+	public int getRejeitar() {
+		return this.rejeitar;
+	}
+	
+	public String getPostagem(int indice) {
+		return this.postagem.get(indice);
+	}
+
+	public void curtir(int curtida) {
+		this.popularidade = getPopularidade() + curtida;
+		this.curtir = getCurtir() + 1;
+	}
+
+	public void rejeitar(int rejeito) {
+		this.popularidade = getPopularidade() - rejeito;
+		this.rejeitar = getRejeitar() + 1;
+	}
+
+	@Override
+	public String toString() {
+		@SuppressWarnings("unused")
+		String fdl = System.getProperty("line.separator");
+		return this.texto;
+//		return "Autor: " + getAutor() + fdl + getTexto() + fdl + getAudio()
+//				+ fdl + getMusica() + fdl + getVideo() + fdl + "HashTags: "
+//				+ getHashTags() + fdl + "Data: " + getData() + fdl;
+
+	}
+
+}

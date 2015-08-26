@@ -1,0 +1,5 @@
+package projeto.maispop.midia;
+
+public class Video extends Midia {
+
+}

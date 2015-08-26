@@ -1,0 +1,5 @@
+package projeto.maispop.midia;
+
+public class Imagem extends Midia {
+
+}

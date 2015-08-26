@@ -1,0 +1,17 @@
+package projeto.maispop.midia;
+
+public abstract class Midia {
+	
+	private String diretorio;
+	
+	public Midia() {
+		
+	}
+	
+	public String getDiretorio() {
+		return this.diretorio;
+	}
+	
+	
+
+}

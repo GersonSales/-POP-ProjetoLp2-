@@ -1,0 +1,26 @@
+package projeto.maispop.sistema;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
+import projeto.maispop.excecoes.LogicaException;
+
+public final class DataLocal {
+	
+	public static String padronizaData(String dataNascimento, String padrao, String erro) throws LogicaException {
+		try {
+			DateTimeFormatter formatador = DateTimeFormatter.ofPattern(padrao);
+			LocalDate sData = LocalDate.parse(dataNascimento , formatador);
+			return sData.toString();
+		}catch(DateTimeParseException e) {
+			if (e.getMessage().contains("could not be parsed:")) {
+				throw new LogicaException(erro + "Data nao existe.");
+			}else {
+				throw new LogicaException(erro + " Formato de data esta invalida.");
+			}
+		}
+
+	}
+
+}

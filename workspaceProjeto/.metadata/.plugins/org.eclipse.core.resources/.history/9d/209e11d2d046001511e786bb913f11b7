@@ -1,0 +1,14 @@
+package projeto.maispop.sistema;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
+public final class DataLocal {
+	
+	private void atribuiData(String dataNascimento) {
+		DateTimeFormatter formatador = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		LocalDate sData = LocalDate.parse(dataNascimento , formatador);
+		this.dataNascimento = sData.toString();
+	}
+
+}

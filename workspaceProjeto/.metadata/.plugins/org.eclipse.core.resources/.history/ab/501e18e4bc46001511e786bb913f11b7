@@ -1,0 +1,11 @@
+package projeto.maispop.eatestes;
+
+import easyaccept.EasyAccept;
+
+public class TesteEA {
+
+	public static void main(String[] args) {
+	    args = new String[] {"projeto.maispop.sistema.Facade", "/+Pop/src/projeto/maispop/eatestes/CasoDeTeste1.txt"};
+	    EasyAccept.main(args);
+	}
+}

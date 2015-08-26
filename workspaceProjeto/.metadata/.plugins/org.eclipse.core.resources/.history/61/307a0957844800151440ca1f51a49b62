@@ -1,0 +1,7 @@
+package projeto.maispop.midia;
+
+public abstract class Midia {
+	
+	
+
+}

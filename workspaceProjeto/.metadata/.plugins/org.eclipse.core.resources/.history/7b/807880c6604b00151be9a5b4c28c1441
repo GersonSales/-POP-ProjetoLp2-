@@ -1,0 +1,114 @@
+package projeto.maispop.usuario;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import projeto.maispop.excecoes.EntradaException;
+
+/**
+ * Classe <code>MuralUsuario</code> representa a <i>linha do tempo</i> de um
+ * usuario na rede social <i>+Pop<i>. Onde ele podera <i>postar</i> mensagens,
+ * fotos, audio, e videos.
+ * 
+ * @author Gerson Sales.
+ *
+ */
+public class MuralUsuario {
+
+	private Map<String, Set<Postagem>> mural;
+	private List<Postagem> postagens;
+
+
+	/**
+	 * Construtor da classe <code>MuraUsuario</code> que apenar inicializa o
+	 * <i>Map</i> mural como <i>HashMap</i>.
+	 */
+	public MuralUsuario(String nomeUsuario) {
+		this.mural = new HashMap<>();
+		this.postagens = new ArrayList<>();
+	}
+
+	/**
+	 * Metodo <code>postar</code> recebe quatro Strings como parametro
+	 * representando texo, audio, musica e video respectivamente. Cria uma nova
+	 * <i>Postagem</i> passando tais argumentos para construcao do mesmo.
+	 * Adiciona a <i>Postagem</i> criada ao mapa de postagens.
+	 * 
+	 * @param texto
+	 *            String relacionada ao texto que o usuario ira digitar na
+	 *            postagem.
+	 * @param audio
+	 *            String relacionada ao caminho do audio que o usuario colocara
+	 *            em sua postagem.
+	 * @param musica
+	 *            String relacionada ao caminho da musica que o usuario colocara
+	 *            em sua postagem.
+	 * @param video
+	 *            String relacionada ao caminho do video que o usuario colocara
+	 *            em sua postagem.
+	 * @throws EntradaException
+	 */
+	public void postar(ListaDeAmigos amigos, String texto, String dataPostagem)
+			throws EntradaException {
+		Postagem novaPostagem = new Postagem(texto, dataPostagem);
+		this.postagens.add(novaPostagem);
+
+		if (this.mural.containsKey(novaPostagem.getHashTags())) {
+			this.mural.get(novaPostagem.getHashTags()).add(novaPostagem);
+		} else {
+			Set<Postagem> postagem = new HashSet<>();
+			postagem.add(novaPostagem);
+			this.mural.put(novaPostagem.getHashTags(), postagem);
+		}
+		amigos.compartilhaNoticia(novaPostagem);
+	}
+
+	/**
+	 * Metodo <code>feedNoticias</code> responsavel por publicar no mural todas
+	 * as noticas de atividades dos amigos do usuario.
+	 * 
+	 * @param noticia
+	 *            <i>Postagem</i> publicacao que sera "importada" de um amigo.
+	 */
+	public void feedNoticias(Postagem noticia) {
+		this.mural.get(noticia.getHashTags()).add(noticia);
+
+	}
+
+	/**
+	 * Metodo <code>buscaPorHashTag</code> recebe como parametro um String
+	 * representando a hastag a ser pesquisada no historico do mural.
+	 * 
+	 * @param hashTag
+	 *            String que representa uma hashTag
+	 * @return Retorna uma conjunto de <i>Postagem</i>.
+	 */
+	public String buscaPorHashTag(String hashTag) {
+		String fdl = System.getProperty("line.separator");
+		String postagens = "";
+		for (String setHashTag : this.mural.keySet()) {
+			if (setHashTag.contains(hashTag)) {
+				postagens = postagens + fdl + this.mural.get(setHashTag);
+			}
+
+		}
+		return postagens;
+	}
+
+	@Override
+	public String toString() {
+		String fdl = System.getProperty("line.separator");
+		String publicacoes = "";
+		for (Set<Postagem> publicacao : this.mural.values()) {
+			for (Postagem postagem : publicacao) {
+				publicacoes = publicacoes + postagem + fdl;
+			}
+		}
+		return publicacoes + fdl;
+	}
+
+}

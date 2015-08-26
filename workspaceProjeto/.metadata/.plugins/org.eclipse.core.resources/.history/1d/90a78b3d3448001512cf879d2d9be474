@@ -1,0 +1,102 @@
+package projeto.maispop.testes;
+
+import org.junit.Assert;
+import org.junit.Test;
+
+import projeto.maispop.excecoes.EntradaException;
+import projeto.maispop.excecoes.LogicaException;
+import projeto.maispop.excecoes.NomeException;
+import projeto.maispop.excecoes.UsuarioException;
+import projeto.maispop.excecoes.UsuarioExistenteException;
+import projeto.maispop.sistema.BancoDeUsuarios;
+import projeto.maispop.sistema.Controller;
+import projeto.maispop.sistema.Facade;
+import projeto.maispop.usuario.Usuario;
+
+public class TesteUsuario {
+
+	Usuario gerson;
+	Usuario mirella;
+	BancoDeUsuarios BancoDeUsuarios;
+	Controller controller;
+	Facade facade;
+
+	public void criacao() throws EntradaException, LogicaException {
+		this.BancoDeUsuarios = new BancoDeUsuarios();
+		this.controller = new Controller();
+		this.facade = new Facade();
+
+		try {
+			this.gerson = new Usuario("Gerson", "gerson@ermail.com", "SenhaGerson", "24/02/2014");
+			//this.BancoDeUsuarios.cadastraUsuario("Gerson", "gerson@ermail.com", "SenhaGerson", "24/02/1995");
+			//this.controller.cadastraUsuario("Gerson", "gerson@ermail.com", "SenhaGerson", "24/02/1995");
+			//System.out.println(gerson.getDataNascimento());
+
+		}catch(NomeException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+
+	public void enviarSolicitacao() {
+		gerson.solicitaAmizade(mirella);
+		Assert.assertTrue(mirella.getNotificacoes().contains(
+				"Gerson deseja lhe adicionar como amigo."));
+
+		mirella.recusaAmizade(gerson);
+		Assert.assertTrue(gerson.getNotificacoes().contains(
+				"Mirella rejeitou sua solicitacao de amizade."));
+
+		gerson.solicitaAmizade(mirella);
+		Assert.assertTrue(mirella.getNotificacoes().contains(
+				"Gerson deseja lhe adicionar como amigo."));
+
+		mirella.aceitaAmizade(gerson);
+		Assert.assertTrue(gerson.getNotificacoes().contains(
+				"Mirella aceitou sua solicitacao de amizade."));
+
+		gerson.solicitaAmizade(mirella);
+		Assert.assertTrue(gerson.getNotificacoes().contains(
+				"Voce ja possui uma amizade com Mirella."));
+
+		mirella.solicitaAmizade(gerson);
+		Assert.assertTrue(mirella.getNotificacoes().contains(
+				"Voce ja possui uma amizade com Gerson."));
+
+		mirella.removeAmigo(gerson);
+		Assert.assertTrue(gerson.getNotificacoes().contains(
+				"Mirella lhe removeu de sua lista de amigos."));
+	}
+	
+	
+	public void testaException() throws UsuarioException {
+		try {
+			testaException2();
+		}catch (UsuarioException e) {
+			throw new e;
+		}
+	}
+	
+	public void testaException2() throws UsuarioException {
+		throw new UsuarioException("Erro t2");
+	}
+
+	
+	@Test
+	public void testaUsoException() {
+		try {
+			testaException();
+		}catch (UsuarioException e) {
+			System.out.println(e.getMessage());
+			System.out.println(e.getLocalizedMessage());
+			System.out.println(e.toString());
+			System.out.println(e.getStackTrace());
+			e.printStackTrace();
+		}
+	}
+
+	
+	
+	
+	
+	
+}

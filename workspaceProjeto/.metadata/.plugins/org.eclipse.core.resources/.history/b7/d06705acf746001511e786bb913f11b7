@@ -1,0 +1,37 @@
+package projeto.maispop.testes;
+
+import org.junit.Before;
+import org.junit.Test;
+
+import projeto.maispop.excecoes.EntradaException;
+import projeto.maispop.excecoes.LogicaException;
+import projeto.maispop.usuario.Usuario;
+
+public class TestePublicacao {
+
+	Usuario gerson;
+	Usuario mirella;
+
+	@Before
+	public void criacao() throws EntradaException, LogicaException {
+		this.gerson = new Usuario("Gerson", "gerson@ermail.com", "SenhaGerson",
+				"(99) 99999-9999", "24/02/1995");
+		this.mirella = new Usuario("Mirella", "mirella@email.com",
+				"SenhaMirella", "(99) 99999-9999", "10/09/1989");
+	}
+	
+	@Test
+	public void testPostar() {
+		gerson.postar("Primeira postagem de #gerson", null, null, null);
+		gerson.postar("Segunda postagem de #gerson a #junior", null, null, null);
+		//System.out.println(gerson.getMural());
+		System.out.println(gerson.bucaPorHashTag("#"));
+		
+		try {
+			String [] casa = new String[3];
+			try {
+				casa[0] = casa[5];
+			}
+		}
+	}
+}

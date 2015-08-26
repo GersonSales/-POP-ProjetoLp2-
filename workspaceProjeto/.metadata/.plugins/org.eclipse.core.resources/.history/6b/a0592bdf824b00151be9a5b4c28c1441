@@ -1,0 +1,5 @@
+package projeto.maispop.excecoes;
+
+public class ItemInexistenteException extends LogicaException {
+
+}

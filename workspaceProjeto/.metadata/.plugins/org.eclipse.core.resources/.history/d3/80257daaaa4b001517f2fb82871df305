@@ -1,0 +1,24 @@
+package projeto.maispop.midia;
+
+public abstract class Midia {
+	
+	private String diretorio;
+	
+	public Midia(String diretorio) {
+		this.diretorio = diretorio;
+		
+	}
+	
+	public String getDiretorio() {
+		return this.diretorio;
+	}
+	
+	
+	@Override
+	public String toString() {
+		return "$arquivo_midia: " + diretorio;
+	}
+	
+	
+
+}
