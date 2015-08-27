@@ -17,7 +17,6 @@ import easyaccept.EasyAccept;
  * @author Gerson Sales.
  *
  */
-
 public class TesteEA {
 
     public static void main(String[] args) {
