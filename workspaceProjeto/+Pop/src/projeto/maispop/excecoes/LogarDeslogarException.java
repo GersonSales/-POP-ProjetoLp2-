@@ -9,4 +9,12 @@ public class LogarDeslogarException extends LogicaException {
 	public LogarDeslogarException(String mensagem) {
 		super(mensagem);
 	}
+	
+	public LogarDeslogarException(String mensagem, Throwable erro) {
+	    super(mensagem, erro);
+	}
+	
+	public LogarDeslogarException(Throwable erro) {
+	    super(erro);
+	}
 }

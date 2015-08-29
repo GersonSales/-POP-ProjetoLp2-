@@ -1,10 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="easyaccept.EasyAccept"/>
-<fullyQualifiedTypeName name="projeto.maispop.excecoes.LogicaInvalidaException"/>
-<fullyQualifiedTypeName name="projeto.maispop.usuario.Usuario"/>
-<fullyQualifiedTypeName name="projeto.maispop.excecoes.EmailInvalidoException"/>
-<fullyQualifiedTypeName name="projeto.maispop.excecoes.SenhaInvalidaException"/>
 <fullyQualifiedTypeName name="projeto.maispop.excecoes.DataInvalidaException"/>
 <fullyQualifiedTypeName name="java.awt.font.ImageGraphicAttribute"/>
 <fullyQualifiedTypeName name="projeto.maispop.excecoes.ImagemInvalidaException"/>
@@ -23,11 +18,9 @@
 <fullyQualifiedTypeName name="projeto.maispop.excecoes.RequisicaoException"/>
 <fullyQualifiedTypeName name="projeto.maispop.excecoes.SenhaException"/>
 <fullyQualifiedTypeName name="projeto.maispop.excecoes.UsuarioException"/>
-<fullyQualifiedTypeName name="projeto.maispop.excecoes.LogicaException"/>
 <fullyQualifiedTypeName name="projeto.maispop.excecoes.NomeException"/>
 <fullyQualifiedTypeName name="java.time.format.DateTimeParseException"/>
 <fullyQualifiedTypeName name="projeto.maispop.excecoes.DataException"/>
-<fullyQualifiedTypeName name="projeto.maispop.excecoes.UsuarioExistenteException"/>
 <fullyQualifiedTypeName name="java.lang.Throwable"/>
 <fullyQualifiedTypeName name="java.lang.RuntimeException"/>
 <fullyQualifiedTypeName name="java.time.DateTimeException"/>
@@ -58,6 +51,13 @@
 <fullyQualifiedTypeName name="projeto.maispop.usuario.MuralUsuario"/>
 <fullyQualifiedTypeName name="projeto.maispop.excecoes.MaisPopException"/>
 <fullyQualifiedTypeName name="java.util.HashSet"/>
-<fullyQualifiedTypeName name="projeto.maispop.excecoes.UsuarioInexistenteException"/>
+<fullyQualifiedTypeName name="javax.management.DescriptorKey"/>
+<fullyQualifiedTypeName name="java.util.Deque"/>
+<fullyQualifiedTypeName name="java.util.LinkedList"/>
 <fullyQualifiedTypeName name="projeto.maispop.excecoes.ItemInexistenteException"/>
+<fullyQualifiedTypeName name="projeto.maispop.excecoes.SolicitacaoException"/>
+<fullyQualifiedTypeName name="projeto.maispop.excecoes.UsuarioExistenteException"/>
+<fullyQualifiedTypeName name="projeto.maispop.excecoes.LogicaException"/>
+<fullyQualifiedTypeName name="projeto.maispop.excecoes.UsuarioInexistenteException"/>
+<fullyQualifiedTypeName name="projeto.maispop.excecoes.LogarDeslogarException"/>
 </qualifiedTypeNameHistroy>

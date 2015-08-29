@@ -58,17 +58,17 @@ public class BancoDeUsuarios {
 	return false;
     }
 
-    public Usuario getUsuario(String email) throws UsuarioInexistenteException {
+    public Usuario getUsuario(String emailUsuario) throws UsuarioInexistenteException{
 	for (Usuario usuario : usuarios) {
-	    if (usuario.getEmail().equals(email)) {
+	    if (usuario.getEmail().equals(emailUsuario)) {
 		return usuario;
 	    }
 	}
-	return null;
+	throw new UsuarioInexistenteException("Um usuarix com email " + emailUsuario + " nao esta cadastradx.");
     }
 
     public String getInfoUsuario(String atributo, String email)
-	    throws EntradaException, LogicaException {
+	    throws EntradaException, LogicaException{
 	Usuario usuario = getUsuario(email);
 	if (usuario == null) {
 	    throw new UsuarioInexistenteException("Um usuarix com email "
@@ -92,8 +92,7 @@ public class BancoDeUsuarios {
     }
 
     public void atualizaPerfil(String atributo, String valor,
-	    String antigoValor, String email) throws SenhaException,
-	    UsuarioInexistenteException {
+	    String antigoValor, String email) throws SenhaException, UsuarioInexistenteException {
 	Usuario usuario = getUsuario(email);
 
 	if (usuario.getSenha().equals(antigoValor)) {
@@ -129,6 +128,7 @@ public class BancoDeUsuarios {
     }
 
     //RELACIONAMENTO ENTRE USUARIOS:
+    
     
     
     

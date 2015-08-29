@@ -37,36 +37,6 @@ public class TesteUsuario {
 		}
 	}
 
-	public void enviarSolicitacao() {
-		gerson.solicitaAmizade(mirella);
-		Assert.assertTrue(mirella.getNotificacoes().contains(
-				"Gerson deseja lhe adicionar como amigo."));
-
-		mirella.recusaAmizade(gerson);
-		Assert.assertTrue(gerson.getNotificacoes().contains(
-				"Mirella rejeitou sua solicitacao de amizade."));
-
-		gerson.solicitaAmizade(mirella);
-		Assert.assertTrue(mirella.getNotificacoes().contains(
-				"Gerson deseja lhe adicionar como amigo."));
-
-		mirella.aceitaAmizade(gerson);
-		Assert.assertTrue(gerson.getNotificacoes().contains(
-				"Mirella aceitou sua solicitacao de amizade."));
-
-		gerson.solicitaAmizade(mirella);
-		Assert.assertTrue(gerson.getNotificacoes().contains(
-				"Voce ja possui uma amizade com Mirella."));
-
-		mirella.solicitaAmizade(gerson);
-		Assert.assertTrue(mirella.getNotificacoes().contains(
-				"Voce ja possui uma amizade com Gerson."));
-
-		mirella.removeAmigo(gerson);
-		Assert.assertTrue(gerson.getNotificacoes().contains(
-				"Mirella lhe removeu de sua lista de amigos."));
-	}
-	
 	
 	public void testaException() throws UsuarioException {
 		try {

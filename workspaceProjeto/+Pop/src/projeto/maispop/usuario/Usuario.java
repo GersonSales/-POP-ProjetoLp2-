@@ -349,7 +349,81 @@ public class Usuario {
     }
 
     
+    
     //RELACIONAMENTO ENTRE USUARIOS:
+    
+
+    
+    
+    public void adicionaAmigo(String emailUsuario) {
+	this.listaDeAmigos.adicionaAmigo(emailUsuario);
+    }
+    
+    public void rejeitaAmizade(String emailUsuario) {
+	this.listaDeAmigos.rejeitaAmizade(emailUsuario);
+    }
+    
+    public void aceitaAmizade(String emailUsuario) {
+	this.listaDeAmigos.aceitaAmizade(emailUsuario);
+    }
+    
+    
+    public boolean contemPendencia(String emailUsuario) {
+	return this.listaDeAmigos.contemPendencia(emailUsuario);
+    }
+    
+    public boolean contemAmigo(String emailUsuario) {
+	return this.listaDeAmigos.contemAmigo(emailUsuario);
+    }
+    
+    public int getQtdAmigos() {
+	return this.listaDeAmigos.getQtdAmigos();
+    }
+    
+    
+    
+    public void notificaMe(String notificacao) {
+	this.notificacoes.recebeNotificacao(notificacao);
+    }
+    
+    public int getNotificacoes() {
+	return this.notificacoes.getNotificacoes();
+    }
+    
+    public String getProxNotificacao() throws ItemInexistenteException {
+	return this.notificacoes.getProxNotificacao();
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     
@@ -411,4 +485,5 @@ public class Usuario {
 	}
     }
 
+    
 }
