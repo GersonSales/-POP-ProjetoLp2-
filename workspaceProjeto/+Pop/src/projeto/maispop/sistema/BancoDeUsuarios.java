@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import projeto.maispop.excecoes.EntradaException;
-import projeto.maispop.excecoes.ItemInexistenteException;
 import projeto.maispop.excecoes.LogicaException;
 import projeto.maispop.excecoes.RequisicaoException;
 import projeto.maispop.excecoes.SenhaException;

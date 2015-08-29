@@ -3,9 +3,6 @@ package projeto.maispop.usuario;
 import java.util.HashSet;
 import java.util.Set;
 
-import projeto.maispop.excecoes.ItemInexistenteException;
-import projeto.maispop.excecoes.SolicitacaoException;
-
 /**
  * CLASSE ATUALMENTE INUTILIZADA! Classe <code>ListaDeAmigos</code> que serve
  * wrapper da classe <i>HashSet<i> para que o <i>Usuario<i> possia manipular

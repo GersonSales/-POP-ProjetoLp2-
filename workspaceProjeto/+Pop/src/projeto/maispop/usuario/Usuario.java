@@ -12,7 +12,6 @@ import projeto.maispop.excecoes.ItemInexistenteException;
 import projeto.maispop.excecoes.LogicaException;
 import projeto.maispop.excecoes.NomeException;
 import projeto.maispop.excecoes.SenhaException;
-import projeto.maispop.excecoes.UsuarioInexistenteException;
 
 /**
  * Classe <code>Usuario</code> representa individualmente um integrande do
@@ -351,8 +350,19 @@ public class Usuario {
 	    throws EntradaException, ItemInexistenteException {
 	return this.mural.getConteudoPost(indice, postagem);
     }
-
     
+    public void atualizaTipo() {
+	int popularidade = this.mural.getPopularidade();
+	
+	if (popularidade < 500) {
+	    this.tipoUsuario = new NormalPop();
+	}else if (popularidade < 1000) {
+	    this.tipoUsuario = new CelebridadePop();
+	}else {
+	    this.tipoUsuario = new IconePop();
+	}
+    }
+
     
     //RELACIONAMENTO ENTRE USUARIOS:
     

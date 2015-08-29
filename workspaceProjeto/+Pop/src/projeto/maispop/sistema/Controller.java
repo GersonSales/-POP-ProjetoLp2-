@@ -119,6 +119,8 @@ public class Controller {
 	this.usuarioLogado.curtir(postagemAmigo);
 	amigo.notificaMe(this.usuarioLogado.getNome() + " curtiu seu post de "
 		+ postagemAmigo.getData() + ".");
+
+	amigo.atualizaTipo();
     }
 
     public void descurtirPost(String emailUsuario, int postagem)
@@ -135,6 +137,7 @@ public class Controller {
 	amigo.notificaMe(this.usuarioLogado.getNome()
 		+ " descurtiu seu post de " + postagemAmigo.getData() + ".");
 
+	amigo.atualizaTipo();
     }
 
     // RELACIONEMTO ENTRE USUARIOS:
@@ -155,7 +158,8 @@ public class Controller {
 
 	Usuario amigo = this.bancoDeUsuarios.getUsuario(emailUsuario);
 	amigo.removeAmigo(this.usuarioLogado.getEmail());
-	amigo.notificaMe(this.usuarioLogado.getNome() + " removeu a sua amizade.");
+	amigo.notificaMe(this.usuarioLogado.getNome()
+		+ " removeu a sua amizade.");
     }
 
     public void rejeitaAmizade(String emailUsuario)
