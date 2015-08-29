@@ -13,7 +13,7 @@ import projeto.maispop.excecoes.ItemInexistenteException;
  * 
  * @author Adson Cesar.
  * @author Gerson Sales.
- * @version 0.3
+ * @version 0.4
  * @see Postagem
  *
  */

@@ -18,7 +18,7 @@ import projeto.maispop.excecoes.SenhaException;
  * sistema de usuarios da rede social <i>+Pop</i>.
  * 
  * @author Gerson Sales
- * @version 0.3
+ * @version 0.4
  * @see ListaDeAmigos
  * @see MuralUsuario
  */

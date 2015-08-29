@@ -9,7 +9,7 @@ import projeto.maispop.excecoes.ItemInexistenteException;
 /**
  * @author Adson Cesar
  * @author Gerson Sales
- * @version 0.3
+ * @version 0.4
  * @see PostagemFormat
  * @see MuralUsuario
  *
@@ -146,7 +146,7 @@ public class Postagem {
     public int getCurtir() {
 	return this.curtir;
     }
-    
+
     public int getDescurtir() {
 	return this.descurtir;
     }
@@ -162,18 +162,15 @@ public class Postagem {
 	this.popularidade = getPopularidade() + curtir;
 	this.curtir = getCurtir() + 1;
     }
-    
+
     public void descurtir(int descurtir) {
 	this.popularidade = getPopularidade() - descurtir;
 	this.descurtir = getDescurtir() + 1;
-	
     }
 
-
-
-
-
-    // </Metodos temporariamente em desuso>
+    public void adicionaHashTag(String hashTag) {
+	this.hashTags = this.hashTags + "," + hashTag;
+    }
 
     /**
      * Metodo <i>toString</i> responsavel por representar a entidade
@@ -183,7 +180,5 @@ public class Postagem {
     public String toString() {
 	return this.texto;
     }
-
-
 
 }
