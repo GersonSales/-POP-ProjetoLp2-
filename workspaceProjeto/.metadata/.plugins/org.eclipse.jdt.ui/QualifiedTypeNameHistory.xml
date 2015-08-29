@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="java.io.FileReader"/>
 <fullyQualifiedTypeName name="easyaccept.EasyAccept"/>
 <fullyQualifiedTypeName name="projeto.maispop.excecoes.LogicaInvalidaException"/>
 <fullyQualifiedTypeName name="projeto.maispop.usuario.Usuario"/>
@@ -32,7 +31,6 @@
 <fullyQualifiedTypeName name="java.lang.Throwable"/>
 <fullyQualifiedTypeName name="java.lang.RuntimeException"/>
 <fullyQualifiedTypeName name="java.time.DateTimeException"/>
-<fullyQualifiedTypeName name="projeto.maispop.excecoes.UsuarioInexistenteException"/>
 <fullyQualifiedTypeName name="projeto.maispop.testes.PostagemFormatTeste"/>
 <fullyQualifiedTypeName name="java.awt.List"/>
 <fullyQualifiedTypeName name="easyaccept.script.test.TestThreadController"/>
@@ -54,10 +52,12 @@
 <fullyQualifiedTypeName name="java.util.ArrayList"/>
 <fullyQualifiedTypeName name="java.util.List"/>
 <fullyQualifiedTypeName name="java.lang.IllegalAccessError"/>
-<fullyQualifiedTypeName name="projeto.maispop.excecoes.ItemInexistenteException"/>
 <fullyQualifiedTypeName name="projeto.maispop.excecoes.EntradaException"/>
 <fullyQualifiedTypeName name="projeto.maispop.usuario.PostagemFormat"/>
 <fullyQualifiedTypeName name="projeto.maispop.usuario.Postagem"/>
 <fullyQualifiedTypeName name="projeto.maispop.usuario.MuralUsuario"/>
 <fullyQualifiedTypeName name="projeto.maispop.excecoes.MaisPopException"/>
+<fullyQualifiedTypeName name="java.util.HashSet"/>
+<fullyQualifiedTypeName name="projeto.maispop.excecoes.UsuarioInexistenteException"/>
+<fullyQualifiedTypeName name="projeto.maispop.excecoes.ItemInexistenteException"/>
 </qualifiedTypeNameHistroy>

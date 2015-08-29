@@ -4,8 +4,6 @@ package projeto.maispop.usuario;
 import java.util.HashSet;
 import java.util.Set;
 
-import projeto.maispop.excecoes.UsuarioInexistenteException;
-
 /**
  * CLASSE ATUALMENTE INUTILIZADA!
  * Classe <code>ListaDeAmigos</code> que serve wrapper da classe <i>HashSet<i>
@@ -18,8 +16,10 @@ import projeto.maispop.excecoes.UsuarioInexistenteException;
  *
  */
 public class ListaDeAmigos {
-	private Set<Usuario> listaDeAmigos;
-	private Set<Usuario> pendentes;
+	private Set<String> listaDeAmigos;
+	private Set<String> pendentes;
+	
+	
 	
 	/**
 	 * Construtor da classe <i>ListaDeAmigos</i> que ao ser chamado apenas inicializa o
@@ -28,7 +28,7 @@ public class ListaDeAmigos {
 	public ListaDeAmigos() {
 		this.listaDeAmigos = new HashSet<>();
 		this.pendentes = new HashSet<>();
-
+		
 	}
 	
 	/**
@@ -37,8 +37,8 @@ public class ListaDeAmigos {
 	 * <b>onde:</b><br>
 	 * @param amigo tipo <i>Usuario</i> para identificar o amigo a ser adicionado a lista.
 	 */
-	public void adicionaAmigo(Usuario amigo) {
-		this.listaDeAmigos.add(amigo);
+	public void adicionaAmigo(String emailUsuario) {
+		this.pendentes.add(emailUsuario);
 	}
 	
 	/**
@@ -56,8 +56,8 @@ public class ListaDeAmigos {
 	 * pedidos amizades pendentes uma nova solicitacao.
 	 * @param usuario <i>Usuario</i> que sera adicionado a lista de pendencias.
 	 */
-	public void recebeSolicitacao(Usuario usuario) {
-		this.pendentes.add(usuario);
+	public void recebeSolicitacao(String emailUsuario) {
+		this.pendentes.add(emailUsuario);
 	}
 	
 	/**
@@ -65,18 +65,13 @@ public class ListaDeAmigos {
 	 * amizades pendentes e adicionao o usuario a lista de amizades.
 	 * @param usuario <i>Usuario</i> a ser adicionado na lista de amigos.
 	 */
-	public void aceitaSolicitacao(Usuario usuario) {
-		this.listaDeAmigos.add(usuario);
-		this.pendentes.remove(usuario);
+	public void aceitaSolicitacao(String emailUsuario) {
+		this.listaDeAmigos.add(emailUsuario);
+		this.pendentes.remove(emailUsuario);
 	}
 	
-	/**
-	 * Metodo <code>recusaSolicitacao</code> responsavel por remover o usuario da lista de 
-	 * amizades pendentes. 
-	 * @param usuario <i>Usuario</i> a ser removido das amizades pendentes.
-	 */
-	public void recusaSolicitacao(Usuario usuario) {
-		this.pendentes.remove(usuario);
+	public void rejeitaAmizade(String emailUsuario) {
+		this.pendentes.remove(emailUsuario);
 	}
 	
 	/**
@@ -87,15 +82,15 @@ public class ListaDeAmigos {
 	 * @param email String usada para idetentificar o e-mail de busca.
 	 * @return <code>Usuario</code> caso encontre.
 	 */
-	public Usuario buscaAmigo(String email) throws UsuarioInexistenteException {
-		for (Usuario usuario : listaDeAmigos) {
-			if (usuario.getEmail().equals(email)) {
-				return usuario;
-			}
-		}
-		
-		throw new UsuarioInexistenteException();
-	}
+//	public Usuario buscaAmigo(String email) throws UsuarioInexistenteException {
+//		for (String email: listaDeAmigos) {
+//			if (usuario.getEmail().equals(email)) {
+//				return usuario;
+//			}
+//		}
+//		
+//		throw new UsuarioInexistenteException();
+//	}
 
 	/**
 	 * Metodo <code>contemAmigo</code> responsavel por avaliar se o 
