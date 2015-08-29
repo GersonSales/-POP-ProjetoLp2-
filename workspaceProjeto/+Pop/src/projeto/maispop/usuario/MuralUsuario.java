@@ -85,8 +85,8 @@ public class MuralUsuario {
      *            . Inteiro represntando um indice.
      * @return <i>Postagem</i>. String de uma <i>Postagem</i>.
      */
-    public String getPostagem(int indice) {
-	return this.postagens.get(indice).toString();
+    public Postagem getPostagem(int indice) {
+	return this.postagens.get(indice);
     }
 
     /**
@@ -109,6 +109,15 @@ public class MuralUsuario {
     public String getConteudoPost(int indice, int postagem)
 	    throws EntradaException, ItemInexistenteException {
 	return this.postagens.get(postagem).getConteudo(indice);
+    }
+
+    public int getPopularidade() {
+	int popularidadeTotal = 0;
+	for (Postagem postagem : postagens) {
+	    popularidadeTotal = popularidadeTotal + postagem.getPopularidade();
+	}
+	
+	return popularidadeTotal;
     }
 
 }

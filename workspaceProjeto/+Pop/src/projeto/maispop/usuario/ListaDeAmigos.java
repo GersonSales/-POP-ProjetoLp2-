@@ -53,6 +53,10 @@ public class ListaDeAmigos {
     public int getQtdAmigos() {
 	return this.listaDeAmigos.size();
     }
+
+    public void removeAmigo(String emailUsuario) {
+	this.listaDeAmigos.remove(emailUsuario);
+    }
     
     
 

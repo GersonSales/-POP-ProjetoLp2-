@@ -34,6 +34,8 @@ public class Usuario {
     private Notificacoes notificacoes;
 
     private MuralUsuario mural;
+    
+    private TipoUsuario tipoUsuario;
 
     private static final String IMG_PERFIL_PADRAO = "resources/default.jpg";
 
@@ -78,6 +80,8 @@ public class Usuario {
 	this.listaDeAmigos = new ListaDeAmigos();
 	this.notificacoes = new Notificacoes();
 	this.mural = new MuralUsuario(nome);
+	
+	this.tipoUsuario = new NormalPop();
     }
 
     /**
@@ -321,7 +325,7 @@ public class Usuario {
      *            . Inteiro represntando um indice.
      * @return <i>Postagem</i>. String de uma <i>Postagem</i>.
      */
-    public String getPostagem(int indice) {
+    public Postagem getPostagem(int indice) {
 	return this.mural.getPostagem(indice);
     }
 
@@ -359,6 +363,10 @@ public class Usuario {
 	this.listaDeAmigos.adicionaAmigo(emailUsuario);
     }
     
+    public void removeAmigo(String emailUsuario) {
+	this.listaDeAmigos.removeAmigo(emailUsuario);
+    }
+    
     public void rejeitaAmizade(String emailUsuario) {
 	this.listaDeAmigos.rejeitaAmizade(emailUsuario);
     }
@@ -374,6 +382,15 @@ public class Usuario {
     
     public boolean contemAmigo(String emailUsuario) {
 	return this.listaDeAmigos.contemAmigo(emailUsuario);
+    }
+    
+    
+    public void curtir(Postagem postagem) {
+	this.tipoUsuario.curir(postagem);
+    }
+    
+    public void descurtir(Postagem postagem) {
+	this.tipoUsuario.descurtir(postagem);
     }
     
     public int getQtdAmigos() {

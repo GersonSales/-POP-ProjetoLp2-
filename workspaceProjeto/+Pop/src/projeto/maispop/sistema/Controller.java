@@ -8,6 +8,7 @@ import projeto.maispop.excecoes.SenhaException;
 import projeto.maispop.excecoes.SolicitacaoException;
 import projeto.maispop.excecoes.UsuarioExistenteException;
 import projeto.maispop.excecoes.UsuarioInexistenteException;
+import projeto.maispop.usuario.Postagem;
 import projeto.maispop.usuario.Usuario;
 
 public class Controller {
@@ -94,7 +95,7 @@ public class Controller {
     }
 
     public String getPostagem(int postagem) {
-	return this.usuarioLogado.getPostagem(postagem);
+	return this.usuarioLogado.getPostagem(postagem).toString();
     }
 
     public String getPostagem(String atributo, int indice) {
@@ -104,6 +105,36 @@ public class Controller {
     public String getConteudo(int indice, int postagem)
 	    throws EntradaException, ItemInexistenteException {
 	return this.usuarioLogado.getConteudoPost(indice, postagem);
+    }
+
+    public void curtirPost(String emailUsuario, int postagem)
+	    throws UsuarioInexistenteException {
+	Usuario amigo = bancoDeUsuarios.getUsuario(emailUsuario);
+
+	if (!(this.usuarioLogado.contemAmigo(emailUsuario))) {
+	    throw new UsuarioInexistenteException();
+	}
+
+	Postagem postagemAmigo = amigo.getPostagem(postagem);
+	this.usuarioLogado.curtir(postagemAmigo);
+	amigo.notificaMe(this.usuarioLogado.getNome() + " curtiu seu post de "
+		+ postagemAmigo.getData() + ".");
+    }
+
+    public void descurtirPost(String emailUsuario, int postagem)
+	    throws UsuarioInexistenteException {
+
+	Usuario amigo = bancoDeUsuarios.getUsuario(emailUsuario);
+
+	if (!(this.usuarioLogado.contemAmigo(emailUsuario))) {
+	    throw new UsuarioInexistenteException();
+	}
+
+	Postagem postagemAmigo = amigo.getPostagem(postagem);
+	this.usuarioLogado.descurtir(postagemAmigo);
+	amigo.notificaMe(this.usuarioLogado.getNome()
+		+ " descurtiu seu post de " + postagemAmigo.getData() + ".");
+
     }
 
     // RELACIONEMTO ENTRE USUARIOS:
@@ -118,6 +149,15 @@ public class Controller {
 	amigo.notificaMe(this.usuarioLogado.getNome() + " quer sua amizade.");
     }
 
+    public void removeAmigo(String emailUsuario)
+	    throws UsuarioInexistenteException {
+	this.usuarioLogado.removeAmigo(emailUsuario);
+
+	Usuario amigo = this.bancoDeUsuarios.getUsuario(emailUsuario);
+	amigo.removeAmigo(this.usuarioLogado.getEmail());
+	amigo.notificaMe(this.usuarioLogado.getNome() + " removeu a sua amizade.");
+    }
+
     public void rejeitaAmizade(String emailUsuario)
 	    throws UsuarioInexistenteException, SolicitacaoException {
 	Usuario amigo = this.bancoDeUsuarios.getUsuario(emailUsuario);
@@ -129,7 +169,8 @@ public class Controller {
 
 	this.usuarioLogado.rejeitaAmizade(emailUsuario);
 
-	amigo.notificaMe(this.usuarioLogado.getNome() + "rejeitou sua amizade.");
+	amigo.notificaMe(this.usuarioLogado.getNome()
+		+ " rejeitou sua amizade.");
     }
 
     public void aceitaAmizade(String emailUsuario)
@@ -147,8 +188,7 @@ public class Controller {
 
 	amigo.notificaMe(this.usuarioLogado.getNome() + " aceitou sua amizade.");
     }
-    
-    
+
     public int getQtdAmigos() {
 	return this.usuarioLogado.getQtdAmigos();
     }

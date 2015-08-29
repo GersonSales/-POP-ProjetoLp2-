@@ -136,6 +136,11 @@ public class Facade {
 	    throws UsuarioInexistenteException {
 	this.controller.adicionaAmigo(emailUsuario);
     }
+    
+    public void removeAmigo(String emailUsuario)
+	    throws UsuarioInexistenteException {
+	this.controller.removeAmigo(emailUsuario);
+    }
 
     public void aceitaAmizade(String emailUsuario)
 	    throws UsuarioInexistenteException, SolicitacaoException {
@@ -157,6 +162,11 @@ public class Facade {
 
     public String getNextNotificacao() throws ItemInexistenteException {
 	return this.controller.getProxNotificacao();
+    }
+    
+    public void curtirPost(String emailUsuario, int postagem)
+	    throws UsuarioInexistenteException {
+	this.controller.curtirPost(emailUsuario, postagem);
     }
 
     public void login(String email, String senha) throws LogicaException,
