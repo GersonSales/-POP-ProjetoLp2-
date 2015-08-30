@@ -25,4 +25,6 @@ public class TesteEA {
 		"EasyAccept/CasoDeTeste3.txt", "EasyAccept/CasoDeTeste4.txt" };
 	EasyAccept.main(args);
     }
+    
+    //com certeza nao tem isso no master.
 }
