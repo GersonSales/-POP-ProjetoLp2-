@@ -14,4 +14,8 @@ public class ItemInexistenteException extends LogicaException {
 		super(mensagem, erro);
 	}
 
+	public ItemInexistenteException(Throwable erro) {
+	    super(erro);
+	}
+
 }

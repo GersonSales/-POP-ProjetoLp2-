@@ -1,40 +1,57 @@
 package projeto.maispop.testes;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
-import org.junit.Assert;
 import org.junit.Test;
 
 import projeto.maispop.excecoes.EntradaException;
+import projeto.maispop.usuario.IconePop;
 import projeto.maispop.usuario.Postagem;
-import projeto.maispop.usuario.PostagemFormat;
+import projeto.maispop.usuario.TipoUsuario;
 
 public class PostagemFormatTeste {
 
-	@Test
-	public void test() throws EntradaException {
+    @Test
+    public void test() throws EntradaException {
 
-		PostagemFormat formatador = PostagemFormat.getInstancia();
-		String postagem2 = "Hoje o sol me acordou. Foi muito cansativo sair da cama pois ainda estava com muito sono. Gostaria ter mais tempo para dormir. Ainda bem que tinha tapioca e cuscuz no cafe da manha para dar energia. #cafe #acorda";
-		postagem2 = formatador.getMensagem(postagem2);
-		
-		
-		
-		String casa ="Hoje o sol me acordou. Foi muito cansativo sair da cama pois ainda estava com muito sono. Gostaria ter mais tempo para dormir. Ainda bem que tinha tapioca e cuscuz no cafe da manha para dar a energia. #cafe #acorda";
-		
-		System.out.println(casa);
-		casa  = removeEspaco(casa);
-		System.out.println(casa);
-		
+	Postagem postagemQualquer = new Postagem(
+		"Texto qualquer. <audio caminho</audio>  #teste2",
+		"29/08/2015 04:44:23");
+	TipoUsuario usuarioCelebridade = new IconePop();
 
+	System.out.println(postagemQualquer.getHashTags());
+
+	usuarioCelebridade.descurtir(postagemQualquer);
+
+	System.out.println(postagemQualquer.getHashTags());
+
+	System.out.println("-----Data-----");
+
+	String dataNascimento = "29/02/1995";
+	System.out.println(validaData(dataNascimento));
+
+    }
+
+    public String validaData(String dataNascimento) {
+	DateTimeFormatter padraoInicial = DateTimeFormatter
+		.ofPattern("dd/MM/yyyy");
+	DateTimeFormatter padraoFinal = DateTimeFormatter
+		.ofPattern("yyyy-MM-dd");
+	
+	String dataNascimentoFinal = LocalDate.parse(dataNascimento, padraoInicial).format(
+		padraoFinal);
+	
+	String dataNascimentoInicial = LocalDate.parse(dataNascimentoFinal, padraoFinal).format(
+		padraoInicial);
+	
+	if (!(dataNascimento.equals(dataNascimentoInicial))) {
+	    return "bissexto";
 	}
 	
-	private String removeEspaco(String texto) {
-		if (texto.charAt(texto.length() - 1) != ' ') {
-			return texto;
-		}
-		
-		texto = texto.substring(0, texto.length() - 1);
-		return removeEspaco(texto);
-	}
-	
+
+
+	return dataNascimentoFinal;
+    }
+
 }

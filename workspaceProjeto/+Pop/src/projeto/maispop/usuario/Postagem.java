@@ -9,7 +9,7 @@ import projeto.maispop.excecoes.ItemInexistenteException;
 /**
  * @author Adson Cesar
  * @author Gerson Sales
- * @version 0.3
+ * @version 0.4
  * @see PostagemFormat
  * @see MuralUsuario
  *
@@ -26,7 +26,7 @@ public class Postagem {
 
     private int popularidade;
     private int curtir;
-    private int rejeitar;
+    private int descurtir;
 
     /**
      * Construtor da classe <code>Postagem</code> que tem como funcao receber
@@ -147,14 +147,8 @@ public class Postagem {
 	return this.curtir;
     }
 
-    /**
-     * Metodo <i>getRejeitar</i> responsavel por retornar uma String
-     * representando os 'rejeitos' da postagem.
-     * 
-     * @return rejeitar. String representante de rejeitar.
-     */
-    public int getRejeitar() {
-	return this.rejeitar;
+    public int getDescurtir() {
+	return this.descurtir;
     }
 
     /**
@@ -164,24 +158,19 @@ public class Postagem {
      * @param curtida
      *            . Inteiro a servir de incremento.
      */
-    public void curtir(int curtida) {
-	this.popularidade = getPopularidade() + curtida;
+    public void curtir(int curtir) {
+	this.popularidade = getPopularidade() + curtir;
 	this.curtir = getCurtir() + 1;
     }
 
-    /**
-     * Metodo <i>rejeitar</i> responsavel por decrementar os 'rejeitos' da
-     * postagem na quantidade recebida como parametro.
-     * 
-     * @param rejeito
-     *            . Inteiro a servir de decremento.
-     */
-    public void rejeitar(int rejeito) {
-	this.popularidade = getPopularidade() - rejeito;
-	this.rejeitar = getRejeitar() + 1;
+    public void descurtir(int descurtir) {
+	this.popularidade = getPopularidade() - descurtir;
+	this.descurtir = getDescurtir() + 1;
     }
 
-    // </Metodos temporariamente em desuso>
+    public void adicionaHashTag(String hashTag) {
+	this.hashTags = this.hashTags + "," + hashTag;
+    }
 
     /**
      * Metodo <i>toString</i> responsavel por representar a entidade

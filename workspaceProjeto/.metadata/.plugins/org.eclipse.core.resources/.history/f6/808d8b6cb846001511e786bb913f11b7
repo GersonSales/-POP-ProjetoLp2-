@@ -1,9 +1,0 @@
-package projeto.maispop.testes;
-
-import projeto.maispop.sistema.BancoDeUsuarios;
-
-public class TesteBancoDeUsuario {
-	private BancoDeUsuarios bancoDeUsuarios;
-	
-	
-}

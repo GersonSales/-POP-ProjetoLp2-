@@ -4,6 +4,8 @@ import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+import javax.swing.text.DefaultStyledDocument.AttributeUndoableEdit;
+
 import projeto.maispop.excecoes.DataException;
 import projeto.maispop.excecoes.EmailException;
 import projeto.maispop.excecoes.EntradaException;
@@ -12,14 +14,13 @@ import projeto.maispop.excecoes.ItemInexistenteException;
 import projeto.maispop.excecoes.LogicaException;
 import projeto.maispop.excecoes.NomeException;
 import projeto.maispop.excecoes.SenhaException;
-import projeto.maispop.excecoes.UsuarioInexistenteException;
 
 /**
  * Classe <code>Usuario</code> representa individualmente um integrande do
  * sistema de usuarios da rede social <i>+Pop</i>.
  * 
  * @author Gerson Sales
- * @version 0.3
+ * @version 0.4
  * @see ListaDeAmigos
  * @see MuralUsuario
  */
@@ -34,6 +35,8 @@ public class Usuario {
     private Notificacoes notificacoes;
 
     private MuralUsuario mural;
+
+    private TipoUsuario tipoUsuario;
 
     private static final String IMG_PERFIL_PADRAO = "resources/default.jpg";
 
@@ -63,21 +66,17 @@ public class Usuario {
     public Usuario(String nome, String email, String senha,
 	    String dataNascimento, String imagemPerfil) throws EntradaException {
 
-	validaNome(nome);
-	validaEmail(email);
-	validaSenha(senha);
-	validaDataNascimento(dataNascimento);
-	validaImagem(imagemPerfil);
-
-	this.nome = nome;
-	this.email = email;
-	this.senha = senha;
-	atribuiData(dataNascimento);
-	this.imagemPerfil = imagemPerfil;
+	this.nome = validaNome(nome);
+	this.email = validaEmail(email);
+	this.senha = validaSenha(senha);
+	this.imagemPerfil = validaImagem(imagemPerfil);
+	this.dataNascimento = validaDataNascimento(dataNascimento);
 
 	this.listaDeAmigos = new ListaDeAmigos();
 	this.notificacoes = new Notificacoes();
 	this.mural = new MuralUsuario(nome);
+
+	this.tipoUsuario = new NormalPop();
     }
 
     /**
@@ -121,14 +120,14 @@ public class Usuario {
      *             seja recebido uma data invalida como parametro.
      */
 
-    private void atribuiData(String dataNascimento) throws DataException {
+    private String atribuiData(String dataNascimento) throws DataException {
 	try {
 	    DateTimeFormatter formatador = DateTimeFormatter
 		    .ofPattern("dd/MM/yyyy");
 	    LocalDate sData = LocalDate.parse(dataNascimento, formatador);
 	    sData = LocalDate.of(sData.getYear(), sData.getMonth(),
 		    Integer.parseInt(dataNascimento.substring(0, 2)));
-	    this.dataNascimento = sData.toString();
+	    return sData.toString();
 
 	} catch (DateTimeException erro) {
 	    if (erro.getMessage().contains("Invalid")) {
@@ -160,8 +159,7 @@ public class Usuario {
      *             nao seja recebido uma nome valido.
      */
     public void setNome(String nome) throws NomeException {
-	validaNome(nome);
-	this.nome = nome;
+	this.nome = validaNome(nome);
     }
 
     /**
@@ -185,8 +183,7 @@ public class Usuario {
      *             nao seja recebido uma email valido.
      */
     public void setEmail(String email) throws EmailException {
-	validaEmail(email);
-	this.email = email;
+	this.email = validaEmail(email);
     }
 
     /**
@@ -210,8 +207,7 @@ public class Usuario {
      *             nao seja recebido uma senha valido.
      */
     public void setSenha(String senha) throws SenhaException {
-	validaSenha(senha);
-	this.senha = senha;
+	this.senha = validaSenha(senha);
     }
 
     /**
@@ -237,7 +233,7 @@ public class Usuario {
      *             nao seja recebido uma data de nascimento valida.
      */
     public void setDataNascimento(String dataNascimento) throws DataException {
-	atribuiData(dataNascimento);
+	this.dataNascimento = validaDataNascimento(dataNascimento);
     }
 
     /**
@@ -263,8 +259,7 @@ public class Usuario {
      *             nao seja recebido uma imagem valida.
      */
     public void setImagemPerfil(String imagemPerfil) throws ImagemException {
-	validaImagem(imagemPerfil);
-	this.imagemPerfil = imagemPerfil;
+	this.imagemPerfil = validaImagem(imagemPerfil);
     }
 
     /**
@@ -314,14 +309,13 @@ public class Usuario {
     /**
      * Metodo sobrecarregado <i>getPostagem</i> responsavel por receber como
      * parametro um Inteiro que representa um indice a ser escolhido da lista de
-     * postagens. Delegando toda a
-     * tarefa a <code>MuralDeUsuario</code>.
+     * postagens. Delegando toda a tarefa a <code>MuralDeUsuario</code>.
      * 
      * @param indice
      *            . Inteiro represntando um indice.
      * @return <i>Postagem</i>. String de uma <i>Postagem</i>.
      */
-    public String getPostagem(int indice) {
+    public Postagem getPostagem(int indice) {
 	return this.mural.getPostagem(indice);
     }
 
@@ -348,160 +342,70 @@ public class Usuario {
 	return this.mural.getConteudoPost(indice, postagem);
     }
 
-    
-    
-    
-    // METODOS INUTILIZADOS:
+    public void atualizaTipo() {
+	int popularidade = this.mural.getPopularidade();
 
-    public String getNotificacoes() {
-	return notificacoes.toString();
-    }
-
-    /**
-     * Metodo <code>solicitaAmizade</code> responsavel por enviar uma
-     * solicitacao de amizade para o usuario recebido como parametro.
-     * 
-     * @param usuario
-     *            <i>Usuario</i> que recebera a solicitacao.
-     */
-    public void solicitaAmizade(Usuario usuario) {
-	if (!(listaDeAmigos.contemAmigo(usuario))) {
-	    usuario.recebeSolicitacao(this);
+	if (popularidade < 500) {
+	    this.tipoUsuario = new NormalPop();
+	} else if (popularidade < 1000) {
+	    this.tipoUsuario = new CelebridadePop();
 	} else {
-	    notificaMe(notificacoes.amizadeExistente(usuario.getNome()));
+	    this.tipoUsuario = new IconePop();
 	}
     }
 
-    /**
-     * Metodo <code>recebeSolicitacao</code> responsavel por receber uma
-     * solicitacao de amizade enviada por terceiros(outro usuario) e receber uma
-     * notificacao sobre tal evento.
-     * 
-     * @param usuario
-     *            <i>Usuario</i> que enviou a solicitacao.
-     */
-    public void recebeSolicitacao(Usuario usuario) {
-	this.listaDeAmigos.recebeSolicitacao(usuario);
-	notificaMe(notificacoes.pedidoAmizade(usuario.getNome()));
+    // RELACIONAMENTO ENTRE USUARIOS:
+
+    public void adicionaAmigo(String emailUsuario) {
+	this.listaDeAmigos.adicionaAmigo(emailUsuario);
     }
 
-    /**
-     * Metodo <code>aceitaAmizade</code> responsavel por aceitar a solicitacao
-     * de amizade enviada por terceiros(outro usuario) e adiciona-lo na lista de
-     * amigos.
-     * 
-     * @param usuario
-     *            <i>Usuario</i> que sera adicionado na lista de amigos.
-     */
-    public void aceitaAmizade(Usuario usuario) {
-	this.listaDeAmigos.aceitaSolicitacao(usuario);
-	usuario.adicionaAmigo(this);
-	usuario.notificaMe(notificacoes.amizadeAceita(getNome()));
+    public void removeAmigo(String emailUsuario) {
+	this.listaDeAmigos.removeAmigo(emailUsuario);
     }
 
-    /**
-     * Metodo <code>recusaAmizade</code> responsavel por rejeitar uma
-     * solicitacao de amizade enviada por terceiros(outro usuario) e notificar o
-     * mesmo sobre tal rejeicao.
-     * 
-     * @param usuario
-     *            <i>Usuario</i> que tera a solicitacao de amizade rejeitada.
-     */
-    public void recusaAmizade(Usuario usuario) {
-	this.listaDeAmigos.recusaSolicitacao(usuario);
-	usuario.notificaMe(notificacoes.amizadeRejeitada(getNome()));
+    public void rejeitaAmizade(String emailUsuario) {
+	this.listaDeAmigos.rejeitaAmizade(emailUsuario);
     }
 
-    /**
-     * Metodo <code>notificaMe</code> responsavel por adicionar uma notificacao
-     * recebida a lista de notificacoes.
-     * 
-     * @param notificacao
-     *            String recebida como notificacao.
-     */
+    public void aceitaAmizade(String emailUsuario) {
+	this.listaDeAmigos.aceitaAmizade(emailUsuario);
+    }
+
+    public boolean contemPendencia(String emailUsuario) {
+	return this.listaDeAmigos.contemPendencia(emailUsuario);
+    }
+
+    public boolean contemAmigo(String emailUsuario) {
+	return this.listaDeAmigos.contemAmigo(emailUsuario);
+    }
+
+    public void curtir(Postagem postagem) {
+	this.tipoUsuario.curir(postagem);
+    }
+
+    public void descurtir(Postagem postagem) {
+	this.tipoUsuario.descurtir(postagem);
+    }
+
+    public int getQtdAmigos() {
+	return this.listaDeAmigos.getQtdAmigos();
+    }
+
     public void notificaMe(String notificacao) {
 	this.notificacoes.recebeNotificacao(notificacao);
     }
 
-    /**
-     * Metodo <code>adicionaAmigo</code> adiciona um tipo <i>Usuario</i> a
-     * <i>ListaDeAmigos</i> listaDeAmigos e adiciona a si mesmo da lista de
-     * amigos do amigo. <b>onde:</b><br>
-     * 
-     * @param amigo
-     *            tipo <i>Usuario</i> para identificar o amigo a ser adicionado
-     *            a lista.
-     */
-    public void adicionaAmigo(Usuario amigo) {
-	this.listaDeAmigos.adicionaAmigo(amigo);
+    public int getNotificacoes() {
+	return this.notificacoes.getNotificacoes();
     }
 
-    /**
-     * Metodo <code>removeAmigo</code> remove um tipo <i>Usuario</i> da
-     * <i>ListaDeAmigos</i> listaDeAmigos e remove a si mesmo da lista de amigos
-     * do amigo. <b>onde:</b><br>
-     * 
-     * @param amigo
-     *            <i>Usuario</i> para identificar o amigo a ser removido da
-     *            lista.
-     */
-    public void removeAmigo(Usuario amigo) {
-	this.listaDeAmigos.removeAmigo(amigo);
-	amigo.serRemovido(this);
+    public String getProxNotificacao() throws ItemInexistenteException {
+	return this.notificacoes.getProxNotificacao();
     }
-
-    /**
-     * Metodo <code>serRemovido</code> responsavel por remover o amigo da lista
-     * de amigos e receber a notificacao de tal acao.
-     * 
-     * @param usuario
-     *            <i>Usuario</i> a ser removido da lista de amigos.
-     */
-    public void serRemovido(Usuario usuario) {
-	this.listaDeAmigos.removeAmigo(usuario);
-	notificaMe(notificacoes.remocaoAmizade(usuario.getNome()));
-    }
-
-    /**
-     * Metodo <code>buscaAmigo</code> responsavel por realizar uma busca na
-     * lista de amigo a procura de um usuario com mesmo e-mail passado como
-     * parametro.
-     * 
-     * @param email
-     *            String a ser considerada como objeto de busca.
-     * @return <i>Usuario</i> caso seja encontrado.
-     * @throws UsuarioInexistenteException
-     */
-    public Usuario buscaAmigo(String email) throws UsuarioInexistenteException {
-	return this.listaDeAmigos.buscaAmigo(email);
-    }
-
-    // Teste de criacao do mural;
-    /**
-     * Metodo <code>postar</code> responsavel por publicar uma nova atividade no
-     * mural de noticias do usuario.
-     * 
-     * @param texto
-     *            String relacionada ao texto que o usuario ira digitar na
-     *            postagem.
-     * @param audio
-     *            String relacionada ao caminho do audio que o usuario colocara
-     *            em sua postagem.
-     * @param musica
-     *            String relacionada ao caminho da musica que o usuario colocara
-     *            em sua postagem.
-     * @param video
-     *            String relacionada ao caminho do video que o usuario colocara
-     *            em sua postagem.
-     */
-    // public void postar(String texto, String audio, String musica, String
-    // video) {
-    // this.mural.postar(listaDeAmigos, texto, audio, musica, video);
-    // }
 
     // METODOS SEM DOCUMENTACAO. POSSIVEL SINGLETON:
-
-    private void validaNome(String nome) throws NomeException {
+    private String validaNome(String nome) throws NomeException {
 	String erro = "Nome dx usuarix nao pode ser vazio.";
 
 	if (nome == null) {
@@ -509,9 +413,11 @@ public class Usuario {
 	} else if (nome.trim().length() == 0) {
 	    throw new NomeException(erro);
 	}
+
+	return nome;
     }
 
-    private void validaEmail(String email) throws EmailException {
+    private String validaEmail(String email) throws EmailException {
 	String erro = "Formato de e-mail esta invalido.";
 
 	if (email == null) {
@@ -523,28 +429,49 @@ public class Usuario {
 	} else if (email.trim().length() == 0) {
 	    throw new EmailException(erro);
 	}
+
+	return email;
     }
 
-    private void validaSenha(String senha) throws SenhaException {
+    private String validaSenha(String senha) throws SenhaException {
 	if (senha == null) {
 	    throw new SenhaException();
 	} else if (senha.trim().length() == 0) {
 	    throw new SenhaException();
 	}
+
+	return senha;
     }
 
-    private void validaDataNascimento(String dataNascimento)
+    private String validaDataNascimento(String dataNascimento)
 	    throws DataException {
-	String erro = "Formato de data esta invalida.";
+	String msgErro = "Formato de data esta invalida.";
 
 	if (dataNascimento == null) {
-	    throw new DataException(erro);
+	    throw new DataException(msgErro);
 	} else if (dataNascimento.trim().length() == 0) {
-	    throw new DataException(erro);
+	    throw new DataException(msgErro);
 	}
+
+	try {
+	    DateTimeFormatter formatador = DateTimeFormatter
+		    .ofPattern("dd/MM/yyyy");
+	    LocalDate sData = LocalDate.parse(dataNascimento, formatador);
+	    sData = LocalDate.of(sData.getYear(), sData.getMonth(),
+		    Integer.parseInt(dataNascimento.substring(0, 2)));
+	    return sData.toString();
+
+	} catch (DateTimeException erro) {
+	    if (erro.getMessage().contains("Invalid")) {
+		throw new DataException("Data nao existe.");
+	    } else {
+		throw new DataException("Formato de data esta invalida.");
+	    }
+	}
+
     }
 
-    private void validaImagem(String imagem) throws ImagemException {
+    private String validaImagem(String imagem) throws ImagemException {
 	if (imagem == null) {
 	    throw new ImagemException();
 	} else if (imagem.trim().length() == 0) {
@@ -552,6 +479,8 @@ public class Usuario {
 	} else if (!(imagem.contains(".jpg") && !(imagem.contains(".png")))) {
 	    throw new ImagemException();
 	}
+
+	return imagem;
     }
 
 }
