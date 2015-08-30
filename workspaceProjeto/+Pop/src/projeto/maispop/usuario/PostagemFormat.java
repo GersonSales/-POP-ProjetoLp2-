@@ -20,7 +20,7 @@ import projeto.maispop.excecoes.EntradaException;
  * @version 0.3
  *
  */
-public class PostagemFormat {
+public final class PostagemFormat {
 
     /**
      * Variavel estatica(pertence a classe) que tem a responsabilidade de

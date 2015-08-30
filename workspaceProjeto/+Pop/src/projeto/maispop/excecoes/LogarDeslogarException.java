@@ -1,7 +1,7 @@
 package projeto.maispop.excecoes;
 
 @SuppressWarnings("serial")
-public class LogarDeslogarException extends LogicaException {
+public class LogarDeslogarException extends UsuarioException {
 	public LogarDeslogarException() {
 		super("Erro ao tentar logar/deslogar no sistema!");
 	}

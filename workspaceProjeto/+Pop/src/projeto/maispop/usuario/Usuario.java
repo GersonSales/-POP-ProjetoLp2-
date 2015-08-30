@@ -4,6 +4,8 @@ import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+import javax.swing.text.DefaultStyledDocument.AttributeUndoableEdit;
+
 import projeto.maispop.excecoes.DataException;
 import projeto.maispop.excecoes.EmailException;
 import projeto.maispop.excecoes.EntradaException;
@@ -33,7 +35,7 @@ public class Usuario {
     private Notificacoes notificacoes;
 
     private MuralUsuario mural;
-    
+
     private TipoUsuario tipoUsuario;
 
     private static final String IMG_PERFIL_PADRAO = "resources/default.jpg";
@@ -64,22 +66,16 @@ public class Usuario {
     public Usuario(String nome, String email, String senha,
 	    String dataNascimento, String imagemPerfil) throws EntradaException {
 
-	validaNome(nome);
-	validaEmail(email);
-	validaSenha(senha);
-	validaDataNascimento(dataNascimento);
-	validaImagem(imagemPerfil);
-
-	this.nome = nome;
-	this.email = email;
-	this.senha = senha;
-	atribuiData(dataNascimento);
-	this.imagemPerfil = imagemPerfil;
+	this.nome = validaNome(nome);
+	this.email = validaEmail(email);
+	this.senha = validaSenha(senha);
+	this.imagemPerfil = validaImagem(imagemPerfil);
+	this.dataNascimento = validaDataNascimento(dataNascimento);
 
 	this.listaDeAmigos = new ListaDeAmigos();
 	this.notificacoes = new Notificacoes();
 	this.mural = new MuralUsuario(nome);
-	
+
 	this.tipoUsuario = new NormalPop();
     }
 
@@ -124,14 +120,14 @@ public class Usuario {
      *             seja recebido uma data invalida como parametro.
      */
 
-    private void atribuiData(String dataNascimento) throws DataException {
+    private String atribuiData(String dataNascimento) throws DataException {
 	try {
 	    DateTimeFormatter formatador = DateTimeFormatter
 		    .ofPattern("dd/MM/yyyy");
 	    LocalDate sData = LocalDate.parse(dataNascimento, formatador);
 	    sData = LocalDate.of(sData.getYear(), sData.getMonth(),
 		    Integer.parseInt(dataNascimento.substring(0, 2)));
-	    this.dataNascimento = sData.toString();
+	    return sData.toString();
 
 	} catch (DateTimeException erro) {
 	    if (erro.getMessage().contains("Invalid")) {
@@ -163,8 +159,7 @@ public class Usuario {
      *             nao seja recebido uma nome valido.
      */
     public void setNome(String nome) throws NomeException {
-	validaNome(nome);
-	this.nome = nome;
+	this.nome = validaNome(nome);
     }
 
     /**
@@ -188,8 +183,7 @@ public class Usuario {
      *             nao seja recebido uma email valido.
      */
     public void setEmail(String email) throws EmailException {
-	validaEmail(email);
-	this.email = email;
+	this.email = validaEmail(email);
     }
 
     /**
@@ -213,8 +207,7 @@ public class Usuario {
      *             nao seja recebido uma senha valido.
      */
     public void setSenha(String senha) throws SenhaException {
-	validaSenha(senha);
-	this.senha = senha;
+	this.senha = validaSenha(senha);
     }
 
     /**
@@ -240,7 +233,7 @@ public class Usuario {
      *             nao seja recebido uma data de nascimento valida.
      */
     public void setDataNascimento(String dataNascimento) throws DataException {
-	atribuiData(dataNascimento);
+	this.dataNascimento = validaDataNascimento(dataNascimento);
     }
 
     /**
@@ -266,8 +259,7 @@ public class Usuario {
      *             nao seja recebido uma imagem valida.
      */
     public void setImagemPerfil(String imagemPerfil) throws ImagemException {
-	validaImagem(imagemPerfil);
-	this.imagemPerfil = imagemPerfil;
+	this.imagemPerfil = validaImagem(imagemPerfil);
     }
 
     /**
@@ -317,8 +309,7 @@ public class Usuario {
     /**
      * Metodo sobrecarregado <i>getPostagem</i> responsavel por receber como
      * parametro um Inteiro que representa um indice a ser escolhido da lista de
-     * postagens. Delegando toda a
-     * tarefa a <code>MuralDeUsuario</code>.
+     * postagens. Delegando toda a tarefa a <code>MuralDeUsuario</code>.
      * 
      * @param indice
      *            . Inteiro represntando um indice.
@@ -350,116 +341,71 @@ public class Usuario {
 	    throws EntradaException, ItemInexistenteException {
 	return this.mural.getConteudoPost(indice, postagem);
     }
-    
+
     public void atualizaTipo() {
 	int popularidade = this.mural.getPopularidade();
-	
+
 	if (popularidade < 500) {
 	    this.tipoUsuario = new NormalPop();
-	}else if (popularidade < 1000) {
+	} else if (popularidade < 1000) {
 	    this.tipoUsuario = new CelebridadePop();
-	}else {
+	} else {
 	    this.tipoUsuario = new IconePop();
 	}
     }
 
-    
-    //RELACIONAMENTO ENTRE USUARIOS:
-    
+    // RELACIONAMENTO ENTRE USUARIOS:
 
-    
-    
     public void adicionaAmigo(String emailUsuario) {
 	this.listaDeAmigos.adicionaAmigo(emailUsuario);
     }
-    
+
     public void removeAmigo(String emailUsuario) {
 	this.listaDeAmigos.removeAmigo(emailUsuario);
     }
-    
+
     public void rejeitaAmizade(String emailUsuario) {
 	this.listaDeAmigos.rejeitaAmizade(emailUsuario);
     }
-    
+
     public void aceitaAmizade(String emailUsuario) {
 	this.listaDeAmigos.aceitaAmizade(emailUsuario);
     }
-    
-    
+
     public boolean contemPendencia(String emailUsuario) {
 	return this.listaDeAmigos.contemPendencia(emailUsuario);
     }
-    
+
     public boolean contemAmigo(String emailUsuario) {
 	return this.listaDeAmigos.contemAmigo(emailUsuario);
     }
-    
-    
+
     public void curtir(Postagem postagem) {
 	this.tipoUsuario.curir(postagem);
     }
-    
+
     public void descurtir(Postagem postagem) {
 	this.tipoUsuario.descurtir(postagem);
     }
-    
+
     public int getQtdAmigos() {
 	return this.listaDeAmigos.getQtdAmigos();
     }
-    
-    
-    
+
     public void notificaMe(String notificacao) {
 	this.notificacoes.recebeNotificacao(notificacao);
     }
-    
+
     public int getNotificacoes() {
 	return this.notificacoes.getNotificacoes();
     }
-    
+
     public String getProxNotificacao() throws ItemInexistenteException {
 	return this.notificacoes.getProxNotificacao();
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
     // METODOS SEM DOCUMENTACAO. POSSIVEL SINGLETON:
-    private void validaNome(String nome) throws NomeException {
+    private String validaNome(String nome) throws NomeException {
 	String erro = "Nome dx usuarix nao pode ser vazio.";
 
 	if (nome == null) {
@@ -467,9 +413,11 @@ public class Usuario {
 	} else if (nome.trim().length() == 0) {
 	    throw new NomeException(erro);
 	}
+
+	return nome;
     }
 
-    private void validaEmail(String email) throws EmailException {
+    private String validaEmail(String email) throws EmailException {
 	String erro = "Formato de e-mail esta invalido.";
 
 	if (email == null) {
@@ -481,28 +429,49 @@ public class Usuario {
 	} else if (email.trim().length() == 0) {
 	    throw new EmailException(erro);
 	}
+
+	return email;
     }
 
-    private void validaSenha(String senha) throws SenhaException {
+    private String validaSenha(String senha) throws SenhaException {
 	if (senha == null) {
 	    throw new SenhaException();
 	} else if (senha.trim().length() == 0) {
 	    throw new SenhaException();
 	}
+
+	return senha;
     }
 
-    private void validaDataNascimento(String dataNascimento)
+    private String validaDataNascimento(String dataNascimento)
 	    throws DataException {
-	String erro = "Formato de data esta invalida.";
+	String msgErro = "Formato de data esta invalida.";
 
 	if (dataNascimento == null) {
-	    throw new DataException(erro);
+	    throw new DataException(msgErro);
 	} else if (dataNascimento.trim().length() == 0) {
-	    throw new DataException(erro);
+	    throw new DataException(msgErro);
 	}
+
+	try {
+	    DateTimeFormatter formatador = DateTimeFormatter
+		    .ofPattern("dd/MM/yyyy");
+	    LocalDate sData = LocalDate.parse(dataNascimento, formatador);
+	    sData = LocalDate.of(sData.getYear(), sData.getMonth(),
+		    Integer.parseInt(dataNascimento.substring(0, 2)));
+	    return sData.toString();
+
+	} catch (DateTimeException erro) {
+	    if (erro.getMessage().contains("Invalid")) {
+		throw new DataException("Data nao existe.");
+	    } else {
+		throw new DataException("Formato de data esta invalida.");
+	    }
+	}
+
     }
 
-    private void validaImagem(String imagem) throws ImagemException {
+    private String validaImagem(String imagem) throws ImagemException {
 	if (imagem == null) {
 	    throw new ImagemException();
 	} else if (imagem.trim().length() == 0) {
@@ -510,7 +479,8 @@ public class Usuario {
 	} else if (!(imagem.contains(".jpg") && !(imagem.contains(".png")))) {
 	    throw new ImagemException();
 	}
+
+	return imagem;
     }
 
-    
 }
