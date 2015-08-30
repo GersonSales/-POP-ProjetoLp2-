@@ -26,5 +26,4 @@ public class TesteEA {
 	EasyAccept.main(args);
     }
     
-    //com certeza nao tem isso no master.
 }
