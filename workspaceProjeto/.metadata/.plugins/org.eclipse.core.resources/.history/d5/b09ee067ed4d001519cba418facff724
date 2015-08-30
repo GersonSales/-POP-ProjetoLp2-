@@ -1,0 +1,6 @@
+package projeto.maispop.excecoes;
+
+@SuppressWarnings("serial")
+public class SolicitacaoException extends ItemInexistenteException {
+
+}

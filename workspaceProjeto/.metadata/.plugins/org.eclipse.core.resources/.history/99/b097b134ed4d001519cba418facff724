@@ -1,0 +1,5 @@
+package projeto.maispop.excecoes;
+
+public class SolicitacaoException extends ItemInexistenteException {
+
+}

@@ -1,0 +1,28 @@
+package projeto.maispop.usuario;
+
+import java.sql.DatabaseMetaData;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
+public class CelebridadePop implements TipoUsuario {
+
+    @Override
+    public void curir(Postagem postagem) {
+	postagem.curtir(25);
+    }
+
+    @Override
+    public void descurtir(Postagem postagem) {
+	postagem.descurtir(25);
+    }
+
+    private boolean atividadeRecente(String dataPostagem) {
+	DateTimeFormatter formatoEntrada = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+	DateTimeFormatter formatoSaida = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+	dataPostagem = LocalDate.parse(dataPostagem, formatoEntrada).format(formatoSaida);
+	
+	return dataPostagem.equals(LocalDate.now().toString());
+	
+		
+    }
+}

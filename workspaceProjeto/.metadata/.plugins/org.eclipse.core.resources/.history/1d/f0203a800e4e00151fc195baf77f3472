@@ -1,0 +1,17 @@
+package projeto.maispop.usuario;
+
+public class CelebridadePop implements TipoUsuario {
+
+    @Override
+    public void curir(Postagem postagem) {
+	// TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void descurtir(Postagem postagem) {
+	// TODO Auto-generated method stub
+
+    }
+
+}
