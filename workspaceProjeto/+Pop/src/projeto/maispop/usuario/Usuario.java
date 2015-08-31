@@ -370,6 +370,9 @@ public class Usuario {
 		return this.notificacoes.getProxNotificacao();
 	}
 
+	
+	
+	
 	// METODOS SEM DOCUMENTACAO. POSSIVEL SINGLETON:
 	private String validaNome(String nome) throws NomeException {
 		String erro = "Nome dx usuarix nao pode ser vazio.";

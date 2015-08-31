@@ -4,7 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * CLASSE ATUALMENTE INUTILIZADA! Classe <code>ListaDeAmigos</code> que serve
+ * Classe <code>ListaDeAmigos</code> que serve
  * wrapper da classe <i>HashSet<i> para que o <i>Usuario<i> possia manipular
  * suas amizades na rede social <i>+Pop</i>.
  * 
@@ -34,7 +34,6 @@ public class ListaDeAmigos {
     }
 
     public void aceitaAmizade(String emailUsuario) {
-
 	this.listaDeAmigos.add(emailUsuario);
 	this.pendentes.remove(emailUsuario);
     }
