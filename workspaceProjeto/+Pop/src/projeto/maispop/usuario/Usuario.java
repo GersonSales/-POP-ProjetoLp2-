@@ -3,6 +3,7 @@ package projeto.maispop.usuario;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.Period;
 import java.time.format.DateTimeFormatter;
 
 import projeto.maispop.excecoes.DataException;
@@ -455,7 +456,7 @@ public class Usuario {
 
 		return imagem;
 	}
-	
+
 	@Override
 	public boolean equals(Object objeto) {
 		if (objeto instanceof Usuario) {
@@ -466,10 +467,16 @@ public class Usuario {
 		}
 		return false;
 	}
-	
+
 	@Override
 	public String toString() {
-		return "";
+		String fdl = System.getProperty("line.separator");
+		int idade = Period.between(LocalDate.parse(getDataNascimento()),
+				LocalDate.now()).getYears();
+
+		return "Nome: " + getNome() + fdl + "Idade: " + idade + fdl
+				+ "E-mail: " + getEmail() + fdl + "Tipo: " + getTipoUsuario()
+				+ fdl + "Popularidade: " + getPopularidade();
 	}
 
 }
