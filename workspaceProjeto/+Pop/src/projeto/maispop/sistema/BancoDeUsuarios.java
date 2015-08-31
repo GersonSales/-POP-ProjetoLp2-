@@ -9,7 +9,7 @@ import projeto.maispop.excecoes.RequisicaoException;
 import projeto.maispop.excecoes.SenhaException;
 import projeto.maispop.excecoes.UsuarioExistenteException;
 import projeto.maispop.excecoes.UsuarioInexistenteException;
-import projeto.maispop.usuario.Usuario;
+import src.projeto.maispop.usuario.Usuario;
 
 public class BancoDeUsuarios {
 

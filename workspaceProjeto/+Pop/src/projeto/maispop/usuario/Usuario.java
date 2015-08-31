@@ -1,4 +1,4 @@
-package projeto.maispop.usuario;
+package src.projeto.maispop.usuario;
 
 import java.time.DateTimeException;
 import java.time.LocalDate;

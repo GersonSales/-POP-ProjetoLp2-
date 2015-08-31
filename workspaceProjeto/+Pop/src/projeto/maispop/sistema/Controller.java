@@ -9,7 +9,7 @@ import projeto.maispop.excecoes.SolicitacaoException;
 import projeto.maispop.excecoes.UsuarioExistenteException;
 import projeto.maispop.excecoes.UsuarioInexistenteException;
 import projeto.maispop.usuario.Postagem;
-import projeto.maispop.usuario.Usuario;
+import src.projeto.maispop.usuario.Usuario;
 
 public class Controller {
 
