@@ -11,7 +11,7 @@ import projeto.maispop.excecoes.UsuarioExistenteException;
 import projeto.maispop.sistema.BancoDeUsuarios;
 import projeto.maispop.sistema.Controller;
 import projeto.maispop.sistema.Facade;
-import src.projeto.maispop.usuario.Usuario;
+import projeto.maispop.usuario.Usuario;
 
 public class TesteUsuario {
 
