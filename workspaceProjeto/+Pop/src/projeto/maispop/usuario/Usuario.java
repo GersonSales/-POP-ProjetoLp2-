@@ -2,6 +2,7 @@ package projeto.maispop.usuario;
 
 import java.time.DateTimeException;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 import projeto.maispop.excecoes.DataException;
@@ -102,7 +103,6 @@ public class Usuario {
 			String dataNascimento) throws EntradaException {
 		this(nome, email, senha, dataNascimento, IMG_PERFIL_PADRAO);
 	}
-
 
 	/**
 	 * Metodo <i>getNome</i> responsavel por retornar a String que representa o
@@ -285,6 +285,14 @@ public class Usuario {
 		return this.mural.getPostagem(indice);
 	}
 
+	public int getPopularidade() {
+		return this.mural.getPopularidade();
+	}
+
+	public String getTipoUsuario() {
+		return this.tipoUsuario.toString();
+	}
+
 	/**
 	 * Metodo <i>getConteudoPost</i> responsavel por receber dois Inteiros como
 	 * parametro, um representando a postagem escolhida da lista de postagens e
@@ -321,7 +329,6 @@ public class Usuario {
 	}
 
 	// RELACIONAMENTO ENTRE USUARIOS:
-
 	public void adicionaAmigo(String emailUsuario) {
 		this.listaDeAmigos.adicionaAmigo(emailUsuario);
 	}
@@ -370,9 +377,6 @@ public class Usuario {
 		return this.notificacoes.getProxNotificacao();
 	}
 
-	
-	
-	
 	// METODOS SEM DOCUMENTACAO. POSSIVEL SINGLETON:
 	private String validaNome(String nome) throws NomeException {
 		String erro = "Nome dx usuarix nao pode ser vazio.";
@@ -450,6 +454,22 @@ public class Usuario {
 		}
 
 		return imagem;
+	}
+	
+	@Override
+	public boolean equals(Object objeto) {
+		if (objeto instanceof Usuario) {
+			Usuario outroUsuario = (Usuario) objeto;
+			if (getEmail().equals(outroUsuario.getEmail())) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	@Override
+	public String toString() {
+		return "";
 	}
 
 }
