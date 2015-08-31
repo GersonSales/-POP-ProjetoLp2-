@@ -179,7 +179,7 @@ public class TesteUsuario {
 	
 	
 	@Test
-	public void publicacao() {
+	public void publicacaoTipo() {
 		try {
 			Usuario marcos = new Usuario("marcos", "marcos@email.com",
 					"senhaMarcos", "02/02/1992");
@@ -236,9 +236,9 @@ public class TesteUsuario {
 	
 	
 	
+public static void main(String[] args) {
 	
-	
-	
+}	
 	
 	
 	
