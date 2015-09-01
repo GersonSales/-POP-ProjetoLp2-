@@ -10,5 +10,6 @@ import static java.lang.annotation.ElementType.*;
 @Target({PARAMETER, FIELD})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface NotNull {
+	String tipo() default "";
 
 }

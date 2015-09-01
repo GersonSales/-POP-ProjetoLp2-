@@ -1,11 +1,11 @@
 package pessoa;
 
-public class Pessoa {
+public class Pessoa extends Object{
 	
 	private String nome;
 	private int idade;
 	
-	public Pessoa(@NotNull String nome, @NotMenor int idade) {
+	public Pessoa(String nome, int idade) {
 		this.nome = nome;
 		this.idade = idade;
 	}
@@ -14,7 +14,7 @@ public class Pessoa {
 		return nome;
 	}
 
-	public void setNome(@NotNull String nome) {
+	public void setNome(String nome) {
 		this.nome = nome;
 	}
 
@@ -22,7 +22,7 @@ public class Pessoa {
 		return idade;
 	}
 
-	public void setIdade(@NotMenor int idade) {
+	public void setIdade(int idade) {
 		this.idade = idade;
 	}
 	
