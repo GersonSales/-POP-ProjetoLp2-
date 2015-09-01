@@ -2,11 +2,13 @@ package pessoa;
 
 public class Main {
 	public static void main(String[] args) throws Exception {
+		Pessoa junior = new Pessoa(null, 20);
 		try {
-			Validador.validaObjeto(criaEAltera());
-		}catch (Throwable erro) {
+			Validador.validaObjeto(junior);
+		}catch (Exception erro) {
 			System.out.println(erro.getMessage());
 		}
+		System.out.println("Finalizado");
 			
 	}
 
