@@ -1,20 +1,35 @@
 package pessoa;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class Main {
 	public static void main(String[] args) {
-		try {
-			Pessoa junior = new Pessoa("gerson", 18);
-			System.out.println("Construido");
-			junior.setIdade(123);
-			System.out.println("idade setada");
-			System.out.println();
-			junior.setNome("casa");
-			System.out.println();
-			System.out.println("nome setado");
-			System.out.println("Finalizado");
-		} catch (EntradaException erro) {
-			System.out.println(erro.getMessage());
-		}
 
+		String regexNome = "[a-zA-z]+";
+		Pattern padraoNome = Pattern.compile(regexNome);
+		Matcher mesclagemNome = padraoNome.matcher("");
+		
+		String regexEmail = "[a-z]+@[a-z].com";
+		Pattern padraoEmail = Pattern.compile(regexEmail);
+		Matcher mesclagemEmail = padraoEmail.matcher("gerson@hotmail.com");
+		
+		
+		
+		if (mesclagemNome.find()) {
+			System.out.println("Nome valido");
+		}else {
+			System.out.println("Nomeinvalido");
+		}
+		
+		if(mesclagemEmail.find()) {
+			System.out.println("Email valido");
+		}else{
+			System.out.println("Email invalido");
+		}
+		
+		
+		
+				
 	}
 }

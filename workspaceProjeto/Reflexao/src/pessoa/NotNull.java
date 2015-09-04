@@ -6,11 +6,10 @@ import java.lang.annotation.Target;
 
 import static java.lang.annotation.ElementType.*;
 
-
 @Target({PARAMETER, FIELD, LOCAL_VARIABLE})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface NotNull {
+	String value() default "";;
 	String tipo() default "";
-	public String teste() default "";
 
 }

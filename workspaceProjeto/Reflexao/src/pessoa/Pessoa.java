@@ -1,8 +1,7 @@
 package pessoa;
-
 public class Pessoa extends Object {
 
-	@NotNull(tipo = "E-mail")
+	@NotNull()
 	private String nome;
 
 	@NotMenor
