@@ -1,33 +1,89 @@
 package pessoa;
 
+import java.beans.MethodDescriptor;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.lang.reflect.Parameter;
+import java.lang.reflect.Type;
 
 public class Validador {
 
-	public static void validaObjeto(Object objeto) throws Exception {
+	private static Validador instancia;
+
+	private Validador() {
+
+	}
+
+	public static Validador getInstancia() {
+		if (instancia == null) {
+			instancia = new Validador();
+		}
+		return instancia;
+	}
+
+	public void validaCampos(Object objeto) throws EntradaException {
 		Class<?> classeObjeto = objeto.getClass();
-		for (Method metodo : classeObjeto.getMethods()) {
-			Annotation[][] anotacaoParam = metodo.getParameterAnnotations();
-			Class<?>[] paramsType = metodo.getParameterTypes();
-			int i = 0;
-			for (Annotation[] anotacoes : anotacaoParam) {
-				Class<?> tipoParam = paramsType[i++];
+
+		Field[] campos = classeObjeto.getDeclaredFields();
+
+		for (Field campo : campos) {
+			campo.setAccessible(true);
+			Object tipoCampo;
+			try {
+				tipoCampo = campo.get(objeto);
+
+				Annotation[] anotacoes = campo.getAnnotations();
+
 				for (Annotation anotacao : anotacoes) {
-					if (anotacao instanceof NotNull) {
-						if (tipoParam == String.class) {
-							for (Field campo : tipoParam.getFields()) {
+					Class<?> tipoAnotacao = anotacao.annotationType();
 
-								System.out.println(campo);
+					if (tipoAnotacao == NotNull.class) {
+						if (tipoCampo == null) {
+							throw new EntradaException("Nao pode ser null");
+						}
 
+					} else if (tipoAnotacao == NotMenor.class) {
+						NotMenor anotacaoNM = (NotMenor) anotacao;
+						if (tipoCampo instanceof Integer) {
+							Integer campoInt = (Integer) tipoCampo;
+							if (campoInt < anotacaoNM.idade()) {
+								throw new EntradaException(
+										"Nao pode ser menor que "
+												+ anotacaoNM.idade());
 							}
 						}
 					}
 				}
 
+			} catch (IllegalArgumentException e) {
+				// pass
+			} catch (IllegalAccessException e) {
+				// pass
 			}
-		}
 
+		}
 	}
+
+	public void validaMetodos(Object objeto) {
+		
+		Class<?> classeObjeto = objeto.getClass();
+
+		Method[] metodos = classeObjeto.getMethods();
+		for (Method metodo : metodos) {
+			Parameter[] parametros = metodo.getParameters();
+			for (Parameter parametro: parametros) {
+				parametro.getAnnotation(NotNull.class).tipo();
+				Annotation[] anotacoes = parametro.getDeclaredAnnotations();
+				for (Annotation anotacao: anotacoes) {
+					
+					System.out.println(parametro + ": " + anotacao);
+					
+				}
+				
+			}
+
+		}
+	}
+
 }

@@ -1,32 +1,39 @@
 package pessoa;
 
-public class Pessoa extends Object{
-	
+public class Pessoa extends Object {
+
 	@NotNull
 	private String nome;
+
+	@NotMenor
 	private int idade;
-	
-	public Pessoa(@NotNull String nome, @NotNull int idade) {
+	private Validador validador;
+
+	public Pessoa(String nome, int idade) throws EntradaException {
+		this.validador = Validador.getInstancia();
 		this.nome = nome;
 		this.idade = idade;
+		validador.validaCampos(this);
 	}
-	
-	@NotNull
+
 	public String getNome() {
 		return nome;
 	}
-
-	public void setNome(@NotNull String nome) {
-		this.nome = nome;
+	
+	public void setNome(@NotNull(teste = "")String nome2) throws EntradaException {
+		this.nome = nome2;
+		//validador.validaCampos(this);
+		validador.validaMetodos(this);
 	}
 
 	public int getIdade() {
 		return idade;
 	}
 
-	public void setIdade(@NotMenor int idade) {
+	public void setIdade(int idade) throws EntradaException {
 		this.idade = idade;
+		//validador.validaCampos(this);
+		validador.validaMetodos(this);
 	}
-	
 
 }

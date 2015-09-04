@@ -1,26 +1,20 @@
 package pessoa;
 
 public class Main {
-	public static void main(String[] args) throws Exception {
-		Pessoa junior = new Pessoa(null, 20);
+	public static void main(String[] args) {
 		try {
-			Validador.validaObjeto(junior);
-		}catch (Exception erro) {
+			Pessoa junior = new Pessoa("gerson", 18);
+			System.out.println("Construido");
+			junior.setIdade(123);
+			System.out.println("idade setada");
+			System.out.println();
+			junior.setNome("casa");
+			System.out.println();
+			System.out.println("nome setado");
+			System.out.println("Finalizado");
+		} catch (EntradaException erro) {
 			System.out.println(erro.getMessage());
 		}
-		System.out.println("Finalizado");
-			
+
 	}
-
-	public static Pessoa criaEAltera() {
-		Pessoa junior = new Pessoa(null, 19);
-		System.out.println("Construido...");
-
-		junior.setNome("gerson");
-		System.out.println("Alterado...");
-
-		System.out.println("Finalizado...");
-		return junior;
-	}
-
 }

@@ -7,9 +7,10 @@ import java.lang.annotation.Target;
 import static java.lang.annotation.ElementType.*;
 
 
-@Target({PARAMETER, FIELD, METHOD})
+@Target({PARAMETER, FIELD})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface NotNull {
 	String tipo() default "";
+	public String teste() default "";
 
 }
