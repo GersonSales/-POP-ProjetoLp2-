@@ -2,7 +2,7 @@ package pessoa;
 
 public class Pessoa extends Object {
 
-	@NotNull
+	@NotNull(tipo = "E-mail")
 	private String nome;
 
 	@NotMenor
@@ -20,8 +20,8 @@ public class Pessoa extends Object {
 		return nome;
 	}
 	
-	public void setNome(@NotNull(teste = "")String nome2) throws EntradaException {
-		this.nome = nome2;
+	public void setNome(String nome) throws EntradaException {
+		this.nome = nome;
 		//validador.validaCampos(this);
 		validador.validaMetodos(this);
 	}
