@@ -14,6 +14,14 @@ public class Main {
 		System.out.println("Padrao Email: " + "gerson.junior@hotmail.com".matches(padraoEmail));
 		System.out.println("Padrao imagem: " + "pasta/imagens/flor/de/lotus.png".matches(padraoImagem));
 		
+		System.out.println();
+		System.out.println("c   c ".matches(".[^\\s]+"));
+		
+		
+		
+		
+		
+		
 		
 		
 		
