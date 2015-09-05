@@ -1,12 +1,9 @@
 package pessoa;
 
-import java.beans.MethodDescriptor;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
-import java.lang.reflect.Type;
-import java.util.function.Consumer;
 
 public class Validador {
 
@@ -72,17 +69,8 @@ public class Validador {
 
 		Method[] metodos = classeObjeto.getMethods();
 		for (Method metodo : metodos) {
-			Parameter[] parametros = metodo.getParameters();
-			for (Parameter parametro: parametros) {
-				parametro.getAnnotation(NotNull.class).tipo();
-				Annotation[] anotacoes = parametro.getDeclaredAnnotations();
-				for (Annotation anotacao: anotacoes) {
-					
-					System.out.println(parametro + ": " + anotacao);
-					
-				}
-				
-			}
+			metodo.getParameterTypes();
+			
 
 		}
 	}

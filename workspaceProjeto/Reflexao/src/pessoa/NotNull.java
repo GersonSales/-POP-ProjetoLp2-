@@ -10,6 +10,5 @@ import static java.lang.annotation.ElementType.*;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface NotNull {
 	String value() default "";;
-	String tipo() default "";
 
 }

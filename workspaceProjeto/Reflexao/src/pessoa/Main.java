@@ -1,34 +1,23 @@
 package pessoa;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class Main {
 	public static void main(String[] args) {
 
-		String regexNome = "[a-zA-z]+";
-		Pattern padraoNome = Pattern.compile(regexNome);
-		Matcher mesclagemNome = padraoNome.matcher("");
+		String padraoData = "[0-9]{2,2}/[0-9]{2,2}/[0-9]{4,4}";
+		String padraoHora = "[0-9]{2,2}:[0-9]{2,2}:[0-9]{2,2}";
+		String padraoEmail = "\\w+(\\.*\\w+)*@\\w+\\.\\w{2,3}(\\.{1,1}\\w{2,2})*";
+		String padraoImagem  = "\\w+(/\\w+)*\\.(png|jpg)";
 		
-		String regexEmail = "[a-z]+@[a-z].com";
-		Pattern padraoEmail = Pattern.compile(regexEmail);
-		Matcher mesclagemEmail = padraoEmail.matcher("gerson@hotmail.com");
-		
-		
-		
-		if (mesclagemNome.find()) {
-			System.out.println("Nome valido");
-		}else {
-			System.out.println("Nomeinvalido");
-		}
-		
-		if(mesclagemEmail.find()) {
-			System.out.println("Email valido");
-		}else{
-			System.out.println("Email invalido");
-		}
+		System.out.println("PadraoData: " + "24/12/1995".matches(padraoData));
+		System.out.println("Padrao DataHora: " + "10/12/2013 12:33:27".matches(padraoData + " " + padraoHora));
+		System.out.println("Padrao Email: " + "gerson.junior@hotmail.com".matches(padraoEmail));
+		System.out.println("Padrao imagem: " + "pasta/imagens/flor/de/lotus.png".matches(padraoImagem));
 		
 		
+		
+		
+
 		
 				
 	}

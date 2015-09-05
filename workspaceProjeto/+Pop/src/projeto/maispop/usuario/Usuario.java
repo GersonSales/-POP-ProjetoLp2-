@@ -2,7 +2,6 @@ package projeto.maispop.usuario;
 
 import java.time.DateTimeException;
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
 
