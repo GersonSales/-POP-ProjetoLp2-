@@ -13,5 +13,10 @@ public class IconePop implements TipoUsuario {
 	postagem.descurtir(50);
 	postagem.adicionaHashTag("#epicfail");
     }
+    
+    @Override
+    public String toString() {
+    	return "Icone Pop";
+    }
 
 }

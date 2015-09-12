@@ -29,4 +29,9 @@ public class CelebridadePop implements TipoUsuario {
 
 	return dataPostagem.equals(LocalDate.now().toString());
     }
+    
+    @Override
+    public String toString() {
+    	return "Celebridade Pop";
+    }
 }

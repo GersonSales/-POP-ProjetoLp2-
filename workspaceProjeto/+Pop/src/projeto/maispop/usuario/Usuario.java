@@ -1,8 +1,7 @@
 package projeto.maispop.usuario;
 
-import java.time.DateTimeException;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import java.time.Period;
 
 import projeto.maispop.excecoes.DataException;
 import projeto.maispop.excecoes.EmailException;
@@ -35,6 +34,7 @@ public class Usuario {
 	private MuralUsuario mural;
 
 	private TipoUsuario tipoUsuario;
+	private UsuarioFormat usuarioFormat;
 
 	private static final String IMG_PERFIL_PADRAO = "resources/default.jpg";
 
@@ -63,12 +63,13 @@ public class Usuario {
 	 */
 	public Usuario(String nome, String email, String senha,
 			String dataNascimento, String imagemPerfil) throws EntradaException {
+		this.usuarioFormat = UsuarioFormat.getInstancia();
 
-		this.nome = validaNome(nome);
-		this.email = validaEmail(email);
-		this.senha = validaSenha(senha);
-		this.imagemPerfil = validaImagem(imagemPerfil);
-		this.dataNascimento = validaDataNascimento(dataNascimento);
+		this.nome = usuarioFormat.validaNome(nome);
+		this.email = usuarioFormat.validaEmail(email);
+		this.senha = usuarioFormat.validaSenha(senha);
+		this.imagemPerfil = usuarioFormat.validaImagem(imagemPerfil);
+		this.dataNascimento = usuarioFormat.validaDataNascimento(dataNascimento);
 
 		this.listaDeAmigos = new ListaDeAmigos();
 		this.notificacoes = new Notificacoes();
@@ -103,7 +104,6 @@ public class Usuario {
 		this(nome, email, senha, dataNascimento, IMG_PERFIL_PADRAO);
 	}
 
-
 	/**
 	 * Metodo <i>getNome</i> responsavel por retornar a String que representa o
 	 * nome do <code>Usuario</code>.
@@ -125,7 +125,7 @@ public class Usuario {
 	 *             nao seja recebido uma nome valido.
 	 */
 	public void setNome(String nome) throws NomeException {
-		this.nome = validaNome(nome);
+		this.nome = usuarioFormat.validaNome(nome);
 	}
 
 	/**
@@ -149,7 +149,7 @@ public class Usuario {
 	 *             nao seja recebido uma email valido.
 	 */
 	public void setEmail(String email) throws EmailException {
-		this.email = validaEmail(email);
+		this.email = usuarioFormat.validaEmail(email);
 	}
 
 	/**
@@ -173,7 +173,7 @@ public class Usuario {
 	 *             nao seja recebido uma senha valido.
 	 */
 	public void setSenha(String senha) throws SenhaException {
-		this.senha = validaSenha(senha);
+		this.senha = usuarioFormat.validaSenha(senha);
 	}
 
 	/**
@@ -199,7 +199,7 @@ public class Usuario {
 	 *             nao seja recebido uma data de nascimento valida.
 	 */
 	public void setDataNascimento(String dataNascimento) throws DataException {
-		this.dataNascimento = validaDataNascimento(dataNascimento);
+		this.dataNascimento = usuarioFormat.validaDataNascimento(dataNascimento);
 	}
 
 	/**
@@ -225,7 +225,7 @@ public class Usuario {
 	 *             nao seja recebido uma imagem valida.
 	 */
 	public void setImagemPerfil(String imagemPerfil) throws ImagemException {
-		this.imagemPerfil = validaImagem(imagemPerfil);
+		this.imagemPerfil = usuarioFormat.validaImagem(imagemPerfil);
 	}
 
 	/**
@@ -285,6 +285,14 @@ public class Usuario {
 		return this.mural.getPostagem(indice);
 	}
 
+	public int getPopularidade() {
+		return this.mural.getPopularidade();
+	}
+
+	public String getTipoUsuario() {
+		return this.tipoUsuario.toString();
+	}
+
 	/**
 	 * Metodo <i>getConteudoPost</i> responsavel por receber dois Inteiros como
 	 * parametro, um representando a postagem escolhida da lista de postagens e
@@ -321,7 +329,6 @@ public class Usuario {
 	}
 
 	// RELACIONAMENTO ENTRE USUARIOS:
-
 	public void adicionaAmigo(String emailUsuario) {
 		this.listaDeAmigos.adicionaAmigo(emailUsuario);
 	}
@@ -370,86 +377,26 @@ public class Usuario {
 		return this.notificacoes.getProxNotificacao();
 	}
 
-	
-	
-	
-	// METODOS SEM DOCUMENTACAO. POSSIVEL SINGLETON:
-	private String validaNome(String nome) throws NomeException {
-		String erro = "Nome dx usuarix nao pode ser vazio.";
-
-		if (nome == null) {
-			throw new NomeException(erro);
-		} else if (nome.trim().length() == 0) {
-			throw new NomeException(erro);
-		}
-
-		return nome;
-	}
-
-	private String validaEmail(String email) throws EmailException {
-		String erro = "Formato de e-mail esta invalido.";
-
-		if (email == null) {
-			throw new EmailException(erro);
-		} else if (!(email.contains("@"))) {
-			throw new EmailException(erro);
-		} else if (!(email.contains(".com"))) {
-			throw new EmailException(erro);
-		} else if (email.trim().length() == 0) {
-			throw new EmailException(erro);
-		}
-
-		return email;
-	}
-
-	private String validaSenha(String senha) throws SenhaException {
-		if (senha == null) {
-			throw new SenhaException();
-		} else if (senha.trim().length() == 0) {
-			throw new SenhaException();
-		}
-
-		return senha;
-	}
-
-	private String validaDataNascimento(String dataNascimento)
-			throws DataException {
-		String msgErro = "Formato de data esta invalida.";
-
-		if (dataNascimento == null) {
-			throw new DataException(msgErro);
-		} else if (dataNascimento.trim().length() == 0) {
-			throw new DataException(msgErro);
-		}
-
-		try {
-			DateTimeFormatter formatador = DateTimeFormatter
-					.ofPattern("dd/MM/yyyy");
-			LocalDate sData = LocalDate.parse(dataNascimento, formatador);
-			sData = LocalDate.of(sData.getYear(), sData.getMonth(),
-					Integer.parseInt(dataNascimento.substring(0, 2)));
-			return sData.toString();
-
-		} catch (DateTimeException erro) {
-			if (erro.getMessage().contains("Invalid")) {
-				throw new DataException("Data nao existe.");
-			} else {
-				throw new DataException("Formato de data esta invalida.");
+	@Override
+	public boolean equals(Object objeto) {
+		if (objeto instanceof Usuario) {
+			Usuario outroUsuario = (Usuario) objeto;
+			if (getEmail().equals(outroUsuario.getEmail())) {
+				return true;
 			}
 		}
-
+		return false;
 	}
 
-	private String validaImagem(String imagem) throws ImagemException {
-		if (imagem == null) {
-			throw new ImagemException();
-		} else if (imagem.trim().length() == 0) {
-			throw new ImagemException();
-		} else if (!(imagem.contains(".jpg") && !(imagem.contains(".png")))) {
-			throw new ImagemException();
-		}
+	@Override
+	public String toString() {
+		String fdl = System.getProperty("line.separator");
+		int idade = Period.between(LocalDate.parse(getDataNascimento()),
+				LocalDate.now()).getYears();
 
-		return imagem;
+		return "Nome: " + getNome() + fdl + "Idade: " + idade + fdl
+				+ "E-mail: " + getEmail() + fdl + "Tipo: " + getTipoUsuario()
+				+ fdl + "Popularidade: " + getPopularidade();
 	}
 
 }

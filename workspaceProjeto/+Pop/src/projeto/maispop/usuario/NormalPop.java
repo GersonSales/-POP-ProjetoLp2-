@@ -12,4 +12,8 @@ public class NormalPop implements TipoUsuario {
 	postagem.descurtir(10);
     }
 
+    @Override
+    public String toString() {
+    	return "Normal Pop";
+    }
 }
