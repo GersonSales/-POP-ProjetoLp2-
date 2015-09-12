@@ -1,7 +1,5 @@
 package projeto.maispop.testes;
 
-import java.time.LocalDate;
-import java.time.Period;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -12,10 +10,6 @@ import projeto.maispop.usuario.Usuario;
 public class TesteUsuario {
 
 	@Test
-<<<<<<< HEAD
-	public void testeCriacaoInvalida() {
-		//casoTeste
-=======
 	public void criacaoInvalida() {
 		// Nome invalido:
 		try {
@@ -105,7 +99,6 @@ public class TesteUsuario {
 		} catch (Throwable erro) {
 			Assert.fail();
 		}
->>>>>>> reflexao
 	}
 
 	@Test
