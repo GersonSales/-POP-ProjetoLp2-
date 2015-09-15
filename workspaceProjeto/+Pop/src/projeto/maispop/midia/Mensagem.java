@@ -7,7 +7,7 @@ public class Mensagem extends Midia {
 	}
 
 	public static String getMarcacao() {
-		return null;
+		return "Mensagem";
 	}
 	
 	@Override

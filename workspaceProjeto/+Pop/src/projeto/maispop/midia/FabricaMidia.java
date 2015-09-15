@@ -36,7 +36,19 @@ public enum FabricaMidia {
 		public String toString() {
 			return HashTag.getMarcacao();
 		}
-	};
+	},
+	
+	MENSAGEM{
+
+		@Override
+		public Midia getMidia(String conteudo) {
+			return new Mensagem(conteudo); 
+		}
+
+		@Override
+		public String toString() {
+			return Mensagem.getMarcacao();
+		}};
 
 	public abstract Midia getMidia(String conteudo);
 
