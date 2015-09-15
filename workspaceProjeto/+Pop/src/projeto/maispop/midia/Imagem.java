@@ -6,13 +6,19 @@ public class Imagem extends Midia {
 		super(conteudo);
 	}
 	
-	public String getMarcacao() {
+	public static String getMarcacao() {
 		return "<imagem>";
 	}
 	
 	@Override
 	public String toString() {
-		return getConteudo();
+		String conteudo;
+		conteudo = getConteudo().replace(getMarcacao(), "");
+		conteudo = conteudo.replace(getMarcacao().replace("<", "</"), "");
+		conteudo = "$arquivo_imagem: " + conteudo;
+		
+		return conteudo;
 	}
+
 
 }

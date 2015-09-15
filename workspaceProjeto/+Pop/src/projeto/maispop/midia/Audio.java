@@ -6,13 +6,18 @@ public class Audio extends Midia {
 		super(conteudo);
 	}
 	
-	public String getMarcacao() {
+	public static String getMarcacao() {
 		return "<audio>";
 	}
 	
 	@Override
 	public String toString() {
-		return getConteudo();
+		String conteudo;
+		conteudo = getConteudo().replace(getMarcacao(), "");
+		conteudo = conteudo.replace(getMarcacao().replace("<", "</"), "");
+		conteudo = "$arquivo_audio: " + conteudo;
+		
+		return conteudo;
 	}
 
 }
