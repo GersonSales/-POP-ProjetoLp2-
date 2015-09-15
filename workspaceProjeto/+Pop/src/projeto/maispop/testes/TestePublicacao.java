@@ -13,9 +13,9 @@ import projeto.maispop.midia.Imagem;
 import projeto.maispop.midia.Mensagem;
 import projeto.maispop.midia.Midia;
 import projeto.maispop.midia.FabricaMidia;
+import projeto.maispop.usuario.ListaDeAmigos;
 
 public class TestePublicacao {
-
 
 	@Test
 	public void teste() {
@@ -61,59 +61,24 @@ public class TestePublicacao {
 		String[] postagemSplit = postagem.split(" ");
 
 		String texto = "";
+
 		for (String string : postagemSplit) {
-			
-			for (FabricaMidia testeEnum: FabricaMidia.values()) {
+
+			boolean adiciona = true;
+			for (FabricaMidia testeEnum : FabricaMidia.values()) {
 				if (string.contains(testeEnum.toString())) {
 					listaMidia.add(testeEnum.getMidia(string));
+					adiciona = false;
+					break;
 				}
 			}
-			
+
+			if (adiciona) {
+				texto = texto == "" ? texto + string : texto + " " + string;
+			}
 		}
-		
+		System.out.println(texto);
 
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 
 }
