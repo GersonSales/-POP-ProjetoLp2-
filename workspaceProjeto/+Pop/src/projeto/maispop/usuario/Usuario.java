@@ -3,6 +3,8 @@ package projeto.maispop.usuario;
 import java.time.LocalDate;
 import java.time.Period;
 
+import projeto.maispop.midia.Postagem;
+
 import projeto.maispop.excecoes.DataException;
 import projeto.maispop.excecoes.EmailException;
 import projeto.maispop.excecoes.EntradaException;
@@ -354,7 +356,7 @@ public class Usuario {
 	}
 
 	public void curtir(Postagem postagem) {
-		this.tipoUsuario.curir(postagem);
+		this.tipoUsuario.curtir(postagem);
 	}
 
 	public void descurtir(Postagem postagem) {

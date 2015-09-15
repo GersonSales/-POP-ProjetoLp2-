@@ -1,9 +1,11 @@
 package projeto.maispop.usuario;
 
+import projeto.maispop.midia.Postagem;
+
 public class NormalPop implements TipoUsuario {
 
     @Override
-    public void curir(Postagem postagem) {
+    public void curtir(Postagem postagem) {
 	postagem.curtir(10);
     }
 

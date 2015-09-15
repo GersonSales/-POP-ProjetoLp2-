@@ -15,7 +15,7 @@ public class Imagem extends Midia {
 		String conteudo;
 		conteudo = getConteudo().replace(getMarcacao(), "");
 		conteudo = conteudo.replace(getMarcacao().replace("<", "</"), "");
-		conteudo = "$arquivo_imagem: " + conteudo;
+		conteudo = "$arquivo_imagem:" + conteudo;
 		
 		return conteudo;
 	}

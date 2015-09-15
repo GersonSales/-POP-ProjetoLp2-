@@ -15,7 +15,7 @@ public class Audio extends Midia {
 		String conteudo;
 		conteudo = getConteudo().replace(getMarcacao(), "");
 		conteudo = conteudo.replace(getMarcacao().replace("<", "</"), "");
-		conteudo = "$arquivo_audio: " + conteudo;
+		conteudo = "$arquivo_audio:" + conteudo;
 		
 		return conteudo;
 	}

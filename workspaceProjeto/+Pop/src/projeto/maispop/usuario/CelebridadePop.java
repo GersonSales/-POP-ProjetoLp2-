@@ -1,12 +1,15 @@
 package projeto.maispop.usuario;
 
 import java.time.LocalDate;
+
 import java.time.format.DateTimeFormatter;
+
+import projeto.maispop.midia.Postagem;
 
 public class CelebridadePop implements TipoUsuario {
 
     @Override
-    public void curir(Postagem postagem) {
+    public void curtir(Postagem postagem) {
 	int bonus = isAtividadeRecente(postagem.getData()) ? 10 : 0;
 	postagem.curtir(25 + bonus);
     }

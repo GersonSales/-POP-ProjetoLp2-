@@ -1,5 +1,7 @@
 package projeto.maispop.midia;
 
+import projeto.maispop.excecoes.EntradaException;
+
 public enum FabricaMidia {
 
 	IMAGEM {
@@ -41,7 +43,7 @@ public enum FabricaMidia {
 	MENSAGEM{
 
 		@Override
-		public Midia getMidia(String conteudo) {
+		public Midia getMidia(String conteudo) throws EntradaException {
 			return new Mensagem(conteudo); 
 		}
 
@@ -50,7 +52,7 @@ public enum FabricaMidia {
 			return Mensagem.getMarcacao();
 		}};
 
-	public abstract Midia getMidia(String conteudo);
+	public abstract Midia getMidia(String conteudo) throws EntradaException;
 
 	public abstract String toString();
 

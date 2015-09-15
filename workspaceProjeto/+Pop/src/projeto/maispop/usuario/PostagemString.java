@@ -14,7 +14,7 @@ import projeto.maispop.excecoes.ItemInexistenteException;
  * @see MuralUsuario
  *
  */
-public class Postagem {
+public class PostagemString {
 
     private String texto;
     private String mensagem;
@@ -52,7 +52,7 @@ public class Postagem {
      *             as Strings(texto, dataPostagem) sejam inseridos de forma
      *             incorreta.
      */
-    public Postagem(String texto, String dataPostagem) throws EntradaException {
+    public PostagemString(String texto, String dataPostagem) throws EntradaException {
 	this.postagemFormat = PostagemFormat.getInstancia();
 	this.postagem = new ArrayList<>();
 
