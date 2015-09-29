@@ -1,12 +1,7 @@
 package projeto.maispop.testes;
 
-import org.junit.Before;
 import org.junit.Test;
 
-import projeto.maispop.excecoes.EntradaException;
-import projeto.maispop.excecoes.LogicaException;
-import projeto.maispop.usuario.Postagem;
-import projeto.maispop.usuario.Usuario;
 
 public class TestePublicacao {
 

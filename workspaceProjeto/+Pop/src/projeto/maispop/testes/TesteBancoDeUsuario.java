@@ -1,14 +1,11 @@
 package projeto.maispop.testes;
 
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import projeto.maispop.excecoes.EmailException;
 import projeto.maispop.excecoes.EntradaException;
 import projeto.maispop.excecoes.LogicaException;
-import projeto.maispop.excecoes.UsuarioExistenteException;
 import projeto.maispop.sistema.BancoDeUsuarios;
 
 public class TesteBancoDeUsuario {
