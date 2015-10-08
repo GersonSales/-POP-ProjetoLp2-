@@ -42,7 +42,7 @@ public class Postagem {
 		for (String string : postagemSplit) {
 
 			for (FabricaMidia fabMidia : FabricaMidia.values()) {
-				if (string.contains(fabMidia.toString())) {
+				if (string.contains(fabMidia.getMarcacao())) {
 					this.listaMidia.add(fabMidia.getMidia(string));
 					adiciona = false;
 					break;

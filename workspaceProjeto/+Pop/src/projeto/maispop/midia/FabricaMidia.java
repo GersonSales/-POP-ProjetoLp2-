@@ -6,7 +6,7 @@ public enum FabricaMidia {
 
 	IMAGEM {
 		@Override
-		public String toString() {
+		public String getMarcacao() {
 			return Imagem.getMarcacao();
 		}
 
@@ -23,7 +23,7 @@ public enum FabricaMidia {
 		}
 
 		@Override
-		public String toString() {
+		public String getMarcacao() {
 			return Audio.getMarcacao();
 		}
 	},
@@ -35,7 +35,7 @@ public enum FabricaMidia {
 		}
 
 		@Override
-		public String toString() {
+		public String getMarcacao() {
 			return HashTag.getMarcacao();
 		}
 	},
@@ -48,12 +48,13 @@ public enum FabricaMidia {
 		}
 
 		@Override
-		public String toString() {
+		public String getMarcacao() {
 			return Mensagem.getMarcacao();
 		}};
 
 	public abstract Midia getMidia(String conteudo) throws EntradaException;
 
-	public abstract String toString();
+	
+	public abstract String getMarcacao();
 
 }
