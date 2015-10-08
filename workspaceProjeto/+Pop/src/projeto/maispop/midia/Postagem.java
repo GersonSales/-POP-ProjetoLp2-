@@ -35,31 +35,7 @@ public class Postagem {
 	}
 
 	private void organizaPostagem(String conteudo) throws EntradaException {
-		String[] postagemSplit = conteudo.split(" ");
-		String texto = "";
-
-		boolean adiciona = true;
-		for (String string : postagemSplit) {
-
-			for (FabricaMidia fabMidia : FabricaMidia.values()) {
-				if (string.contains(fabMidia.getMarcacao())) {
-					this.listaMidia.add(fabMidia.getMidia(string));
-					adiciona = false;
-					break;
-				}
-				if (fabMidia == FabricaMidia.HASHTAG && !adiciona) {
-					throw new EntradaException(
-							"As hashtags devem comecar com '#'. Erro na hashtag: '"
-									+ string + "'.");
-				}
-			}
-			if (adiciona) {
-				texto = texto == "" ? texto + string : texto + " " + string;
-				continue;
-			}
-		}
-		this.listaMidia.add(0, FabricaMidia.MENSAGEM.getMidia(texto));
-
+		this.listaMidia = FabricaMidia.getListaMidia(conteudo);
 	}
 
 	public String getMensagem() {

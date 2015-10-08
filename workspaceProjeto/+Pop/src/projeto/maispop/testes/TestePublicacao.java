@@ -8,6 +8,7 @@ import org.junit.Test;
 
 import projeto.maispop.excecoes.EntradaException;
 import projeto.maispop.midia.Audio;
+import projeto.maispop.midia.FabMidia;
 import projeto.maispop.midia.HashTag;
 import projeto.maispop.midia.Imagem;
 import projeto.maispop.midia.Mensagem;
@@ -16,7 +17,19 @@ import projeto.maispop.midia.FabricaMidia;
 
 public class TestePublicacao {
 
+	
 	@Test
+	public void testeFabMidia() throws EntradaException {
+		FabMidia fabMidia = new FabMidia();
+		String postagem = "Nao sei porque tanto recalque, o que eh bonito eh pra se mostrar. <audio>musicas/poderosas.mp3</audio> #soulinda #naza";
+		
+		System.out.println(fabMidia.fabricaMidia(postagem));
+		
+		
+	}
+	
+	
+	
 	public void teste() throws EntradaException {
 		String postagem = "O Encontro de amanha estara otimo. Vamos falar sobre os problemas do preconceito na escola. <imagem>imagens/encontro_vinheta.jpg</imagem> <imagem>imagens/encontro_preview.jpg</imagem> encontro #SemPreconceito";
 		quebraPostagem(postagem);
