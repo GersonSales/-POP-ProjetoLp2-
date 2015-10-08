@@ -4,7 +4,6 @@ package projeto.maispop.midia;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.management.RuntimeErrorException;
 
 import projeto.maispop.excecoes.EntradaException;
 
