@@ -2,6 +2,8 @@ package projeto.maispop.eatestes;
 
 import easyaccept.EasyAccept;
 
+//alteracao master
+
 /**
  * Classe destinada a aplicacao de testes na facade do projeto. Ao executar esse
  * main sera aplicado os testes de todos os casos adicionados a lista. O projeto
