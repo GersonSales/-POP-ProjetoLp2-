@@ -5,6 +5,7 @@ import java.util.List;
 
 import projeto.maispop.excecoes.EntradaException;
 import projeto.maispop.excecoes.ItemInexistenteException;
+import projeto.maispop.midia.Postagem;
 
 /**
  * Classe <code>MuralUsuario</code> representa a <i>linha do tempo</i> de um

@@ -1,9 +1,10 @@
 package projeto.maispop.usuario;
 
+import projeto.maispop.midia.Postagem;
 public class IconePop implements TipoUsuario {
 
     @Override
-    public void curir(Postagem postagem) {
+    public void curtir(Postagem postagem) {
 	postagem.curtir(50);
 	postagem.adicionaHashTag("#epicwin");
     }

@@ -19,5 +19,8 @@ public abstract class Midia {
 		System.out.println("Reproduzindo: " + this.conteudo);
 	}
 
+<<<<<<< HEAD
 	public abstract String getMarcacao();
+=======
+>>>>>>> objetoMidia
 }
