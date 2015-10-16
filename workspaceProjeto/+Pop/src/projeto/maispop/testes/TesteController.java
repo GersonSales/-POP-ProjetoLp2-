@@ -1,5 +1,6 @@
 package projeto.maispop.testes;
 
+import static org.junit.Assert.*;
 
 import org.junit.Assert;
 import org.junit.Before;
