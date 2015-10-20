@@ -29,10 +29,6 @@ public class Notificacoes {
 	}
 	return notificacoes.remove(0);
     }
-
-    
-    
-    
     
    
 }

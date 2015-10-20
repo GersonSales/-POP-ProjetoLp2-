@@ -10,8 +10,8 @@ import projeto.maispop.excecoes.ItemInexistenteException;
 
 public class Postagem {
 
-	List<Midia> listaMidia;
-	String dataPostagem;
+	private List<Postavel> listaMidia;
+	private String dataPostagem;
 
 	private int popularidade;
 	private int curtir;
@@ -34,13 +34,22 @@ public class Postagem {
 		return this.dataPostagem;
 	}
 
+	/**
+	 * Metodo <i>organizaPostagem</i> responsavel por atribuir a
+	 * <code>FabricaMidia</code> a resposabilidade de 'qubrar' a string passada
+	 * como parametro e transforma-la em <code>Midia</code>.
+	 * 
+	 * @param conteudo; String a ser pecorrida.
+	 * @throws EntradaException; Caso o conteudo passado nao atenda os requisitos.
+	 */
 	private void organizaPostagem(String conteudo) throws EntradaException {
 		this.listaMidia = FabricaMidia.getListaMidia(conteudo);
 	}
 
+	
 	public String getMensagem() {
 		String saida = "";
-		for (Midia midia : this.listaMidia) {
+		for (Postavel midia : this.listaMidia) {
 			if (!(midia instanceof HashTag)) {
 				saida = saida == "" ? midia.getConteudo() : saida + " "
 						+ midia.getConteudo();
@@ -54,7 +63,7 @@ public class Postagem {
 	public String getHashTags() {
 		String saida = "";
 
-		for (Midia midia : this.listaMidia) {
+		for (Postavel midia : this.listaMidia) {
 			if (midia instanceof HashTag) {
 				saida = saida == "" ? midia.getConteudo() : saida + ","
 						+ midia.getConteudo();
@@ -73,7 +82,8 @@ public class Postagem {
 
 	}
 
-	public String getConteudo(int indice) throws ItemInexistenteException, EntradaException {
+	public String getConteudo(int indice) throws ItemInexistenteException,
+			EntradaException {
 		if (indice < 0) {
 			throw new EntradaException(
 					"O indice deve ser maior ou igual a zero.");
@@ -84,7 +94,7 @@ public class Postagem {
 			throw new ItemInexistenteException(ultimoIndiceValido.toString());
 
 		}
-		Midia conteudo = this.listaMidia.get(indice);
+		Postavel conteudo = this.listaMidia.get(indice);
 		if (conteudo instanceof HashTag) {
 			return null;
 		} else {
@@ -158,14 +168,14 @@ public class Postagem {
 	}
 
 	public void adicionaHashTag(String hashTag) {
-		Midia novaHashTag = new HashTag(hashTag);
+		Postavel novaHashTag = new HashTag(hashTag);
 		this.listaMidia.add(novaHashTag);
 	}
 
 	@Override
 	public String toString() {
 		String postagem = "";
-		for (Midia midia : this.listaMidia) {
+		for (Postavel midia : this.listaMidia) {
 			postagem = postagem == "" ? midia.toString() : postagem + " "
 					+ midia.getConteudo();
 		}

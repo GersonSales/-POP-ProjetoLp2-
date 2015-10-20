@@ -1,7 +1,7 @@
 package projeto.maispop.midia;
 
-public abstract class Midia {
-	private String conteudo; // nome provisorio
+public abstract class Midia implements Postavel{
+	private String conteudo;
 
 	public Midia(String conteudo) {
 		this.conteudo = conteudo;
