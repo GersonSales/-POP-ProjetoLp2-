@@ -16,7 +16,7 @@ import projeto.maispop.excecoes.EntradaException;
  * 
  * @author Gerson Sales
  * @author Adson Cesar
- * @see PostagemString
+ * @see PostagemStrings
  * @version 0.3
  *
  */
