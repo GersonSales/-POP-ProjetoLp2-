@@ -24,6 +24,7 @@ public class Classificacoes {
 	
 	private void atualizaMapaHashtag() {
 		for (Usuario usuario : listaUsuarios) {
+			usuario.getP
 			
 		}
 	}
