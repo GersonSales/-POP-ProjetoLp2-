@@ -1,5 +1,11 @@
 package projeto.maispop.testes;
 
+import java.util.Comparator;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -12,34 +18,82 @@ import projeto.maispop.excecoes.UsuarioExistenteException;
 import projeto.maispop.sistema.BancoDeUsuarios;
 
 public class TesteBancoDeUsuario {
-	
-	private BancoDeUsuarios bancoDeUsuarios;
-	
+	SortedMap<String, Integer> hashtags;
+
 	@Before
-	public void instancia() {
-		this.bancoDeUsuarios = new BancoDeUsuarios();
+	public void testeBancoDeUsuario() {
+		this.hashtags = new TreeMap<>();
+
 	}
+	
+	
+
 
 	@Test
-	public void test() throws EntradaException, LogicaException {
-		//expectError "Erro no cadastro de Usuarios. Data nao existe."  
-		//cadastraUsuario nome="Fulaninho" email="alguem@email.com" senha="senha_besta" dataNasc="32/10/2010"
-		//Text '1510/10/2010' could not be parsed at index 2
-		//Text '32/10/2010' could not be parsed: Invalid value for DayOfMonth (valid values 1 - 28/31): 32
+	public void testeTreeMap() {
+		
+		String casa = "#casa";
+		Integer ocorrenciaCasa = 1;
+		
+		adicionaHashtag(casa, ocorrenciaCasa);
+		imprimeMapa();
+		
+		String partiu = "#partiu";
+		Integer ocorrenciaPartiu = 5;
+		
+		adicionaHashtag(partiu, ocorrenciaPartiu);
+		imprimeMapa();
+		
+		String partiu2 = "#partiu";
+		Integer ocorrenciaPartiu2 = 6;
+		
+		adicionaHashtag(partiu2, ocorrenciaPartiu2);
+		imprimeMapa();
+		
 
-		//<Nao foi possivel realizar login. Um usuarix ja esta logadx: Fatima Bernardes.>
-		//<Nao foi possivel realizar login.  Um usuarix ja esta logadx: Fatima Bernardes.>
-
-
-		//try {
-			this.bancoDeUsuarios.cadastraUsuario("Fulaninho", "alguem@email.com", "senha_besta", "32/10/2010");
-		//}catch (EmailException e) {
-		//	System.out.println();
-		//	Assert.fail();
-		//}catch (Exception e) {
-		//	System.out.println(e.getMessage());
-		//}
+	}
+	
+	
+	
+	public void imprimeMapa() {
+		System.out.println(this.hashtags);
+	}
+	
+	
+	public void adicionaHashtag(String hashtag, Integer ocorrencia) {
+		this.hashtags.put(hashtag, ocorrencia);
 		
 	}
 
+	
+	
+	
+//	public void adicionaHashtag(String hashtag, Integer ocorrencia) {
+//		
+//		if (this.hashtags.containsKey(ocorrencia)) {
+//			this.hashtags.get(ocorrencia).add(hashtag);
+//		} else {
+//			Set<String> setHashtags = new HashSet<>();
+//			setHashtags.add(hashtag);
+//
+//			this.hashtags.put(ocorrencia, setHashtags);
+//		}
+//		
+//	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
