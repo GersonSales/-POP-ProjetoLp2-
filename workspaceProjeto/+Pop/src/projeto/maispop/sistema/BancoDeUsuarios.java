@@ -19,23 +19,20 @@ public class BancoDeUsuarios {
 		this.usuarios = new ArrayList<>();
 	}
 
-	public void cadastraUsuario(String nome, String email, String senha,
-			String dataNascimento, String imagem) throws EntradaException,
-			UsuarioExistenteException {
+	public void cadastraUsuario(String nome, String email, String senha, String dataNascimento, String imagem)
+			throws EntradaException, UsuarioExistenteException {
 
 		if (verificaEmailExistente(email)) {
 			throw new UsuarioExistenteException();
 		}
 
-		Usuario novoUsuario = new Usuario(nome, email, senha, dataNascimento,
-				imagem);
+		Usuario novoUsuario = new Usuario(nome, email, senha, dataNascimento, imagem);
 		this.usuarios.add(novoUsuario);
 
 	}
 
-	public void cadastraUsuario(String nome, String email, String senha,
-			String dataNascimento) throws EntradaException,
-			UsuarioExistenteException {
+	public void cadastraUsuario(String nome, String email, String senha, String dataNascimento)
+			throws EntradaException, UsuarioExistenteException {
 		if (verificaEmailExistente(email)) {
 			throw new UsuarioExistenteException();
 		}
@@ -57,23 +54,19 @@ public class BancoDeUsuarios {
 		return false;
 	}
 
-	public Usuario getUsuario(String emailUsuario)
-			throws UsuarioInexistenteException {
+	public Usuario getUsuario(String emailUsuario) throws UsuarioInexistenteException {
 		for (Usuario usuario : usuarios) {
 			if (usuario.getEmail().equals(emailUsuario)) {
 				return usuario;
 			}
 		}
-		throw new UsuarioInexistenteException("Um usuarix com email "
-				+ emailUsuario + " nao esta cadastradx.");
+		throw new UsuarioInexistenteException("Um usuarix com email " + emailUsuario + " nao esta cadastradx.");
 	}
 
-	public String getInfoUsuario(String atributo, String email)
-			throws EntradaException, LogicaException {
+	public String getInfoUsuario(String atributo, String email) throws EntradaException, LogicaException {
 		Usuario usuario = getUsuario(email);
 		if (usuario == null) {
-			throw new UsuarioInexistenteException("Um usuarix com email "
-					+ email + " nao esta cadastradx.");
+			throw new UsuarioInexistenteException("Um usuarix com email " + email + " nao esta cadastradx.");
 		}
 
 		switch (atributo) {
@@ -92,9 +85,8 @@ public class BancoDeUsuarios {
 		}
 	}
 
-	public void atualizaPerfil(String atributo, String valor,
-			String antigoValor, String email) throws SenhaException,
-			UsuarioInexistenteException {
+	public void atualizaPerfil(String atributo, String valor, String antigoValor, String email)
+			throws SenhaException, UsuarioInexistenteException {
 		Usuario usuario = getUsuario(email);
 
 		if (usuario.getSenha().equals(antigoValor)) {
@@ -130,4 +122,7 @@ public class BancoDeUsuarios {
 	}
 
 	// RELACIONAMENTO ENTRE USUARIOS:
+
+
+
 }

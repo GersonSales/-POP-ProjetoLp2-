@@ -110,7 +110,7 @@ public class Controller {
     }
 
     public void curtirPost(String emailUsuario, int postagem)
-	    throws UsuarioInexistenteException {
+	    throws UsuarioInexistenteException, EntradaException {
 	Usuario amigo = bancoDeUsuarios.getUsuario(emailUsuario);
 
 	if (!(this.usuarioLogado.contemAmigo(emailUsuario))) {
@@ -126,7 +126,7 @@ public class Controller {
     }
 
     public void descurtirPost(String emailUsuario, int postagem)
-	    throws UsuarioInexistenteException {
+	    throws UsuarioInexistenteException, EntradaException {
 
 	Usuario amigo = bancoDeUsuarios.getUsuario(emailUsuario);
 

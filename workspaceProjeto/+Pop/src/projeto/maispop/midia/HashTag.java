@@ -1,11 +1,19 @@
 package projeto.maispop.midia;
 
+import projeto.maispop.excecoes.EntradaException;
+
 public class HashTag implements Postavel{
 	
 	private static final String TAG_INICIAL = "#";
 	private String conteudo;
 
-	public HashTag(String conteudo) {
+	public HashTag(String conteudo) throws EntradaException {
+		if (!(conteudo.matches(getMarcacao()))) {
+			throw new EntradaException(
+					"As hashtags devem comecar com '#'. Erro na hashtag: '"
+							+ conteudo + "'.");
+		}
+		
 		this.conteudo = conteudo;
 	}
 	

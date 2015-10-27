@@ -355,11 +355,11 @@ public class Usuario {
 		return this.listaDeAmigos.contemAmigo(emailUsuario);
 	}
 
-	public void curtir(Postagem postagem) {
+	public void curtir(Postagem postagem) throws EntradaException {
 		this.tipoUsuario.curtir(postagem);
 	}
 
-	public void descurtir(Postagem postagem) {
+	public void descurtir(Postagem postagem) throws EntradaException {
 		this.tipoUsuario.descurtir(postagem);
 	}
 

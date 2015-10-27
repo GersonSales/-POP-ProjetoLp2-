@@ -167,7 +167,7 @@ public class Postagem {
 		this.descurtir = getDescurtir() + 1;
 	}
 
-	public void adicionaHashTag(String hashTag) {
+	public void adicionaHashTag(String hashTag) throws EntradaException {
 		Postavel novaHashTag = new HashTag(hashTag);
 		this.listaMidia.add(novaHashTag);
 	}

@@ -34,7 +34,7 @@ public enum FabricaMidia {
 	HASHTAG {
 
 		@Override
-		public Postavel getMidia(String conteudo) {
+		public Postavel getMidia(String conteudo) throws EntradaException {
 			return new HashTag(conteudo);
 		}
 
@@ -78,9 +78,7 @@ public enum FabricaMidia {
 				}
 
 				if (fabMidia == FabricaMidia.HASHTAG && !adiciona) {
-					throw new EntradaException(
-							"As hashtags devem comecar com '#'. Erro na hashtag: '"
-									+ string + "'.");
+					listaMidia.add(fabMidia.getMidia(string));
 				}
 			}
 

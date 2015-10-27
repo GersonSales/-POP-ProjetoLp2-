@@ -165,7 +165,7 @@ public class Facade {
     }
     
     public void curtirPost(String emailUsuario, int postagem)
-	    throws UsuarioInexistenteException {
+	    throws UsuarioInexistenteException, EntradaException {
 	this.controller.curtirPost(emailUsuario, postagem);
     }
 
