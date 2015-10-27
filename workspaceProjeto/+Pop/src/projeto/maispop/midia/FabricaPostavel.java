@@ -5,7 +5,7 @@ import java.util.List;
 
 import projeto.maispop.excecoes.EntradaException;
 
-public enum FabricaMidia {
+public enum FabricaPostavel {
 
 	IMAGEM {
 		@Override
@@ -70,15 +70,15 @@ public enum FabricaMidia {
 		boolean adiciona = true;
 		for (String string : postagemSplit) {
 
-			for (FabricaMidia fabMidia : FabricaMidia.values()) {
-				if (string.matches(fabMidia.getMarcacao())) {
-					listaMidia.add(fabMidia.getMidia(string));
+			for (FabricaPostavel fabPost : FabricaPostavel.values()) {
+				if (string.matches(fabPost.getMarcacao())) {
+					listaMidia.add(fabPost.getMidia(string));
 					adiciona = false;
 					break;
 				}
 
-				if (fabMidia == FabricaMidia.HASHTAG && !adiciona) {
-					listaMidia.add(fabMidia.getMidia(string));
+				if (fabPost == FabricaPostavel.HASHTAG && !adiciona) {
+					listaMidia.add(fabPost.getMidia(string));
 				}
 			}
 
@@ -87,7 +87,7 @@ public enum FabricaMidia {
 				continue;
 			}
 		}
-		listaMidia.add(0, FabricaMidia.MENSAGEM.getMidia(texto));
+		listaMidia.add(0, FabricaPostavel.MENSAGEM.getMidia(texto));
 
 		return listaMidia;
 	}

@@ -43,7 +43,7 @@ public class Postagem {
 	 * @throws EntradaException; Caso o conteudo passado nao atenda os requisitos.
 	 */
 	private void organizaPostagem(String conteudo) throws EntradaException {
-		this.listaMidia = FabricaMidia.getListaMidia(conteudo);
+		this.listaMidia = FabricaPostavel.getListaMidia(conteudo);
 	}
 
 	
