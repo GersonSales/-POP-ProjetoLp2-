@@ -15,7 +15,7 @@ import easyaccept.EasyAccept;
  * vez que fizer alguma alteracao relacionada ao tema de cada teste, por menor
  * que seja a alteracao nao hesite, teste. Se quiser adicionar um novo caso de
  * teste basta apenas adicionar o arquivo desejado na pasta 'EasyAccept' e
- * adicionar o caminho do arquivo a lista 'args' a..
+ * adicionar o caminho do arquivo a lista 'args' a.
  * 
  * @author Adson Cesar.
  * @author Gerson Sales.
@@ -26,7 +26,7 @@ public class TesteEA {
     public static void main(String[] args) {
 	args = new String[] { "projeto.maispop.sistema.Facade",
 		"EasyAccept/CasoDeTeste1.txt", "EasyAccept/CasoDeTeste2.txt",
-		"EasyAccept/CasoDeTeste3.txt", "EasyAccept/CasoDeTeste4.txt" };
+		"EasyAccept/CasoDeTeste3.txt", "EasyAccept/CasoDeTeste4.txt"};
 	EasyAccept.main(args);
     }
     

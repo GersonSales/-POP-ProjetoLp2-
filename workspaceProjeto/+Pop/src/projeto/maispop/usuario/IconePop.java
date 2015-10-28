@@ -1,7 +1,7 @@
 package projeto.maispop.usuario;
 
 import projeto.maispop.excecoes.EntradaException;
-import projeto.maispop.midia.Postagem;
+import projeto.maispop.postagem.Postagem;
 public class IconePop implements TipoUsuario {
 
     @Override

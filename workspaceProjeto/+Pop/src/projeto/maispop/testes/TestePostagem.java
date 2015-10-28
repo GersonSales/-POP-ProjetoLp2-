@@ -4,7 +4,7 @@ package projeto.maispop.testes;
 import org.junit.Test;
 
 import projeto.maispop.excecoes.EntradaException;
-import projeto.maispop.midia.FabricaPostavel;
+import projeto.maispop.postagem.FabricaPostavel;
 
 public class TestePostagem {
 

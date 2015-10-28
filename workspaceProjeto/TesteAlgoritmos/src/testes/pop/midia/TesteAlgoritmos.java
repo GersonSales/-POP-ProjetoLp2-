@@ -4,6 +4,8 @@ import static org.junit.Assert.*;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.junit.Test;
@@ -13,7 +15,17 @@ public class TesteAlgoritmos {
 	
 	@Test
 	public void testeTexto() {
-		testeClass();
+		List<String> listaString = new ArrayList<>();
+		
+		listaString.add("Gerson");
+		System.out.println(listaString);
+		
+		for (int i = 0; i < 10; i ++) {
+			listaString.add(null);
+		}
+		
+		System.out.println(listaString);
+		
 	}
 	
 	public void testeClass() {

@@ -1,6 +1,8 @@
 package projeto.maispop.sistema;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import projeto.maispop.excecoes.EntradaException;
@@ -19,20 +21,23 @@ public class BancoDeUsuarios {
 		this.usuarios = new ArrayList<>();
 	}
 
-	public void cadastraUsuario(String nome, String email, String senha, String dataNascimento, String imagem)
-			throws EntradaException, UsuarioExistenteException {
+	public void cadastraUsuario(String nome, String email, String senha,
+			String dataNascimento, String imagem) throws EntradaException,
+			UsuarioExistenteException {
 
 		if (verificaEmailExistente(email)) {
 			throw new UsuarioExistenteException();
 		}
 
-		Usuario novoUsuario = new Usuario(nome, email, senha, dataNascimento, imagem);
+		Usuario novoUsuario = new Usuario(nome, email, senha, dataNascimento,
+				imagem);
 		this.usuarios.add(novoUsuario);
 
 	}
 
-	public void cadastraUsuario(String nome, String email, String senha, String dataNascimento)
-			throws EntradaException, UsuarioExistenteException {
+	public void cadastraUsuario(String nome, String email, String senha,
+			String dataNascimento) throws EntradaException,
+			UsuarioExistenteException {
 		if (verificaEmailExistente(email)) {
 			throw new UsuarioExistenteException();
 		}
@@ -54,19 +59,23 @@ public class BancoDeUsuarios {
 		return false;
 	}
 
-	public Usuario getUsuario(String emailUsuario) throws UsuarioInexistenteException {
+	public Usuario getUsuario(String emailUsuario)
+			throws UsuarioInexistenteException {
 		for (Usuario usuario : usuarios) {
 			if (usuario.getEmail().equals(emailUsuario)) {
 				return usuario;
 			}
 		}
-		throw new UsuarioInexistenteException("Um usuarix com email " + emailUsuario + " nao esta cadastradx.");
+		throw new UsuarioInexistenteException("Um usuarix com email "
+				+ emailUsuario + " nao esta cadastradx.");
 	}
 
-	public String getInfoUsuario(String atributo, String email) throws EntradaException, LogicaException {
+	public String getInfoUsuario(String atributo, String email)
+			throws EntradaException, LogicaException {
 		Usuario usuario = getUsuario(email);
 		if (usuario == null) {
-			throw new UsuarioInexistenteException("Um usuarix com email " + email + " nao esta cadastradx.");
+			throw new UsuarioInexistenteException("Um usuarix com email "
+					+ email + " nao esta cadastradx.");
 		}
 
 		switch (atributo) {
@@ -85,8 +94,9 @@ public class BancoDeUsuarios {
 		}
 	}
 
-	public void atualizaPerfil(String atributo, String valor, String antigoValor, String email)
-			throws SenhaException, UsuarioInexistenteException {
+	public void atualizaPerfil(String atributo, String valor,
+			String antigoValor, String email) throws SenhaException,
+			UsuarioInexistenteException {
 		Usuario usuario = getUsuario(email);
 
 		if (usuario.getSenha().equals(antigoValor)) {
@@ -120,9 +130,40 @@ public class BancoDeUsuarios {
 			throw new EntradaException();
 		}
 	}
+	
+	public int dimensaoBanco() {
+		return this.usuarios.size();
+	}
 
-	// RELACIONAMENTO ENTRE USUARIOS:
+	//RANKING DE USUARIOS:
 
+	public void ordenaBanco() {
+		Collections.sort(this.usuarios, new Comparator<Usuario>() {
 
+			@Override
+			public int compare(Usuario usuario, Usuario outroUsuario) {
+				int compare = usuario.compareTo(outroUsuario);
+
+				return compare == 0 ? usuario.getNome().compareTo(
+						outroUsuario.getNome()) : compare;
+
+			}
+		});
+	}
+
+	public void get3Melhores() {
+		ordenaBanco();
+		for (int i = dimensaoBanco(); i > dimensaoBanco() - 3; i--) {
+			System.out.println(this.usuarios.get(i));
+		}
+	}
+
+	public void get3Piores() {
+		ordenaBanco();
+		for (int i = 0; i < 3; i++) {
+			System.out.println(this.usuarios.get(i));
+		}
+
+	}
 
 }

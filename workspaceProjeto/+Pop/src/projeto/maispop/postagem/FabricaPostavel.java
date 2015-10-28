@@ -1,4 +1,4 @@
-package projeto.maispop.midia;
+package projeto.maispop.postagem;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,6 +1,6 @@
 package projeto.maispop.usuario;
 
-import projeto.maispop.midia.Postagem;
+import projeto.maispop.postagem.Postagem;
 
 public class NormalPop implements TipoUsuario {
 

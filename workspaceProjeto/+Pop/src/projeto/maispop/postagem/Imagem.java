@@ -1,11 +1,11 @@
-package projeto.maispop.midia;
+package projeto.maispop.postagem;
 
-public class Audio extends Midia {
-
-	private static final CharSequence TAG_INICIAL = "<audio>";
-	private static final CharSequence TAG_FINAL = "</audio>";
-
-	public Audio(String conteudo) {
+public class Imagem extends Midia {
+	
+	private final static String TAG_INICIAL = "<imagem>";
+	private final static String TAG_FINAL = "</imagem>";
+	
+	public Imagem(String conteudo) {
 		super(conteudo);
 	}
 	
@@ -18,9 +18,10 @@ public class Audio extends Midia {
 		String conteudo;
 		conteudo = getConteudo().replace(TAG_INICIAL, "");
 		conteudo = conteudo.replace(TAG_FINAL, "");
-		conteudo = "$arquivo_audio:" + conteudo;
+		conteudo = "$arquivo_imagem:" + conteudo;
 		
 		return conteudo;
 	}
+
 
 }

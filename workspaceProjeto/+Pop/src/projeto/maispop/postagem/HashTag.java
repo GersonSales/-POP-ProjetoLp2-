@@ -1,4 +1,4 @@
-package projeto.maispop.midia;
+package projeto.maispop.postagem;
 
 import projeto.maispop.excecoes.EntradaException;
 
