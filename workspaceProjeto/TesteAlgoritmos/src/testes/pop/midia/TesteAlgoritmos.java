@@ -2,6 +2,8 @@ package testes.pop.midia;
 
 import static org.junit.Assert.*;
 
+import java.lang.reflect.Method;
+import java.lang.reflect.Parameter;
 import java.util.Optional;
 
 import org.junit.Test;
@@ -11,11 +13,22 @@ public class TesteAlgoritmos {
 	
 	@Test
 	public void testeTexto() {
+		testeClass();
+	}
+	
+	public void testeClass() {
 		
-		String[] teste = new String[5];
-		teste[0] = "t1";
-		teste[1] = "t2";
-		imprimeStrings(teste);
+		Class<?> testeAlg =  this.getClass();
+		
+		Method[] metodos  = testeAlg.getMethods();
+		
+		for (Method method : metodos) {
+			Parameter[] parametro = method.getParameters();
+			for (Parameter parameter : parametro) {
+				System.out.println(method.getName() + ":  " + parameter.getName());
+			}
+			System.out.println();
+		}
 		
 	}
 

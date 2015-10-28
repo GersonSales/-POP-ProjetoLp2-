@@ -24,7 +24,7 @@ public class UsuarioFormat {
 		return instancia;
 	}
 
-	public String validaNome(String nome) throws NomeException{
+	public String validaNome(String nome) throws NomeException {
 		String padraoNome = "(\\w+(\\s)*)+";
 		if (nome.matches(padraoNome)) {
 			return nome;
@@ -58,11 +58,7 @@ public class UsuarioFormat {
 			return sData.toString();
 
 		} catch (DateTimeException erro) {
-			if (erro.getMessage().contains("Invalid")) {
-				throw new DataException("Data nao existe.");
-			} else {
-				throw new DataException("Formato de data esta invalida.");
-			}
+			throw new DataException("Data nao existe.");
 		}
 	}
 
