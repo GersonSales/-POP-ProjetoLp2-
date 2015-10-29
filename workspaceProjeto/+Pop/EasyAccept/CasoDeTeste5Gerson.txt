@@ -3,7 +3,7 @@ iniciaSistema
 login email="naza_foguete@hotmail.com" senha="belzinha"
 criaPost mensagem="Eu nao sou preconceituosa, mais aqui esta cheio de anta nordestina. #anta #separa" data="01/08/2015 12:00:00"
 criaPost mensagem="Esse frio esta mim deixando doida. #alucicrazy #CGDaDepressao #TestandoHashtag" data="01/08/2015 21:35:00"
-criaPost mensagem="Nao sei porque tanto recalque, o que eh bonito eh pra se mostrar. <audio>musicas/poderosas.mp3</audio> #soulinda #naza #TestandoHashtag" data="03/08/2015 08:21:00"
+criaPost mensagem="Nao sei porque tanto recalque, o que eh bonito eh pra se mostrar. <audio>musicas/poderosas.mp3</audio> #soulinda #naza #TestandoHashtag #casa #casa #casa" data="03/08/2015 08:21:00"
 logout
 
 printaHashtag

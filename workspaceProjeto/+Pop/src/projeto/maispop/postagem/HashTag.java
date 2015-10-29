@@ -2,8 +2,8 @@ package projeto.maispop.postagem;
 
 import projeto.maispop.excecoes.EntradaException;
 
-public class HashTag implements Postavel{
-	
+public class HashTag implements Postavel, Comparable<HashTag> {
+
 	private static final String TAG_INICIAL = "#";
 	private String conteudo;
 
@@ -13,14 +13,14 @@ public class HashTag implements Postavel{
 					"As hashtags devem comecar com '#'. Erro na hashtag: '"
 							+ conteudo + "'.");
 		}
-		
+
 		this.conteudo = conteudo;
 	}
-	
+
 	public static String getMarcacao() {
 		return TAG_INICIAL + "\\S+";
 	}
-	
+
 	@Override
 	public String toString() {
 		return getConteudo().replace(" ", ",");
@@ -35,7 +35,7 @@ public class HashTag implements Postavel{
 	public void setConteudo(String conteudo) {
 		this.conteudo = conteudo;
 	}
-	
+
 	@Override
 	public boolean equals(Object objeto) {
 		if (objeto instanceof HashTag) {
@@ -46,6 +46,11 @@ public class HashTag implements Postavel{
 			return false;
 		}
 		return false;
+	}
+
+	@Override
+	public int compareTo(HashTag outraHashtag) {
+		return getConteudo().compareToIgnoreCase(outraHashtag.getConteudo());
 	}
 
 }
