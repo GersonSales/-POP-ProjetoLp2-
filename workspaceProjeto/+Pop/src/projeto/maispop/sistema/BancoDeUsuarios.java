@@ -16,13 +16,9 @@ import projeto.maispop.usuario.Usuario;
 public class BancoDeUsuarios {
 
 	private List<Usuario> usuarios;
-	private List<Usuario> tresMelhores;
-	private List<Usuario> tresPiores;
 
 	public BancoDeUsuarios() {
 		this.usuarios = new ArrayList<>();
-		this.tresMelhores = new ArrayList<>();
-		this.tresPiores = new ArrayList<>();
 	}
 
 	public void cadastraUsuario(String nome, String email, String senha,
@@ -143,28 +139,44 @@ public class BancoDeUsuarios {
 
 	private void ordenaBanco() {
 		Collections.sort(this.usuarios);
-		this.tresMelhores.addAll(this.usuarios);
+	}
+	
+	private void ordenaInversoBanco() {
+		this.usuarios.sort(new Comparator<Usuario>() {
+			@Override
+			public int compare(Usuario u1, Usuario u2) {
+				return u2.compareTo(u1);
+			}
+		});
 	}
 
 	public void get3Melhores() {
-		ordenaBanco();
-		System.out.println("3 MELHORES:");
-		for (int i = dimensaoBanco() - 1; i > dimensaoBanco() - 4; i--) {
-			System.out.println(this.usuarios.get(i));
-			System.out.println();
+		ordenaInversoBanco();
+		String fdl = System.getProperty("line.separator");
+		String melhores = "Melhores: " + fdl;
+		int cont = 0;
+		for (Usuario usuario : this.usuarios) {
+			melhores = melhores + usuario + fdl;
+			if (cont == 3){
+				break;
+			}
+			cont ++;
 		}
-		System.out.println();
 	}
 
 	public void get3Piores() {
 		ordenaBanco();
-		System.out.println("3 PIORES:");
-		for (int i = 0; i < 3; i++) {
-			System.out.println(this.usuarios.get(i));
-			System.out.println();
+		String fdl = System.getProperty("line.separator");
+		String piores = "Melhores: " + fdl;
+		int cont = 0;
+		for (Usuario usuario : this.usuarios) {
+			piores = piores + usuario + fdl;
+			if (cont == 3){
+				break;
+			}
+			cont ++;
 		}
-		System.out.println();
-
 	}
+	
 
 }

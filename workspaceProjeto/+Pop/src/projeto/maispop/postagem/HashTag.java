@@ -35,5 +35,17 @@ public class HashTag implements Postavel{
 	public void setConteudo(String conteudo) {
 		this.conteudo = conteudo;
 	}
+	
+	@Override
+	public boolean equals(Object objeto) {
+		if (objeto instanceof HashTag) {
+			HashTag outraHashtag = (HashTag) objeto;
+			if (getConteudo().equals(outraHashtag.getConteudo())) {
+				return true;
+			}
+			return false;
+		}
+		return false;
+	}
 
 }

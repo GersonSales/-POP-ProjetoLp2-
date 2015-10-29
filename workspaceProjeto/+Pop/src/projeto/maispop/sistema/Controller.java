@@ -9,6 +9,7 @@ import projeto.maispop.excecoes.SolicitacaoException;
 import projeto.maispop.excecoes.UsuarioExistenteException;
 import projeto.maispop.excecoes.UsuarioInexistenteException;
 import projeto.maispop.usuario.Usuario;
+import projeto.maispop.postagem.BancoHashtag;
 import projeto.maispop.postagem.Postagem;
 
 public class Controller {
@@ -222,16 +223,19 @@ public class Controller {
 					"Nao foi possivel fechar o sistema. Um usuarix ainda esta logadx.");
 		}
 	}
-	
-	
-	//Teste de Ranking
-	
+
+	// Teste de Ranking
+
 	public void get3Melhores() {
 		this.bancoDeUsuarios.get3Melhores();
 	}
-	
+
 	public void get3Piores() {
 		this.bancoDeUsuarios.get3Piores();
+	}
+
+	public void printaHashtag() {
+		BancoHashtag.getInstancia().printaHashtag();
 	}
 
 }

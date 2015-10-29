@@ -198,5 +198,9 @@ public class Facade {
 	public void get3Piores() {
 		this.controller.get3Piores();
 	}
+	
+	public void printaHashtag() {
+		this.controller.printaHashtag();
+	}
 
 }
