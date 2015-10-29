@@ -58,7 +58,6 @@ public class BancoHashtag {
 	public void printTresMelhores() {
 			
 		Set<Entry<HashTag, Integer>> teste = this.mapaHashtags.entrySet();
-		Collections.sort(teste);
 		System.out.println(teste);
 	}
 
