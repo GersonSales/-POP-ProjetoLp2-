@@ -143,6 +143,7 @@ public class BancoDeUsuarios {
 
 	private void ordenaBanco() {
 		Collections.sort(this.usuarios);
+		this.tresMelhores.addAll(this.usuarios);
 	}
 
 	public void get3Melhores() {
