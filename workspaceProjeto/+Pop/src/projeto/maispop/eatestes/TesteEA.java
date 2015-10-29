@@ -17,7 +17,6 @@ import easyaccept.EasyAccept;
  * teste basta apenas adicionar o arquivo desejado na pasta 'EasyAccept' e
  * adicionar o caminho do arquivo a lista 'args' a.
  * 
- * @author Adson Cesar.
  * @author Gerson Sales.
  *
  */
