@@ -1,12 +1,12 @@
 package projeto.maispop.postagem;
 
+import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.plaf.basic.BasicScrollPaneUI.HSBChangeListener;
-
+import projeto.maispop.excecoes.DataException;
 import projeto.maispop.excecoes.EntradaException;
 import projeto.maispop.excecoes.ItemInexistenteException;
 
@@ -14,26 +14,26 @@ public class Postagem {
 
 	private List<Postavel> listaMidia;
 	private List<HashTag> hashtags;
-	
+
 	private String dataPostagem;
 
 	private int popularidade;
 	private int curtir;
 	private int descurtir;
-	
+
 	private BancoHashtag bancoHashtag;
-	
+
 	public Postagem(String conteudo, String dataPostagem)
 			throws EntradaException {
 		this.listaMidia = new ArrayList<>();
 		this.hashtags = new ArrayList<>();
 		this.bancoHashtag = BancoHashtag.getInstancia();
-		
+
 		organizaPostagem(conteudo);
 		this.dataPostagem = formatData(dataPostagem);
-		
+
 		bancoHashtag.adicionaTodas(hashtags);
-		
+
 	}
 
 	/**
@@ -51,23 +51,24 @@ public class Postagem {
 	 * <code>FabricaMidia</code> a resposabilidade de 'qubrar' a string passada
 	 * como parametro e transforma-la em <code>Midia</code>.
 	 * 
-	 * @param conteudo; String a ser pecorrida.
-	 * @throws EntradaException; Caso o conteudo passado nao atenda os requisitos.
+	 * @param conteudo
+	 *            ; String a ser pecorrida.
+	 * @throws EntradaException
+	 *             ; Caso o conteudo passado nao atenda os requisitos.
 	 */
 	private void organizaPostagem(String conteudo) throws EntradaException {
-		//this.listaMidia = FabricaPostavel.getListaMidia(conteudo);
-		
+		// this.listaMidia = FabricaPostavel.getListaMidia(conteudo);
+
 		for (Postavel postavel : FabricaPostavel.getListaMidia(conteudo)) {
 			if (postavel instanceof HashTag) {
-				this.hashtags.add((HashTag)postavel);
-			}else {
+				this.hashtags.add((HashTag) postavel);
+			} else {
 				this.listaMidia.add(postavel);
 			}
-			
+
 		}
 	}
 
-	
 	public String getMensagem() {
 		String saida = "";
 		for (Postavel midia : this.listaMidia) {
@@ -84,7 +85,7 @@ public class Postagem {
 	public String getHashTags() {
 		String saida = "";
 
-		for (HashTag hashtag: this.hashtags) {
+		for (HashTag hashtag : this.hashtags) {
 			if (hashtag instanceof HashTag) {
 				saida = saida == "" ? hashtag.getConteudo() : saida + ","
 						+ hashtag.getConteudo();
@@ -93,7 +94,7 @@ public class Postagem {
 
 		return saida;
 	}
-	
+
 	private int dimensaoListaMidia() {
 		return this.listaMidia.size();
 	}
@@ -128,15 +129,29 @@ public class Postagem {
 	 *            . String recebida como paramero para aplicacao do novo padrao.
 	 * @return novaData. String representando uma data como um novo padrao de
 	 *         formatacao.
+	 * @throws DataException
 	 */
-	public String formatData(String dataPostagem) {
-		DateTimeFormatter padrao = DateTimeFormatter
-				.ofPattern("dd/MM/yyyy HH:mm:ss");
-		DateTimeFormatter novoPadrao = DateTimeFormatter
-				.ofPattern("yyyy-MM-dd HH:mm:ss");
-		String novaData = LocalDateTime.parse(dataPostagem, padrao).format(
-				novoPadrao);
-		return novaData;
+	public String formatData(String dataPostagem) throws DataException {
+
+		String padraoData = "[0-9]{2,2}/[0-9]{2,2}/[0-9]{4,4} [0-2]{1}[0-9]{1}:[0-6]{1}[0-9]{1}:[0-6]{1}[0-9]{1}";
+
+		if (!(dataPostagem.matches(padraoData))) {
+			throw new DataException("Formato de data esta invalida.");
+		}
+
+		try {
+			DateTimeFormatter padrao = DateTimeFormatter
+					.ofPattern("dd/MM/yyyy HH:mm:ss");
+			DateTimeFormatter novoPadrao = DateTimeFormatter
+					.ofPattern("yyyy-MM-dd HH:mm:ss");
+			String novaData = LocalDateTime.parse(dataPostagem, padrao).format(
+					novoPadrao);
+			return novaData;
+
+		} catch (DateTimeException erro) {
+			throw new DataException("Data nao existe.");
+		}
+
 	}
 
 	// <Metodos temporariamente em desuso>
@@ -183,8 +198,21 @@ public class Postagem {
 	}
 
 	public void adicionaHashTag(String hashTag) throws EntradaException {
-		Postavel novaHashTag = new HashTag(hashTag);
-		this.listaMidia.add(novaHashTag);
+		HashTag novaHashTag = new HashTag(hashTag);
+		this.hashtags.add(novaHashTag);
+	}
+
+	@Override
+	public boolean equals(Object objeto) {
+		if (objeto instanceof Postagem) {
+			Postagem outraPostagem = (Postagem) objeto;
+			if (getData().equals(outraPostagem.getData())) {
+				if (getMensagem().equals(outraPostagem.getMensagem())) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 
 	@Override
