@@ -235,7 +235,7 @@ public class Controller {
 	}
 
 	public void printaHashtag() {
-		BancoHashtag.getInstancia().printaHashtag();
+		BancoHashtag.getInstancia().get3Melhores();
 	}
 
 }

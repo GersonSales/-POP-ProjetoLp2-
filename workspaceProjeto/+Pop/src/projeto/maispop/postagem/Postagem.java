@@ -32,7 +32,7 @@ public class Postagem {
 		organizaPostagem(conteudo);
 		this.dataPostagem = formatData(dataPostagem);
 		
-		bancoHashtag.adicionaTodasHashtags(hashtags);
+		bancoHashtag.adicionaTodas(hashtags);
 		
 	}
 

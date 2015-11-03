@@ -8,6 +8,7 @@ import org.junit.Test;
 import projeto.maispop.excecoes.EntradaException;
 import projeto.maispop.postagem.FabricaPostavel;
 import projeto.maispop.postagem.HashTag;
+import projeto.maispop.postagem.Tuple;
 
 public class TestePostagem {
 
@@ -32,6 +33,21 @@ public class TestePostagem {
 		} catch (EntradaException e) {
 			e.printStackTrace();
 		}
+		
+	}
+	
+	
+	@Test 
+	public void testeTupla() throws EntradaException {
+		Tuple teste = new Tuple();
+		
+		HashTag hashtag = new HashTag("#teste");
+		Integer inteiro = new Integer(10);
+		
+		teste.setHashtag(hashtag);
+		
+		
+		
 		
 	}
 }

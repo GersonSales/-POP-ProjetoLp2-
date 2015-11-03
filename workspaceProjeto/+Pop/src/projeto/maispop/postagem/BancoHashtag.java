@@ -1,23 +1,14 @@
 package projeto.maispop.postagem;
 
+import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashSet;
+import java.util.Comparator;
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
-import java.util.TreeMap;
 
 public class BancoHashtag {
 
 	private static BancoHashtag instancia;
-	private Map<HashTag, Integer> mapaHashtags;
-	private Set<HashTag> melhores;
-
-	private BancoHashtag() {
-		this.mapaHashtags = new TreeMap<>();
-		this.melhores = new HashSet<>();
-	}
+	private List<TuplaHashtag> listaTuplas;
 
 	public static BancoHashtag getInstancia() {
 		if (instancia == null) {
@@ -26,39 +17,54 @@ public class BancoHashtag {
 		return instancia;
 	}
 
-	public void adicionaHashtag(HashTag hashtag) {
-		atualizaMapa(hashtag);
+	private BancoHashtag() {
+		this.listaTuplas = new ArrayList<>();
 	}
 
-	public void adicionaTodasHashtags(List<HashTag> hashtags) {
-		atualizaMapa(hashtags);
-	}
+	public void adiciona(HashTag hashtag) {
+		if (!(this.listaTuplas.contains(hashtag))) {
+			TuplaHashtag novaTupla = new TuplaHashtag(hashtag, 1);
+			this.listaTuplas.add(novaTupla);
+		} else {
+			int indiceTupla = this.listaTuplas.indexOf(hashtag);
+			TuplaHashtag tupla = this.listaTuplas.get(indiceTupla);
+			tupla.incrementaEmUm();
 
-	public void printaHashtag() {
-		for (Map.Entry<HashTag, Integer> par : this.mapaHashtags.entrySet()) {
-			System.out.println(par);
 		}
-		printTresMelhores();
 	}
 
-	private void atualizaMapa(List<HashTag> hashtags) {
+	public void adicionaTodas(List<HashTag> hashtags) {
 		for (HashTag hashTag : hashtags) {
-			atualizaMapa(hashTag);
+			adiciona(hashTag);
 		}
 	}
 
-	private void atualizaMapa(HashTag hashtag) {
-		if (this.mapaHashtags.containsKey(hashtag)) {
-			this.mapaHashtags.put(hashtag, this.mapaHashtags.get(hashtag) + 1);
-		}else {
-			this.mapaHashtags.put(hashtag, 1);
-		}
+	@SuppressWarnings("unused")
+	private void ordenaCrescente() {
+		Collections.sort(this.listaTuplas);
 	}
-	
-	public void printTresMelhores() {
-			
-		Set<Entry<HashTag, Integer>> teste = this.mapaHashtags.entrySet();
-		System.out.println(teste);
+
+	private void ordenaDecrescente() {
+		Collections.sort(this.listaTuplas, new Comparator<TuplaHashtag>() {
+			@Override
+			public int compare(TuplaHashtag tupla, TuplaHashtag outraTupla) {
+				return -(tupla.compareTo(outraTupla));
+			}
+
+		});
+	}
+
+	public void get3Melhores() {
+		ordenaDecrescente();
+		int cont = 0;
+		for (TuplaHashtag tuplaHashtag : listaTuplas) {
+			if (cont == 3)
+				break;
+			System.out.println(tuplaHashtag);
+			cont++;
+
+		}
+
 	}
 
 }

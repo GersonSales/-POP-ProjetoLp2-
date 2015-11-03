@@ -38,12 +38,16 @@ public class HashTag implements Postavel, Comparable<HashTag> {
 
 	@Override
 	public boolean equals(Object objeto) {
+		if (objeto instanceof TuplaHashtag) {
+			TuplaHashtag tuplaHashtag = (TuplaHashtag) objeto;
+			return tuplaHashtag.equals(this);
+		}
+
 		if (objeto instanceof HashTag) {
 			HashTag outraHashtag = (HashTag) objeto;
 			if (getConteudo().equals(outraHashtag.getConteudo())) {
 				return true;
 			}
-			return false;
 		}
 		return false;
 	}
