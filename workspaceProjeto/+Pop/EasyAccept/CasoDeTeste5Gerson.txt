@@ -7,5 +7,7 @@ criaPost mensagem="Nao sei porque tanto recalque, o que eh bonito eh pra se most
 logout
 
 printaHashtag
+get3Melhores
+get3Piores
 
 fechaSistema

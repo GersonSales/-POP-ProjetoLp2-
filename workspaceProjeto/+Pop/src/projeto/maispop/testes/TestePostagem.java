@@ -1,8 +1,6 @@
 package projeto.maispop.testes;
 
 
-import java.util.HashMap;
-
 import org.junit.Test;
 
 import projeto.maispop.excecoes.EntradaException;
@@ -38,12 +36,6 @@ public class TestePostagem {
 	
 	@Test 
 	public void testeTupla() throws EntradaException {
-		
-		HashTag hashtag = new HashTag("#teste");
-		Integer inteiro = new Integer(10);
-		
-		
-		
 		
 		
 	}

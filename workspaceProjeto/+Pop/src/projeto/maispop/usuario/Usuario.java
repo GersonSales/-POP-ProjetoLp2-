@@ -404,6 +404,9 @@ public class Usuario implements Comparable<Usuario> {
 
 	@Override
 	public int compareTo(Usuario outroUsuario) {
+		if (getPopularidade() == outroUsuario.getPopularidade()) {
+			return getEmail().compareToIgnoreCase(outroUsuario.getEmail());
+		}
 		return getPopularidade() - outroUsuario.getPopularidade();
 	}
 

@@ -137,21 +137,21 @@ public class BancoDeUsuarios {
 
 	//RANKING DE USUARIOS:
 
-	private void ordenaBanco() {
+	private void ordenaCrescente() {
 		Collections.sort(this.usuarios);
 	}
 	
-	private void ordenaInversoBanco() {
+	private void ordenaDecrescente() {
 		this.usuarios.sort(new Comparator<Usuario>() {
 			@Override
-			public int compare(Usuario u1, Usuario u2) {
-				return u2.compareTo(u1);
+			public int compare(Usuario usuario, Usuario outroUsuario) {
+				return outroUsuario.compareTo(usuario);
 			}
 		});
 	}
 
 	public void get3Melhores() {
-		ordenaInversoBanco();
+		ordenaDecrescente();
 		String fdl = System.getProperty("line.separator");
 		String melhores = "Melhores: " + fdl;
 		int cont = 0;
@@ -162,10 +162,11 @@ public class BancoDeUsuarios {
 			}
 			cont ++;
 		}
+		System.out.println(melhores);
 	}
 
 	public void get3Piores() {
-		ordenaBanco();
+		ordenaCrescente();
 		String fdl = System.getProperty("line.separator");
 		String piores = "Melhores: " + fdl;
 		int cont = 0;
@@ -176,6 +177,7 @@ public class BancoDeUsuarios {
 			}
 			cont ++;
 		}
+		System.out.println(piores);
 	}
 	
 

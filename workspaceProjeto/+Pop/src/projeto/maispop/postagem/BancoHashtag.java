@@ -48,7 +48,7 @@ public class BancoHashtag {
 		Collections.sort(this.listaTuplas, new Comparator<TuplaHashtag>() {
 			@Override
 			public int compare(TuplaHashtag tupla, TuplaHashtag outraTupla) {
-				return -(tupla.compareTo(outraTupla));
+				return outraTupla.compareTo(tupla);
 			}
 
 		});
