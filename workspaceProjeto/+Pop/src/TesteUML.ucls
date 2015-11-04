@@ -337,85 +337,89 @@
     <end type="TARGET" refId="14" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <realization id="65">    
+  <dependency id="65">    
+    <end type="SOURCE" refId="16"/>    
+    <end type="TARGET" refId="10"/>  
+  </dependency>  
+  <realization id="66">    
     <end type="SOURCE" refId="5"/>    
     <end type="TARGET" refId="18"/>  
   </realization>  
-  <realization id="66">    
+  <realization id="67">    
     <end type="SOURCE" refId="20"/>    
     <end type="TARGET" refId="18"/>  
   </realization>  
-  <dependency id="67">    
+  <dependency id="68">    
     <end type="SOURCE" refId="18"/>    
     <end type="TARGET" refId="17"/>  
   </dependency>  
-  <association id="68">    
+  <association id="69">    
     <end type="SOURCE" refId="14" navigable="false">      
-      <attribute id="69" name="ranking"/>      
-      <multiplicity id="70" minimum="0" maximum="2147483647"/>    
+      <attribute id="70" name="ranking"/>      
+      <multiplicity id="71" minimum="0" maximum="2147483647"/>    
     </end>    
     <end type="TARGET" refId="12" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="71">    
+  <association id="72">    
     <end type="SOURCE" refId="13" navigable="false">      
-      <attribute id="72" name="hashtag"/>      
-      <multiplicity id="73" minimum="0" maximum="1"/>    
+      <attribute id="73" name="hashtag"/>      
+      <multiplicity id="74" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="4" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="74">    
+  <association id="75">    
     <bendpoint x="1277" y="1528"/>    
     <end type="SOURCE" refId="14" navigable="false">      
-      <attribute id="75" name="usuarios"/>      
-      <multiplicity id="76" minimum="0" maximum="2147483647"/>    
+      <attribute id="76" name="usuarios"/>      
+      <multiplicity id="77" minimum="0" maximum="2147483647"/>    
     </end>    
     <end type="TARGET" refId="12" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <dependency id="77">    
+  <dependency id="78">    
     <end type="SOURCE" refId="16"/>    
     <end type="TARGET" refId="17"/>  
   </dependency>  
-  <realization id="78">    
+  <realization id="79">    
     <end type="SOURCE" refId="2"/>    
     <end type="TARGET" refId="6"/>  
   </realization>  
-  <association id="79">    
+  <association id="80">    
     <bendpoint x="491" y="2098"/>    
     <end type="SOURCE" refId="12" navigable="false">      
-      <attribute id="80" name="mural"/>      
-      <multiplicity id="81" minimum="0" maximum="1"/>    
+      <attribute id="81" name="mural"/>      
+      <multiplicity id="82" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="1" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <generalization id="82">    
+  <generalization id="83">    
     <end type="SOURCE" refId="3"/>    
     <end type="TARGET" refId="2"/>  
   </generalization>  
-  <realization id="83">    
+  <realization id="84">    
     <end type="SOURCE" refId="15"/>    
     <end type="TARGET" refId="18"/>  
   </realization>  
-  <association id="84">    
+  <association id="85">    
     <bendpoint x="1333" y="3264"/>    
     <bendpoint x="1333" y="3509"/>    
     <bendpoint x="1336" y="3768"/>    
     <bendpoint x="1337" y="3893"/>    
     <end type="SOURCE" refId="17" navigable="false">      
-      <attribute id="85" name="listaMidia"/>      
-      <multiplicity id="86" minimum="0" maximum="2147483647"/>    
+      <attribute id="86" name="listaMidia"/>      
+      <multiplicity id="87" minimum="0" maximum="2147483647"/>    
     </end>    
     <end type="TARGET" refId="6" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="87">    
+  <association id="88">    
     <bendpoint x="339" y="2769"/>    
     <end type="SOURCE" refId="1" navigable="false">      
-      <attribute id="88" name="postagens"/>      
-      <multiplicity id="89" minimum="0" maximum="2147483647"/>    
+      <attribute id="89" name="postagens"/>      
+      <multiplicity id="90" minimum="0" maximum="2147483647"/>    
     </end>    
     <end type="TARGET" refId="17" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
