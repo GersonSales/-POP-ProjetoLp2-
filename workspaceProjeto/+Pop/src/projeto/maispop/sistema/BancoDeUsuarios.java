@@ -3,7 +3,9 @@ package projeto.maispop.sistema;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import projeto.maispop.excecoes.EntradaException;
 import projeto.maispop.excecoes.LogicaException;
@@ -16,9 +18,11 @@ import projeto.maispop.usuario.Usuario;
 public class BancoDeUsuarios {
 
 	private List<Usuario> usuarios;
+	private Set<Usuario> ranking;
 
 	public BancoDeUsuarios() {
 		this.usuarios = new ArrayList<>();
+		this.ranking = new HashSet<>();
 	}
 
 	public void cadastraUsuario(String nome, String email, String senha,
@@ -130,17 +134,16 @@ public class BancoDeUsuarios {
 			throw new EntradaException();
 		}
 	}
-	
+
 	public int dimensaoBanco() {
 		return this.usuarios.size();
 	}
 
-	//RANKING DE USUARIOS:
-
+	// RANKING DE USUARIOS:
 	private void ordenaCrescente() {
 		Collections.sort(this.usuarios);
 	}
-	
+
 	private void ordenaDecrescente() {
 		this.usuarios.sort(new Comparator<Usuario>() {
 			@Override
@@ -150,35 +153,35 @@ public class BancoDeUsuarios {
 		});
 	}
 
-	public void get3Melhores() {
-		ordenaDecrescente();
-		String fdl = System.getProperty("line.separator");
-		String melhores = "Melhores: " + fdl;
-		int cont = 0;
-		for (Usuario usuario : this.usuarios) {
-			melhores = melhores + usuario + fdl;
-			if (cont == 3){
-				break;
-			}
-			cont ++;
+	private void poe3primeiros() {
+		for (int i = 0; i < 3; i++) {
+			this.ranking.add(this.usuarios.get(i));
 		}
-		System.out.println(melhores);
 	}
 
-	public void get3Piores() {
+	private void preencheRanking() {
+		this.ranking.clear();
+
+		ordenaDecrescente();
+		poe3primeiros();
+
 		ordenaCrescente();
-		String fdl = System.getProperty("line.separator");
-		String piores = "Melhores: " + fdl;
-		int cont = 0;
-		for (Usuario usuario : this.usuarios) {
-			piores = piores + usuario + fdl;
-			if (cont == 3){
-				break;
-			}
-			cont ++;
-		}
-		System.out.println(piores);
+		poe3primeiros();
 	}
-	
+
+	public void imprimeRanking() {
+		preencheRanking();
+		int cont = 0;
+		System.out.println("Melhores: ");
+		for (Usuario usuario : ranking) {
+			if (cont == 3) {
+				System.out.println("Piores: ");
+			}
+
+			System.out.println(usuario.getNome() + " "
+					+ usuario.getPopularidade());
+			cont++;
+		}
+	}
 
 }

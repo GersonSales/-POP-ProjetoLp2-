@@ -191,16 +191,13 @@ public class Facade {
 	
 	
 	//teste de ranking 
-	public void get3Melhores() {
-		this.controller.get3Melhores();
+	
+	public void imprimeRanking() {
+		this.controller.imprimeRanking();;
 	}
 	
-	public void get3Piores() {
-		this.controller.get3Piores();
-	}
-	
-	public void printaHashtag() {
-		this.controller.printaHashtag();
+	public void melhoresHashtags() {
+		this.controller.melhoresHashtags();
 	}
 
 }

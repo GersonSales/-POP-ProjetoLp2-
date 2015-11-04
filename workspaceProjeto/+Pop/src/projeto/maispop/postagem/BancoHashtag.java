@@ -39,11 +39,6 @@ public class BancoHashtag {
 		}
 	}
 
-	@SuppressWarnings("unused")
-	private void ordenaCrescente() {
-		Collections.sort(this.listaTuplas);
-	}
-
 	private void ordenaDecrescente() {
 		Collections.sort(this.listaTuplas, new Comparator<TuplaHashtag>() {
 			@Override
@@ -56,15 +51,9 @@ public class BancoHashtag {
 
 	public void get3Melhores() {
 		ordenaDecrescente();
-		int cont = 0;
-		for (TuplaHashtag tuplaHashtag : listaTuplas) {
-			if (cont == 3)
-				break;
-			System.out.println(tuplaHashtag);
-			cont++;
-
+		for (int i = 0; i < 3; i++) {
+			System.out.println(listaTuplas.get(i));
 		}
-
 	}
 
 }
