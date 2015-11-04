@@ -21,18 +21,16 @@ public class Postagem {
 	private int curtir;
 	private int descurtir;
 
-	private BancoHashtag bancoHashtag;
 
 	public Postagem(String conteudo, String dataPostagem)
 			throws EntradaException {
 		this.listaMidia = new ArrayList<>();
 		this.hashtags = new ArrayList<>();
-		this.bancoHashtag = BancoHashtag.getInstancia();
 
 		organizaPostagem(conteudo);
 		this.dataPostagem = formatData(dataPostagem);
 
-		bancoHashtag.adicionaTodas(hashtags);
+		BancoHashtag.getInstancia().adicionaTodas(hashtags);
 
 	}
 
@@ -59,7 +57,7 @@ public class Postagem {
 	private void organizaPostagem(String conteudo) throws EntradaException {
 		// this.listaMidia = FabricaPostavel.getListaMidia(conteudo);
 
-		for (Postavel postavel : FabricaPostavel.getListaMidia(conteudo)) {
+		for (Postavel postavel : FabricaPostavel.getListaPostavel(conteudo)) {
 			if (postavel instanceof HashTag) {
 				this.hashtags.add((HashTag) postavel);
 			} else {

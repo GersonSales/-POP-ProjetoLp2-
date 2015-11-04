@@ -171,14 +171,15 @@ public class BancoDeUsuarios {
 
 	public void imprimeRanking() {
 		preencheRanking();
-		int cont = 0;
+		int cont = 1;
 		System.out.println("Melhores: ");
 		for (Usuario usuario : ranking) {
-			if (cont == 3) {
+			if (cont == 4) {
+				cont = 1;
 				System.out.println("Piores: ");
 			}
 
-			System.out.println(usuario.getNome() + " "
+			System.out.println("(" + cont + ") " + usuario.getNome() + " "
 					+ usuario.getPopularidade());
 			cont++;
 		}

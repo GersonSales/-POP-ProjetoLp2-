@@ -15,14 +15,14 @@ public enum FabricaPostavel {
 		}
 
 		@Override
-		public Postavel getMidia(String conteudo) {
+		public Postavel getInstancia(String conteudo) throws EntradaException {
 			return new Imagem(conteudo);
 		}
 	},
 
 	AUDIO {
 		@Override
-		public Postavel getMidia(String conteudo) {
+		public Postavel getInstancia(String conteudo) throws EntradaException {
 			return new Audio(conteudo);
 		}
 
@@ -34,7 +34,7 @@ public enum FabricaPostavel {
 	HASHTAG {
 
 		@Override
-		public Postavel getMidia(String conteudo) throws EntradaException {
+		public Postavel getInstancia(String conteudo) throws EntradaException {
 			return new HashTag(conteudo);
 		}
 
@@ -47,7 +47,7 @@ public enum FabricaPostavel {
 	MENSAGEM {
 
 		@Override
-		public Postavel getMidia(String conteudo) throws EntradaException {
+		public Postavel getInstancia(String conteudo) throws EntradaException {
 			return new Mensagem(conteudo);
 		}
 
@@ -57,13 +57,13 @@ public enum FabricaPostavel {
 		}
 	};
  
-	public abstract Postavel getMidia(String conteudo) throws EntradaException;
+	public abstract Postavel getInstancia(String conteudo) throws EntradaException;
 
 	public abstract String getMarcacao();
 
-	public static List<Postavel> getListaMidia(String conteudo)
+	public static List<Postavel> getListaPostavel(String conteudo)
 			throws EntradaException {
-		List<Postavel> listaMidia = new ArrayList<>();
+		List<Postavel> listaPostavel = new ArrayList<>();
 		String[] postagemSplit = conteudo.split(" ");
 		String texto = "";
 
@@ -72,13 +72,13 @@ public enum FabricaPostavel {
 
 			for (FabricaPostavel fabPost : FabricaPostavel.values()) {
 				if (string.matches(fabPost.getMarcacao())) {
-					listaMidia.add(fabPost.getMidia(string));
+					listaPostavel.add(fabPost.getInstancia(string));
 					adiciona = false;
 					break;
 				}
 
 				if (fabPost == FabricaPostavel.HASHTAG && !adiciona) {
-					listaMidia.add(fabPost.getMidia(string));
+					listaPostavel.add(fabPost.getInstancia(string));
 				}
 			}
 
@@ -87,9 +87,9 @@ public enum FabricaPostavel {
 				continue;
 			}
 		}
-		listaMidia.add(0, FabricaPostavel.MENSAGEM.getMidia(texto));
+		listaPostavel.add(0, FabricaPostavel.MENSAGEM.getInstancia(texto));
 
-		return listaMidia;
+		return listaPostavel;
 	}
 
 }
