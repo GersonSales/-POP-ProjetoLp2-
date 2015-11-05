@@ -161,7 +161,16 @@ public class Facade {
 			throws UsuarioInexistenteException, EntradaException {
 		this.controller.curtirPost(emailUsuario, postagem);
 	}
-
+	
+	public String getPopularidade() {
+		return this.controller.getPopularidade();
+	}
+	
+	public void adicionaPops(int popBonus) {
+		this.controller.adicionaPops(popBonus);
+	}
+	
+	
 	public void login(String email, String senha) throws LogicaException,
 			SenhaException {
 		try {

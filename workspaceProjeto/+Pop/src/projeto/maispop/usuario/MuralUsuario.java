@@ -21,6 +21,7 @@ import projeto.maispop.postagem.Postagem;
 public class MuralUsuario {
 
 	private List<Postagem> postagens;
+	private int popularidadeBonus;
 
 	/**
 	 * Construtor da classe <code>MuralUsuario</code> tem como funcao inicialiar
@@ -28,6 +29,7 @@ public class MuralUsuario {
 	 */
 	public MuralUsuario() {
 		this.postagens = new ArrayList<>();
+		this.popularidadeBonus = 0;
 	}
 
 	/**
@@ -89,6 +91,10 @@ public class MuralUsuario {
 	public Postagem getPostagem(int indice) {
 		return this.postagens.get(indice);
 	}
+	
+	public void setPopBonus(int bonus) {
+		this.popularidadeBonus = bonus;
+	}
 
 	/**
 	 * Metodo <i>getConteudoPost</i> responsavel por receber dois Inteiros como
@@ -118,7 +124,7 @@ public class MuralUsuario {
 			popularidadeTotal = popularidadeTotal + postagem.getPopularidade();
 		}
 
-		return popularidadeTotal;
+		return popularidadeTotal + this.popularidadeBonus;
 	}
 
 }

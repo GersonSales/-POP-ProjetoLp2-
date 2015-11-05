@@ -95,6 +95,10 @@ public class Controller {
 		this.usuarioLogado.postar(texto, dataPostagem);
 	}
 
+	public void adicionaPops(int popBonus) {
+		this.usuarioLogado.adicionaPops(popBonus);
+	}
+
 	public String getPostagem(int postagem) {
 		return this.usuarioLogado.getPostagem(postagem).toString();
 	}
@@ -122,6 +126,10 @@ public class Controller {
 				+ postagemAmigo.getData() + ".");
 
 		amigo.atualizaTipo();
+	}
+
+	public String getPopularidade() {
+		return this.usuarioLogado.getTipoUsuario();
 	}
 
 	public void descurtirPost(String emailUsuario, int postagem)
@@ -227,7 +235,8 @@ public class Controller {
 	// Teste de Ranking
 
 	public void imprimeRanking() {
-		this.bancoDeUsuarios.imprimeRanking();;
+		this.bancoDeUsuarios.imprimeRanking();
+		;
 	}
 
 	public void melhoresHashtags() {

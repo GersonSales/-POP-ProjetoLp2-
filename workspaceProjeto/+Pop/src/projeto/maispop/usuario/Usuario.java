@@ -359,6 +359,10 @@ public class Usuario implements Comparable<Usuario> {
 	public void curtir(Postagem postagem) throws EntradaException {
 		this.tipoUsuario.curtir(postagem);
 	}
+	
+	public void adicionaPops(int popBonus) {
+		this.mural.setPopBonus(popBonus);
+	}
 
 	public void descurtir(Postagem postagem) throws EntradaException {
 		this.tipoUsuario.descurtir(postagem);
