@@ -55,11 +55,7 @@ public class BancoHashtag {
 		StringBuilder melhores = new StringBuilder();
 		melhores.append("Trending Topics:  ");
 		for (int i = 0; i < 3; i++) {
-			melhores.append("(");
-			melhores.append((i + 1));
-			melhores.append(") ");
-			melhores.append(listaTuplas.get(i));
-			melhores.append("; ");
+			melhores.append("(" + (i + 1) + ") " + listaTuplas.get(i) + "; ");
 		}
 		melhores.deleteCharAt(melhores.length() - 1);
 
