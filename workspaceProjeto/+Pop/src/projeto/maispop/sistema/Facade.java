@@ -4,6 +4,7 @@ import projeto.maispop.excecoes.EntradaException;
 import projeto.maispop.excecoes.ItemInexistenteException;
 import projeto.maispop.excecoes.LogarDeslogarException;
 import projeto.maispop.excecoes.LogicaException;
+import projeto.maispop.excecoes.MaisPopException;
 import projeto.maispop.excecoes.SenhaException;
 import projeto.maispop.excecoes.SolicitacaoException;
 import projeto.maispop.excecoes.UsuarioExistenteException;
@@ -72,30 +73,22 @@ public class Facade {
 	}
 
 	public void atualizaPerfil(String atributo, String valor, String antigoValor)
-			throws UsuarioInexistenteException, EntradaException {
+			throws MaisPopException {
 		try {
 			this.controller.atualizaPerfil(atributo, valor, antigoValor);
-		} catch (EntradaException erro) {
-			throw new EntradaException("Erro na atualizacao de perfil. "
+		} catch (MaisPopException erro) {
+			throw new MaisPopException("Erro na atualizacao de perfil. "
 					+ erro.getMessage(), erro);
-		} catch (UsuarioInexistenteException erro) {
-			throw new UsuarioInexistenteException(
-					"Nao eh possivel atualizar um perfil. " + erro.getMessage(),
-					erro);
 		}
 	}
 
 	public void atualizaPerfil(String atributo, String valor)
-			throws UsuarioInexistenteException, EntradaException {
+			throws MaisPopException {
 		try {
 			this.controller.atualizaPerfil(atributo, valor);
-		} catch (EntradaException erro) {
+		} catch (MaisPopException erro) {
 			throw new EntradaException("Erro na atualizacao de perfil. "
 					+ erro.getMessage(), erro);
-		} catch (UsuarioInexistenteException erro) {
-			throw new UsuarioInexistenteException(
-					"Nao eh possivel atualizar um perfil. " + erro.getMessage(),
-					erro);
 		}
 	}
 
@@ -187,15 +180,14 @@ public class Facade {
 	public void logout() throws LogarDeslogarException {
 		this.controller.logout();
 	}
-	
-	
-	
-	//teste de ranking 
-	
+
+	// teste de ranking
+
 	public void imprimeRanking() {
-		this.controller.imprimeRanking();;
+		this.controller.imprimeRanking();
+		;
 	}
-	
+
 	public void melhoresHashtags() {
 		this.controller.melhoresHashtags();
 	}

@@ -24,8 +24,8 @@ public class TesteEA {
 
     public static void main(String[] args) {
 	args = new String[] { "projeto.maispop.sistema.Facade",
-		"EasyAccept/CasoDeTeste1.txt", "EasyAccept/CasoDeTeste2.txt",
-		"EasyAccept/CasoDeTeste3.txt", "EasyAccept/CasoDeTeste4.txt", "EasyAccept/CasoDeTeste5Gerson.txt"};
+		"EasyAccept/CasoDeUso_1.txt", "EasyAccept/CasoDeUso_2.txt",
+		"EasyAccept/CasoDeUso_3.txt", "EasyAccept/CasoDeUso_4.txt", "EasyAccept/CasoDeUso_5.txt"};
 	EasyAccept.main(args);
     }
     
