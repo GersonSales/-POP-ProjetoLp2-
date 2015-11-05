@@ -2,6 +2,7 @@ package projeto.maispop.postagem;
 
 import projeto.maispop.excecoes.EntradaException;
 
+
 public class Audio extends Midia {
 
 	private static final CharSequence TAG_INICIAL = "<audio>";

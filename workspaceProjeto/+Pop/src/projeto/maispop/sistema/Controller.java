@@ -260,8 +260,8 @@ public class Controller {
 
 	// Teste de Ranking
 
-	public String imprimeRanking() {
-		return this.bancoDeUsuarios.imprimeRanking();
+	public String exibeRanking() {
+		return this.bancoDeUsuarios.exibeRanking();
 	}
 
 	public String melhoresHashtags() {

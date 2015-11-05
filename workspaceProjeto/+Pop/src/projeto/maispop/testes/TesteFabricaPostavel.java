@@ -1,10 +1,11 @@
 package projeto.maispop.testes;
 
+import java.util.List;
+
 import org.junit.Assert;
 import org.junit.Test;
 
 import projeto.maispop.excecoes.EntradaException;
-import projeto.maispop.postagem.Audio;
 import projeto.maispop.postagem.FabricaPostavel;
 import projeto.maispop.postagem.Postavel;
 
@@ -98,13 +99,26 @@ public class TesteFabricaPostavel {
 	@Test
 	public void criacaoEmConjunto() {
 		try {
-			FabricaPostavel.getListaPostavel("O Encontro de amanha estara otimo. Vamos falar sobre os problemas do preconceito na escola. <imagem>imagens/encontro_vinheta.jpg</imagem> <imagem>imagens/encontro_preview.jpg</imagem> #encontro #SemPreconceito");
-			
-			
-		}catch (Exception erro) {
+			List<Postavel> listaPostavel = FabricaPostavel
+					.getListaPostavel("O Encontro de amanha estara otimo. Vamos falar sobre os problemas do preconceito na escola. <imagem>imagens/encontro_vinheta.jpg</imagem> <imagem>imagens/encontro_preview.jpg</imagem> #encontro #SemPreconceito");
+
+			Assert.assertEquals(
+					"O Encontro de amanha estara otimo. Vamos falar sobre os problemas do preconceito na escola.",
+					listaPostavel.get(0).toString());
+
+			Assert.assertEquals("$arquivo_imagem:imagens/encontro_vinheta.jpg",
+					listaPostavel.get(1).toString());
+
+			Assert.assertEquals("$arquivo_imagem:imagens/encontro_preview.jpg",
+					listaPostavel.get(2).toString());
+
+			Assert.assertEquals("#encontro", listaPostavel.get(3).toString());
+
+			Assert.assertEquals("#SemPreconceito", listaPostavel.get(4)
+					.toString());
+		} catch (Exception erro) {
 			Assert.fail();
 		}
-		
-		
+
 	}
 }

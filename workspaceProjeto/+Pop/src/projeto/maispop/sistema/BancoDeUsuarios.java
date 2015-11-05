@@ -170,7 +170,7 @@ public class BancoDeUsuarios {
 
 	}
 
-	public String imprimeRanking() {
+	public String exibeRanking() {
 		preencheRanking();
 		int cont = 1;
 		StringBuilder ranking = new StringBuilder();

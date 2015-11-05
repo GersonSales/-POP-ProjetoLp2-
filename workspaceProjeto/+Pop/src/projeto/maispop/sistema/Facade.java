@@ -231,7 +231,7 @@ public class Facade {
 	// teste de ranking
 
 	public String atualizaRanking() {
-		return this.controller.imprimeRanking();
+		return this.controller.exibeRanking();
 	}
 
 	public String atualizaTrendingTopics() {
