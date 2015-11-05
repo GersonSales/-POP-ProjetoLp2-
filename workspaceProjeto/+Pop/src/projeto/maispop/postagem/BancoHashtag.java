@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
 
 public class BancoHashtag {
 
@@ -33,7 +34,7 @@ public class BancoHashtag {
 		}
 	}
 
-	public void adicionaTodas(List<HashTag> hashtags) {
+	public void adicionaTodas(Set<HashTag> hashtags) {
 		for (HashTag hashTag : hashtags) {
 			adiciona(hashTag);
 		}
@@ -49,11 +50,20 @@ public class BancoHashtag {
 		});
 	}
 
-	public void get3Melhores() {
+	public String get3Melhores() {
 		ordenaDecrescente();
+		StringBuilder melhores = new StringBuilder();
+		melhores.append("Trending Topics:  ");
 		for (int i = 0; i < 3; i++) {
-			System.out.println(listaTuplas.get(i));
+			melhores.append("(");
+			melhores.append((i + 1));
+			melhores.append(") ");
+			melhores.append(listaTuplas.get(i));
+			melhores.append("; ");
 		}
+		melhores.deleteCharAt(melhores.length() - 1);
+
+		return melhores.toString();
 	}
 
 }

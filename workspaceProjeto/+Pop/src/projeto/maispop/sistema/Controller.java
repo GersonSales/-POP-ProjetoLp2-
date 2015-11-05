@@ -260,13 +260,12 @@ public class Controller {
 
 	// Teste de Ranking
 
-	public void imprimeRanking() {
-		this.bancoDeUsuarios.imprimeRanking();
-		;
+	public String imprimeRanking() {
+		return this.bancoDeUsuarios.imprimeRanking();
 	}
 
-	public void melhoresHashtags() {
-		BancoHashtag.getInstancia().get3Melhores();
+	public String melhoresHashtags() {
+		return BancoHashtag.getInstancia().get3Melhores();
 	}
 
 }

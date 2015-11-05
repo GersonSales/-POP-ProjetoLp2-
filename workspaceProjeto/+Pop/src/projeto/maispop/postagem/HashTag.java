@@ -37,6 +37,15 @@ public class HashTag implements Postavel, Comparable<HashTag> {
 	}
 
 	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((conteudo == null) ? 0 : conteudo.hashCode());
+		return result;
+	}
+
+	@Override
 	public boolean equals(Object objeto) {
 		if (objeto instanceof TuplaHashtag) {
 			TuplaHashtag tuplaHashtag = (TuplaHashtag) objeto;
@@ -54,7 +63,7 @@ public class HashTag implements Postavel, Comparable<HashTag> {
 
 	@Override
 	public int compareTo(HashTag outraHashtag) {
-		return getConteudo().compareToIgnoreCase(outraHashtag.getConteudo());
+		return getConteudo().compareTo(outraHashtag.getConteudo());
 	}
 
 }

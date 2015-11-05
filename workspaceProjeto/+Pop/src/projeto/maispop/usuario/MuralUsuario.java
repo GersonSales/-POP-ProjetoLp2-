@@ -12,7 +12,6 @@ import projeto.maispop.postagem.Postagem;
  * usuario na rede social <i>+Pop<i>. Onde ele podera <i>postar</i> mensagens e
  * midias.
  * 
- * @author Adson Cesar.
  * @author Gerson Sales.
  * @version 0.4
  * @see Postagem
@@ -113,7 +112,7 @@ public class MuralUsuario {
 	}
 
 	public void adicionaPops(int popBonus) {
-		this.popularidadeBonus = popBonus;
+		this.popularidadeBonus = this.popularidadeBonus + popBonus;
 	}
 
 	/**

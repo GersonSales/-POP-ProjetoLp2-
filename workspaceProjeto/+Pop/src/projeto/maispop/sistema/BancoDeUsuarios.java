@@ -3,7 +3,7 @@ package projeto.maispop.sistema;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -22,7 +22,7 @@ public class BancoDeUsuarios {
 
 	public BancoDeUsuarios() {
 		this.usuarios = new ArrayList<>();
-		this.ranking = new HashSet<>();
+		this.ranking = new LinkedHashSet<>();
 	}
 
 	public void cadastraUsuario(String nome, String email, String senha,
@@ -167,22 +167,26 @@ public class BancoDeUsuarios {
 
 		ordenaCrescente();
 		poe3primeiros();
+
 	}
 
-	public void imprimeRanking() {
+	public String imprimeRanking() {
 		preencheRanking();
 		int cont = 1;
-		System.out.println("Melhores: ");
-		for (Usuario usuario : ranking) {
+		StringBuilder ranking = new StringBuilder();
+		ranking.append("Mais Populares: ");
+		for (Usuario usuario : this.ranking) {
 			if (cont == 4) {
 				cont = 1;
-				System.out.println("Piores: ");
+				ranking.append("| Menos Populares: ");
 			}
 
-			System.out.println("(" + cont + ") " + usuario.getNome() + " "
-					+ usuario.getPopularidade());
+			ranking.append("(" + cont + ") " + usuario.getNome() + " "
+					+ usuario.getPopularidade() + "; ");
 			cont++;
 		}
+		ranking.deleteCharAt(ranking.length() - 1);
+		return ranking.toString();
 	}
 
 }

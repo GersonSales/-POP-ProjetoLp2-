@@ -4,7 +4,9 @@ import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 import projeto.maispop.excecoes.DataException;
 import projeto.maispop.excecoes.EntradaException;
@@ -13,7 +15,7 @@ import projeto.maispop.excecoes.ItemInexistenteException;
 public class Postagem {
 
 	private List<Postavel> listaMidia;
-	private List<HashTag> hashtags;
+	private Set<HashTag> hashtags;
 
 	private String dataPostagem;
 
@@ -21,11 +23,10 @@ public class Postagem {
 	private int curtir;
 	private int descurtir;
 
-
 	public Postagem(String conteudo, String dataPostagem)
 			throws EntradaException {
 		this.listaMidia = new ArrayList<>();
-		this.hashtags = new ArrayList<>();
+		this.hashtags = new LinkedHashSet<>();
 
 		organizaPostagem(conteudo);
 		this.dataPostagem = formatData(dataPostagem);
@@ -82,12 +83,9 @@ public class Postagem {
 
 	public String getHashTags() {
 		String saida = "";
-
 		for (HashTag hashtag : this.hashtags) {
-			if (hashtag instanceof HashTag) {
-				saida = saida == "" ? hashtag.getConteudo() : saida + ","
-						+ hashtag.getConteudo();
-			}
+			saida = saida == "" ? hashtag.getConteudo() : saida + ","
+					+ hashtag.getConteudo();
 		}
 
 		return saida;
@@ -197,7 +195,9 @@ public class Postagem {
 
 	public void adicionaHashTag(String hashTag) throws EntradaException {
 		HashTag novaHashTag = new HashTag(hashTag);
-		this.hashtags.add(novaHashTag);
+		if (this.hashtags.add(novaHashTag)) {
+			BancoHashtag.getInstancia().adiciona(novaHashTag);
+		}
 	}
 
 	@Override

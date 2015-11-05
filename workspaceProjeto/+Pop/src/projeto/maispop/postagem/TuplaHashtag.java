@@ -48,7 +48,7 @@ public class TuplaHashtag implements Comparable<TuplaHashtag> {
 
 	@Override
 	public String toString() {
-		return "(" + getHashtag() + ": " + getContador() + ")";
+		return getHashtag() + ": " + getContador();
 	}
 
 }

@@ -205,6 +205,9 @@ public class Facade {
 	public void adicionaPops(int popBonus) {
 		this.controller.adicionaPops(popBonus);
 	}
+	
+	
+
 
 	public void login(String email, String senha) throws LogicaException,
 			SenhaException {
@@ -227,13 +230,13 @@ public class Facade {
 
 	// teste de ranking
 
-	public void imprimeRanking() {
-		this.controller.imprimeRanking();
-		;
+	public String atualizaRanking() {
+		return this.controller.imprimeRanking();
 	}
 
-	public void melhoresHashtags() {
-		this.controller.melhoresHashtags();
+	public String atualizaTrendingTopics() {
+		return this.controller.melhoresHashtags();
 	}
-
+	
+	
 }

@@ -336,7 +336,7 @@ public class Usuario implements Comparable<Usuario> {
 
 		if (popularidade < 500) {
 			this.tipoUsuario = new NormalPop();
-		} else if (popularidade < 1000) {
+		} else if (popularidade <= 1000) {
 			this.tipoUsuario = new CelebridadePop();
 		} else {
 			this.tipoUsuario = new IconePop();
