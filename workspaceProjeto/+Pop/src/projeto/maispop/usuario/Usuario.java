@@ -295,6 +295,18 @@ public class Usuario implements Comparable<Usuario> {
 	public String getTipoUsuario() {
 		return this.tipoUsuario.toString();
 	}
+	
+	public int getPopsPost(int indice) {
+		return this.mural.getPopsPost(indice);
+	}
+	
+	public int qtdCurtidasDePost(int indice) throws ItemInexistenteException {
+		return this.mural.qtdCurtidasDePost(indice);
+	}
+	
+	public int qtdRejeicoesDePost(int indice) {
+		return this.mural.qtdRejeicoesDePost(indice);
+	}
 
 	/**
 	 * Metodo <i>getConteudoPost</i> responsavel por receber dois Inteiros como
@@ -361,7 +373,8 @@ public class Usuario implements Comparable<Usuario> {
 	}
 	
 	public void adicionaPops(int popBonus) {
-		this.mural.setPopBonus(popBonus);
+		this.mural.adicionaPops(popBonus);
+		atualizaTipo();
 	}
 
 	public void descurtir(Postagem postagem) throws EntradaException {

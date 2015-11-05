@@ -79,6 +79,26 @@ public class MuralUsuario {
 		}
 	}
 
+	public int getPopsPost(int indice) {
+		return this.postagens.get(indice).getPopularidade();
+	}
+
+	public int qtdCurtidasDePost(int indice) throws ItemInexistenteException {
+		if (indice > dimensaoMural()) {
+			throw new ItemInexistenteException("Usuarix possui apenas "
+					+ dimensaoMural() + " post(s).");
+		}
+		return this.postagens.get(indice).getCurtir();
+	}
+
+	public int dimensaoMural() {
+		return this.postagens.size();
+	}
+
+	public int qtdRejeicoesDePost(int indice) {
+		return this.postagens.get(indice).getDescurtir();
+	}
+
 	/**
 	 * Metodo sobrecarregado <i>getPostagem</i> responsavel por receber como
 	 * parametro um Inteiro que representa um indice a ser escolhido da lista de
@@ -91,9 +111,9 @@ public class MuralUsuario {
 	public Postagem getPostagem(int indice) {
 		return this.postagens.get(indice);
 	}
-	
-	public void setPopBonus(int bonus) {
-		this.popularidadeBonus = bonus;
+
+	public void adicionaPops(int popBonus) {
+		this.popularidadeBonus = popBonus;
 	}
 
 	/**

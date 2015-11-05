@@ -7,6 +7,7 @@ import projeto.maispop.excecoes.LogicaException;
 import projeto.maispop.excecoes.MaisPopException;
 import projeto.maispop.excecoes.SenhaException;
 import projeto.maispop.excecoes.SolicitacaoException;
+import projeto.maispop.excecoes.UsuarioException;
 import projeto.maispop.excecoes.UsuarioExistenteException;
 import projeto.maispop.excecoes.UsuarioInexistenteException;
 
@@ -161,16 +162,50 @@ public class Facade {
 			throws UsuarioInexistenteException, EntradaException {
 		this.controller.curtirPost(emailUsuario, postagem);
 	}
-	
+
+	public void rejeitarPost(String emailUsuario, int postagem)
+			throws UsuarioInexistenteException, EntradaException {
+		this.controller.descurtirPost(emailUsuario, postagem);
+	}
+
 	public String getPopularidade() {
 		return this.controller.getPopularidade();
 	}
 	
+	public int getPopsUsuario() {
+		return this.controller.getPopsUsuario();
+	}
+
+	public int getPopsUsuario(String emailUsuario) throws UsuarioException {
+		try {
+			return this.controller.getPopsUsuario(emailUsuario);
+		} catch (UsuarioException erro) {
+			throw new UsuarioException("Erro na consulta de Pops. "
+					+ erro.getMessage(), erro);
+		}
+	}
+
+	public int getPopsPost(int indice) {
+		return this.controller.getPopsPost(indice);
+	}
+
+	public int qtdCurtidasDePost(int indice) throws ItemInexistenteException {
+		try {
+			return this.controller.qtdCurtidasDePost(indice);
+		} catch (ItemInexistenteException erro) {
+			throw new ItemInexistenteException("Post #" + indice
+					+ " nao existe. " + erro.getMessage(), erro);
+		}
+	}
+
+	public int qtdRejeicoesDePost(int indice) {
+		return this.controller.qtdRejeicoesDePost(indice);
+	}
+
 	public void adicionaPops(int popBonus) {
 		this.controller.adicionaPops(popBonus);
 	}
-	
-	
+
 	public void login(String email, String senha) throws LogicaException,
 			SenhaException {
 		try {

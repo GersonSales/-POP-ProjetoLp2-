@@ -131,6 +131,32 @@ public class Controller {
 	public String getPopularidade() {
 		return this.usuarioLogado.getTipoUsuario();
 	}
+	
+	public int getPopsUsuario() {
+		return this.usuarioLogado.getPopularidade();
+	}
+
+	public int getPopsUsuario(String emailUsuario)
+			throws UsuarioExistenteException, UsuarioInexistenteException {
+		if (this.usuarioLogado != null) {
+			throw new UsuarioExistenteException("Um usuarix ainda esta logadx.");
+		}
+
+		return this.bancoDeUsuarios.getUsuario(emailUsuario).getPopularidade();
+	}
+	
+
+	public int getPopsPost(int indice) {
+		return this.usuarioLogado.getPopsPost(indice);
+	}
+
+	public int qtdCurtidasDePost(int indice) throws ItemInexistenteException {
+		return this.usuarioLogado.qtdCurtidasDePost(indice);
+	}
+
+	public int qtdRejeicoesDePost(int indice) {
+		return this.usuarioLogado.qtdRejeicoesDePost(indice);
+	}
 
 	public void descurtirPost(String emailUsuario, int postagem)
 			throws UsuarioInexistenteException, EntradaException {
