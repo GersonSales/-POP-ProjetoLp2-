@@ -35,12 +35,12 @@ public enum FabricaPostavel {
 
 		@Override
 		public Postavel getInstancia(String conteudo) throws EntradaException {
-			return new HashTag(conteudo);
+			return new Hashtag(conteudo);
 		}
 
 		@Override
 		public String getMarcacao() {
-			return HashTag.getMarcacao();
+			return Hashtag.getMarcacao();
 		}
 	},
 

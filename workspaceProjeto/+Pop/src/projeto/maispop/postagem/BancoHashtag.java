@@ -21,7 +21,7 @@ public class BancoHashtag {
 		this.listaTuplas = new ArrayList<>();
 	}
 
-	public void adiciona(HashTag hashtag) {
+	public void adiciona(Hashtag hashtag) {
 		if (!(this.listaTuplas.contains(hashtag))) {
 			TuplaHashtag novaTupla = new TuplaHashtag(hashtag, 1);
 			this.listaTuplas.add(novaTupla);
@@ -33,8 +33,8 @@ public class BancoHashtag {
 		}
 	}
 
-	public void adicionaTodas(Set<HashTag> hashtags) {
-		for (HashTag hashTag : hashtags) {
+	public void adicionaTodas(Set<Hashtag> hashtags) {
+		for (Hashtag hashTag : hashtags) {
 			adiciona(hashTag);
 		}
 	}

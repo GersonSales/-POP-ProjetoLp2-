@@ -15,7 +15,7 @@ import projeto.maispop.excecoes.ItemInexistenteException;
 public class Postagem {
 
 	private List<Postavel> listaMidia;
-	private Set<HashTag> hashtags;
+	private Set<Hashtag> hashtags;
 
 	private String dataPostagem;
 
@@ -36,7 +36,7 @@ public class Postagem {
 	}
 
 	public void adicionaHashTag(String hashTag) throws EntradaException {
-		HashTag novaHashTag = new HashTag(hashTag);
+		Hashtag novaHashTag = new Hashtag(hashTag);
 		if (this.hashtags.add(novaHashTag)) {
 			BancoHashtag.getInstancia().adiciona(novaHashTag);
 		}
@@ -123,7 +123,7 @@ public class Postagem {
 
 		}
 		Postavel conteudo = this.listaMidia.get(indice);
-		if (conteudo instanceof HashTag) {
+		if (conteudo instanceof Hashtag) {
 			return null;
 		} else {
 			return conteudo.toString();
@@ -159,7 +159,7 @@ public class Postagem {
 
 	public String getHashTags() {
 		String saida = "";
-		for (HashTag hashtag : this.hashtags) {
+		for (Hashtag hashtag : this.hashtags) {
 			saida = saida == "" ? hashtag.getConteudo() : saida + ","
 					+ hashtag.getConteudo();
 		}
@@ -170,7 +170,7 @@ public class Postagem {
 	public String getMensagem() {
 		String saida = "";
 		for (Postavel midia : this.listaMidia) {
-			if (!(midia instanceof HashTag)) {
+			if (!(midia instanceof Hashtag)) {
 				saida = saida == "" ? midia.getConteudo() : saida + " "
 						+ midia.getConteudo();
 			}
@@ -204,8 +204,8 @@ public class Postagem {
 		// this.listaMidia = FabricaPostavel.getListaMidia(conteudo);
 
 		for (Postavel postavel : FabricaPostavel.getListaPostavel(conteudo)) {
-			if (postavel instanceof HashTag) {
-				this.hashtags.add((HashTag) postavel);
+			if (postavel instanceof Hashtag) {
+				this.hashtags.add((Hashtag) postavel);
 			} else {
 				this.listaMidia.add(postavel);
 			}
@@ -220,7 +220,7 @@ public class Postagem {
 			postagem = postagem == "" ? postavel.toString() : postagem + " "
 					+ postavel.getConteudo();
 		}
-		for (HashTag hashTag : hashtags) {
+		for (Hashtag hashTag : hashtags) {
 			postagem = postagem == "" ? hashTag.toString() : postagem + " "
 					+ hashTag.getConteudo();
 

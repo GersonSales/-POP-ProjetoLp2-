@@ -2,10 +2,10 @@ package projeto.maispop.postagem;
 
 public class TuplaHashtag implements Comparable<TuplaHashtag> {
 
-	private HashTag hashtag;
+	private Hashtag hashtag;
 	private Integer contador;
 
-	public TuplaHashtag(HashTag hashtag, Integer contador) {
+	public TuplaHashtag(Hashtag hashtag, Integer contador) {
 		this.hashtag = hashtag;
 		this.contador = contador;
 	}
@@ -20,8 +20,8 @@ public class TuplaHashtag implements Comparable<TuplaHashtag> {
 
 	@Override
 	public boolean equals(Object objeto) {
-		if (objeto instanceof HashTag) {
-			HashTag outraHashtag = (HashTag) objeto;
+		if (objeto instanceof Hashtag) {
+			Hashtag outraHashtag = (Hashtag) objeto;
 			return outraHashtag.equals(getHashtag());
 		}
 
@@ -38,7 +38,7 @@ public class TuplaHashtag implements Comparable<TuplaHashtag> {
 		return this.contador;
 	}
 
-	public HashTag getHashtag() {
+	public Hashtag getHashtag() {
 		return this.hashtag;
 	}
 
