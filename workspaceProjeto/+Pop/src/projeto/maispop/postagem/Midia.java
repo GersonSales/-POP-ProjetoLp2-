@@ -1,4 +1,4 @@
-package projeto.maispop.midia;
+package projeto.maispop.postagem;
 
 public abstract class Midia implements Postavel{
 	private String conteudo;

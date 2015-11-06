@@ -1,7 +1,11 @@
 package projeto.maispop.sistema;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 import projeto.maispop.excecoes.EntradaException;
 import projeto.maispop.excecoes.LogicaException;
@@ -14,9 +18,11 @@ import projeto.maispop.usuario.Usuario;
 public class BancoDeUsuarios {
 
 	private List<Usuario> usuarios;
+	private Set<Usuario> ranking;
 
 	public BancoDeUsuarios() {
 		this.usuarios = new ArrayList<>();
+		this.ranking = new LinkedHashSet<>();
 	}
 
 	public void cadastraUsuario(String nome, String email, String senha,
@@ -129,5 +135,58 @@ public class BancoDeUsuarios {
 		}
 	}
 
-	// RELACIONAMENTO ENTRE USUARIOS:
+	public int dimensaoBanco() {
+		return this.usuarios.size();
+	}
+
+	// RANKING DE USUARIOS:
+	private void ordenaCrescente() {
+		Collections.sort(this.usuarios);
+	}
+
+	private void ordenaDecrescente() {
+		this.usuarios.sort(new Comparator<Usuario>() {
+			@Override
+			public int compare(Usuario usuario, Usuario outroUsuario) {
+				return outroUsuario.compareTo(usuario);
+			}
+		});
+	}
+
+	private void poe3primeiros() {
+		for (int i = 0; i < 3; i++) {
+			this.ranking.add(this.usuarios.get(i));
+		}
+	}
+
+	private void preencheRanking() {
+		this.ranking.clear();
+
+		ordenaDecrescente();
+		poe3primeiros();
+
+		ordenaCrescente();
+		poe3primeiros();
+
+	}
+
+	public String exibeRanking() {
+		preencheRanking();
+		int cont = 1;
+		StringBuilder ranking = new StringBuilder();
+		ranking.append("Mais Populares: ");
+		for (Usuario usuario : this.ranking) {
+			if (cont == 4) {
+				cont = 1;
+				ranking.append("| Menos Populares: ");
+			}
+
+			ranking.append("(" + cont + ") " + usuario.getNome() + " "
+					+ usuario.getPopularidade() + "; ");
+			cont++;
+		}
+		ranking.deleteCharAt(ranking.length() - 1);
+		return ranking.toString();
+	}
+
 }

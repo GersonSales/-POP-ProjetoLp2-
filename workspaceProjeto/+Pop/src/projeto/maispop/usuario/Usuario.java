@@ -3,8 +3,7 @@ package projeto.maispop.usuario;
 import java.time.LocalDate;
 import java.time.Period;
 
-import projeto.maispop.midia.Postagem;
-
+import projeto.maispop.postagem.Postagem;
 import projeto.maispop.excecoes.DataException;
 import projeto.maispop.excecoes.EmailException;
 import projeto.maispop.excecoes.EntradaException;
@@ -23,7 +22,7 @@ import projeto.maispop.excecoes.SenhaException;
  * @see ListaDeAmigos
  * @see MuralUsuario
  */
-public class Usuario {
+public class Usuario implements Comparable<Usuario> {
 	private String nome;
 	private String email;
 	private String senha;
@@ -71,11 +70,12 @@ public class Usuario {
 		this.email = usuarioFormat.validaEmail(email);
 		this.senha = usuarioFormat.validaSenha(senha);
 		this.imagemPerfil = usuarioFormat.validaImagem(imagemPerfil);
-		this.dataNascimento = usuarioFormat.validaDataNascimento(dataNascimento);
+		this.dataNascimento = usuarioFormat
+				.validaDataNascimento(dataNascimento);
 
 		this.listaDeAmigos = new ListaDeAmigos();
 		this.notificacoes = new Notificacoes();
-		this.mural = new MuralUsuario(nome);
+		this.mural = new MuralUsuario();
 
 		this.tipoUsuario = new NormalPop();
 	}
@@ -96,7 +96,7 @@ public class Usuario {
 	 *            String que define a data de nascimento do usuario.
 	 * @throws EntradaException. Caso
 	 *             o seja recebido como parametro algum atributo de formatacao
-	 *             invalida.
+	 *             invalida.nome
 	 * @throws LogicaException. Caso
 	 *             haja algum erro durante o processo de gerenciamento de
 	 *             informacoes.
@@ -201,7 +201,8 @@ public class Usuario {
 	 *             nao seja recebido uma data de nascimento valida.
 	 */
 	public void setDataNascimento(String dataNascimento) throws DataException {
-		this.dataNascimento = usuarioFormat.validaDataNascimento(dataNascimento);
+		this.dataNascimento = usuarioFormat
+				.validaDataNascimento(dataNascimento);
 	}
 
 	/**
@@ -294,6 +295,18 @@ public class Usuario {
 	public String getTipoUsuario() {
 		return this.tipoUsuario.toString();
 	}
+	
+	public int getPopsPost(int indice) {
+		return this.mural.getPopsPost(indice);
+	}
+	
+	public int qtdCurtidasDePost(int indice) throws ItemInexistenteException {
+		return this.mural.qtdCurtidasDePost(indice);
+	}
+	
+	public int qtdRejeicoesDePost(int indice) {
+		return this.mural.qtdRejeicoesDePost(indice);
+	}
 
 	/**
 	 * Metodo <i>getConteudoPost</i> responsavel por receber dois Inteiros como
@@ -323,7 +336,7 @@ public class Usuario {
 
 		if (popularidade < 500) {
 			this.tipoUsuario = new NormalPop();
-		} else if (popularidade < 1000) {
+		} else if (popularidade <= 1000) {
 			this.tipoUsuario = new CelebridadePop();
 		} else {
 			this.tipoUsuario = new IconePop();
@@ -355,11 +368,16 @@ public class Usuario {
 		return this.listaDeAmigos.contemAmigo(emailUsuario);
 	}
 
-	public void curtir(Postagem postagem) {
+	public void curtir(Postagem postagem) throws EntradaException {
 		this.tipoUsuario.curtir(postagem);
 	}
+	
+	public void adicionaPops(int popBonus) {
+		this.mural.adicionaPops(popBonus);
+		atualizaTipo();
+	}
 
-	public void descurtir(Postagem postagem) {
+	public void descurtir(Postagem postagem) throws EntradaException {
 		this.tipoUsuario.descurtir(postagem);
 	}
 
@@ -399,6 +417,14 @@ public class Usuario {
 		return "Nome: " + getNome() + fdl + "Idade: " + idade + fdl
 				+ "E-mail: " + getEmail() + fdl + "Tipo: " + getTipoUsuario()
 				+ fdl + "Popularidade: " + getPopularidade();
+	}
+
+	@Override
+	public int compareTo(Usuario outroUsuario) {
+		if (getPopularidade() == outroUsuario.getPopularidade()) {
+			return getEmail().compareToIgnoreCase(outroUsuario.getEmail());
+		}
+		return getPopularidade() - outroUsuario.getPopularidade();
 	}
 
 }

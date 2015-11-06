@@ -1,11 +1,11 @@
-package projeto.maispop.midia;
+package projeto.maispop.postagem;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import projeto.maispop.excecoes.EntradaException;
 
-public enum FabricaMidia {
+public enum FabricaPostavel {
 
 	IMAGEM {
 		@Override
@@ -15,14 +15,14 @@ public enum FabricaMidia {
 		}
 
 		@Override
-		public Postavel getMidia(String conteudo) {
+		public Postavel getInstancia(String conteudo) throws EntradaException {
 			return new Imagem(conteudo);
 		}
 	},
 
 	AUDIO {
 		@Override
-		public Postavel getMidia(String conteudo) {
+		public Postavel getInstancia(String conteudo) throws EntradaException {
 			return new Audio(conteudo);
 		}
 
@@ -34,7 +34,7 @@ public enum FabricaMidia {
 	HASHTAG {
 
 		@Override
-		public Postavel getMidia(String conteudo) {
+		public Postavel getInstancia(String conteudo) throws EntradaException {
 			return new HashTag(conteudo);
 		}
 
@@ -47,7 +47,7 @@ public enum FabricaMidia {
 	MENSAGEM {
 
 		@Override
-		public Postavel getMidia(String conteudo) throws EntradaException {
+		public Postavel getInstancia(String conteudo) throws EntradaException {
 			return new Mensagem(conteudo);
 		}
 
@@ -57,30 +57,28 @@ public enum FabricaMidia {
 		}
 	};
  
-	public abstract Postavel getMidia(String conteudo) throws EntradaException;
+	public abstract Postavel getInstancia(String conteudo) throws EntradaException;
 
 	public abstract String getMarcacao();
 
-	public static List<Postavel> getListaMidia(String conteudo)
+	public static List<Postavel> getListaPostavel(String conteudo)
 			throws EntradaException {
-		List<Postavel> listaMidia = new ArrayList<>();
+		List<Postavel> listaPostavel = new ArrayList<>();
 		String[] postagemSplit = conteudo.split(" ");
 		String texto = "";
 
 		boolean adiciona = true;
 		for (String string : postagemSplit) {
 
-			for (FabricaMidia fabMidia : FabricaMidia.values()) {
-				if (string.matches(fabMidia.getMarcacao())) {
-					listaMidia.add(fabMidia.getMidia(string));
+			for (FabricaPostavel fabPost : FabricaPostavel.values()) {
+				if (string.matches(fabPost.getMarcacao())) {
+					listaPostavel.add(fabPost.getInstancia(string));
 					adiciona = false;
 					break;
 				}
 
-				if (fabMidia == FabricaMidia.HASHTAG && !adiciona) {
-					throw new EntradaException(
-							"As hashtags devem comecar com '#'. Erro na hashtag: '"
-									+ string + "'.");
+				if (fabPost == FabricaPostavel.HASHTAG && !adiciona) {
+					listaPostavel.add(fabPost.getInstancia(string));
 				}
 			}
 
@@ -89,9 +87,9 @@ public enum FabricaMidia {
 				continue;
 			}
 		}
-		listaMidia.add(0, FabricaMidia.MENSAGEM.getMidia(texto));
+		listaPostavel.add(0, FabricaPostavel.MENSAGEM.getInstancia(texto));
 
-		return listaMidia;
+		return listaPostavel;
 	}
 
 }

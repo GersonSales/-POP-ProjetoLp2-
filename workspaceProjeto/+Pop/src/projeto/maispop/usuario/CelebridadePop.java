@@ -1,10 +1,9 @@
 package projeto.maispop.usuario;
 
 import java.time.LocalDate;
-
 import java.time.format.DateTimeFormatter;
 
-import projeto.maispop.midia.Postagem;
+import projeto.maispop.postagem.Postagem;
 
 public class CelebridadePop implements TipoUsuario {
 

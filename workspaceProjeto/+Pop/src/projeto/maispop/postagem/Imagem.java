@@ -1,12 +1,19 @@
-package projeto.maispop.midia;
+package projeto.maispop.postagem;
+
+import projeto.maispop.excecoes.EntradaException;
 
 public class Imagem extends Midia {
 	
 	private final static String TAG_INICIAL = "<imagem>";
 	private final static String TAG_FINAL = "</imagem>";
 	
-	public Imagem(String conteudo) {
+	public Imagem(String conteudo) throws EntradaException {
 		super(conteudo);
+		
+		if (!(conteudo.matches(getMarcacao()))) {
+			throw new EntradaException("A imagem deve iniciar com "
+					+ TAG_INICIAL + " e terminar com " + TAG_FINAL + ".");
+		}
 	}
 	
 	public static String getMarcacao() {

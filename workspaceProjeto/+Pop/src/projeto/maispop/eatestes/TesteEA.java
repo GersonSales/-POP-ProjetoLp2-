@@ -2,7 +2,6 @@ package projeto.maispop.eatestes;
 
 import easyaccept.EasyAccept;
 
-
 //alteracao adson
 //alteracao master
 
@@ -17,19 +16,18 @@ import easyaccept.EasyAccept;
  * teste basta apenas adicionar o arquivo desejado na pasta 'EasyAccept' e
  * adicionar o caminho do arquivo a lista 'args' a..
  * 
- * @author Adson Cesar.
  * @author Gerson Sales.
  *
  */
 public class TesteEA {
 
-    public static void main(String[] args) {
-	args = new String[] { "projeto.maispop.sistema.Facade",
-		"EasyAccept/CasoDeTeste1.txt", "EasyAccept/CasoDeTeste2.txt",
-		"EasyAccept/CasoDeTeste3.txt", "EasyAccept/CasoDeTeste4.txt" };
-	EasyAccept.main(args);
-    }
-    
-    
-    
+	public static void main(String[] args) {
+		args = new String[] { "projeto.maispop.sistema.Facade",
+				"EasyAccept/CasoDeUso_1.txt", "EasyAccept/CasoDeUso_2.txt",
+				"EasyAccept/CasoDeUso_3.txt", "EasyAccept/CasoDeUso_4.txt",
+				"EasyAccept/CasoDeUso_5.txt", "EasyAccept/CasoDeUso_6.txt",
+				"EasyAccept/CasoDeUso_7.txt" };
+		EasyAccept.main(args);
+	}
+
 }

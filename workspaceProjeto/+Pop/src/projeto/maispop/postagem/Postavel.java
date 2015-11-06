@@ -1,4 +1,4 @@
-package projeto.maispop.midia;
+package projeto.maispop.postagem;
 
 public interface Postavel {
 

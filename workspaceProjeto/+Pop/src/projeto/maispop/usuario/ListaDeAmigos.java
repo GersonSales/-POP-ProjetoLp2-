@@ -8,7 +8,6 @@ import java.util.Set;
  * wrapper da classe <i>HashSet<i> para que o <i>Usuario<i> possia manipular
  * suas amizades na rede social <i>+Pop</i>.
  * 
- * @author Adson Cesar.
  * @author Gerson Sales.
  * @version 0.3
  * @see Usuario
