@@ -1,13 +1,11 @@
 package projeto.maispop.testes;
 
-import static org.junit.Assert.*;
 
 import java.util.HashSet;
 import java.util.Set;
 
 import org.junit.Test;
 
-import projeto.maispop.excecoes.EntradaException;
 import projeto.maispop.postagem.HashTag;
 
 public class TestesAleatorios {
@@ -15,8 +13,11 @@ public class TestesAleatorios {
 	@Test
 	public void test() {
 		try {
+			@SuppressWarnings("unused")
 			HashTag casa= new HashTag("#epicfail");
+			@SuppressWarnings("unused")
 			HashTag partiu= new HashTag("#epicfail");
+			@SuppressWarnings("unused")
 			HashTag dormir = new HashTag("#epicfail");
 
 			
