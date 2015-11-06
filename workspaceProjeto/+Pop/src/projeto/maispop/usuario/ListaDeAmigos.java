@@ -23,30 +23,30 @@ public class ListaDeAmigos {
 
     }
 
+    public void aceitaAmizade(String emailUsuario) {
+	this.listaDeAmigos.add(emailUsuario);
+	this.pendentes.remove(emailUsuario);
+    }
+
     public void adicionaAmigo(String emailUsuario) {
 	this.pendentes.add(emailUsuario);
     }
 
-    public void rejeitaAmizade(String emailUsuario) {
-	this.pendentes.remove(emailUsuario);
-
-    }
-
-    public void aceitaAmizade(String emailUsuario) {
-	this.listaDeAmigos.add(emailUsuario);
-	this.pendentes.remove(emailUsuario);
+    public boolean contemAmigo(String emailUsuario) {
+	return this.listaDeAmigos.contains(emailUsuario);
     }
     
     public boolean contemPendencia(String emailUsuario) {
 	return this.pendentes.contains(emailUsuario);
     }
     
-    public boolean contemAmigo(String emailUsuario) {
-	return this.listaDeAmigos.contains(emailUsuario);
-    }
-    
     public int getQtdAmigos() {
 	return this.listaDeAmigos.size();
+    }
+    
+    public void rejeitaAmizade(String emailUsuario) {
+	this.pendentes.remove(emailUsuario);
+
     }
 
     public void removeAmigo(String emailUsuario) {

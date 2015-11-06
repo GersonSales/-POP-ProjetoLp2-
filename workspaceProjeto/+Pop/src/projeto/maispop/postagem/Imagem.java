@@ -4,7 +4,11 @@ import projeto.maispop.excecoes.EntradaException;
 
 public class Imagem extends Midia {
 	
+	public static String getMarcacao() {
+		return TAG_INICIAL + ".+" + TAG_FINAL;
+	}
 	private final static String TAG_INICIAL = "<imagem>";
+	
 	private final static String TAG_FINAL = "</imagem>";
 	
 	public Imagem(String conteudo) throws EntradaException {
@@ -14,10 +18,6 @@ public class Imagem extends Midia {
 			throw new EntradaException("A imagem deve iniciar com "
 					+ TAG_INICIAL + " e terminar com " + TAG_FINAL + ".");
 		}
-	}
-	
-	public static String getMarcacao() {
-		return TAG_INICIAL + ".+" + TAG_FINAL;
 	}
 	
 	@Override

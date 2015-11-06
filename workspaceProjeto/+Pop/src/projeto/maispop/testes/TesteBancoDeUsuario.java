@@ -1,12 +1,5 @@
 package projeto.maispop.testes;
 
-import java.util.Comparator;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-import java.util.SortedMap;
-import java.util.TreeMap;
-
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -18,68 +11,8 @@ import projeto.maispop.sistema.BancoDeUsuarios;
 import projeto.maispop.usuario.Usuario;
 
 public class TesteBancoDeUsuario {
-	SortedMap<String, Integer> hashtags;
-
-	@Before
-	public void testeBancoDeUsuario() {
-		this.hashtags = new TreeMap<>();
-
-	}
-
-	@Test
-	public void testeTreeMap() {
-
-		String casa = "#casa";
-		Integer ocorrenciaCasa = 1;
-
-		adicionaHashtag(casa, ocorrenciaCasa);
-		imprimeMapa();
-
-		String partiu = "#partiu";
-		Integer ocorrenciaPartiu = 5;
-
-		adicionaHashtag(partiu, ocorrenciaPartiu);
-		imprimeMapa();
-
-		String partiu2 = "#partiu";
-		Integer ocorrenciaPartiu2 = 6;
-
-		adicionaHashtag(partiu2, ocorrenciaPartiu2);
-		imprimeMapa();
-
-	}
-
-	public void imprimeMapa() {
-		System.out.println(this.hashtags);
-	}
-
-	public void adicionaHashtag(String hashtag, Integer ocorrencia) {
-		this.hashtags.put(hashtag, ocorrencia);
-
-	}
 
 	private BancoDeUsuarios bancoDeUsuarios;
-
-	@Before
-	public void instancia() {
-		this.bancoDeUsuarios = new BancoDeUsuarios();
-		cadastroUsuario();
-	}
-
-	public void cadastroUsuario() {
-		try {
-			this.bancoDeUsuarios.cadastraUsuario("Michael Scofield", "michael@techgroup.com", "@rlbop#@", "18/08/1984",
-					"arquivos/imagens/imagens_da_camera/wp_20150629_001.jpg");
-			this.bancoDeUsuarios.cadastraUsuario("Sara Tancredi", "sara_t@techgroup.com", "Origami<3", "12/03/1887",
-					"arquivos/imagens/sara.jpg");
-			this.bancoDeUsuarios.cadastraUsuario("Lincoln Burrows", "linc_burrows@techgroup.com", "lj_veronicaD",
-					"07/02/1978");
-
-			Assert.assertEquals(3, this.bancoDeUsuarios.dimensaoBanco());
-		} catch (Exception erro) {
-			Assert.fail();
-		}
-	}
 
 	@Test
 	public void atualizaInformacao() {
@@ -112,6 +45,50 @@ public class TesteBancoDeUsuario {
 		}
 	}
 
+	public void cadastroUsuario() {
+		try {
+			this.bancoDeUsuarios.cadastraUsuario("Michael Scofield", "michael@techgroup.com", "@rlbop#@", "18/08/1984",
+					"arquivos/imagens/imagens_da_camera/wp_20150629_001.jpg");
+			this.bancoDeUsuarios.cadastraUsuario("Sara Tancredi", "sara_t@techgroup.com", "Origami<3", "12/03/1887",
+					"arquivos/imagens/sara.jpg");
+			this.bancoDeUsuarios.cadastraUsuario("Lincoln Burrows", "linc_burrows@techgroup.com", "lj_veronicaD",
+					"07/02/1978");
+
+			Assert.assertEquals(3, this.bancoDeUsuarios.dimensaoBanco());
+		} catch (Exception erro) {
+			Assert.fail();
+		}
+	}
+
+	@Test
+	public void informacaoUsuario() {
+		try {
+			String nome = this.bancoDeUsuarios.getInfoUsuario("Nome", "linc_burrows@techgroup.com");
+
+			String email = this.bancoDeUsuarios.getInfoUsuario("Email", "linc_burrows@techgroup.com");
+
+			String dataNascimento = this.bancoDeUsuarios.getInfoUsuario("Data de Nascimento",
+					"linc_burrows@techgroup.com");
+
+			String foto = this.bancoDeUsuarios.getInfoUsuario("Foto", "linc_burrows@techgroup.com");
+			
+			Assert.assertEquals("Lincoln Burrows", nome);
+			Assert.assertEquals("linc_burrows@techgroup.com", email);
+			Assert.assertEquals("1978-02-07", dataNascimento);
+			Assert.assertEquals("resources/default.jpg", foto);
+			
+
+		} catch (EntradaException | LogicaException e) {
+			Assert.fail();
+		}
+	}
+
+	@Before
+	public void instancia() {
+		this.bancoDeUsuarios = new BancoDeUsuarios();
+		cadastroUsuario();
+	}
+
 	@Test
 	public void ranking() {
 		try {
@@ -135,18 +112,6 @@ public class TesteBancoDeUsuario {
 	}
 
 	@Test
-	public void usuarioInexistente() {
-		try {
-			this.bancoDeUsuarios.getUsuario("tbag@techgroup.com");
-			Assert.fail();
-		} catch (UsuarioInexistenteException erro) {
-			Assert.assertEquals("Um usuarix com email tbag@techgroup.com nao esta cadastradx.", erro.getMessage());
-		} catch (Exception erro) {
-			Assert.fail();
-		}
-	}
-
-	@Test
 	public void removeUsuario() {
 		try {
 			this.bancoDeUsuarios.removeUsuario("tbag@techgroup.com");
@@ -159,33 +124,16 @@ public class TesteBancoDeUsuario {
 	}
 
 	@Test
-	public void informacaoUsuario() {
+	public void usuarioInexistente() {
 		try {
-			String nome = this.bancoDeUsuarios.getInfoUsuario("Nome", "linc_burrows@techgroup.com");
-
-			String email = this.bancoDeUsuarios.getInfoUsuario("Email", "linc_burrows@techgroup.com");
-
-			String dataNascimento = this.bancoDeUsuarios.getInfoUsuario("Data de Nascimento",
-					"linc_burrows@techgroup.com");
-
-			String foto = this.bancoDeUsuarios.getInfoUsuario("Foto", "linc_burrows@techgroup.com");
-
-		} catch (EntradaException | LogicaException e) {
-			e.printStackTrace();
+			this.bancoDeUsuarios.getUsuario("tbag@techgroup.com");
+			Assert.fail();
+		} catch (UsuarioInexistenteException erro) {
+			Assert.assertEquals("Um usuarix com email tbag@techgroup.com nao esta cadastradx.", erro.getMessage());
+		} catch (Exception erro) {
+			Assert.fail();
 		}
 	}
 
-	// public void adicionaHashtag(String hashtag, Integer ocorrencia) {
-	//
-	// if (this.hashtags.containsKey(ocorrencia)) {
-	// this.hashtags.get(ocorrencia).add(hashtag);
-	// } else {
-	// Set<String> setHashtags = new HashSet<>();
-	// setHashtags.add(hashtag);
-	//
-	// this.hashtags.put(ocorrencia, setHashtags);
-	// }
-	//
-	// }
 
 }

@@ -10,18 +10,6 @@ public class TuplaHashtag implements Comparable<TuplaHashtag> {
 		this.contador = contador;
 	}
 
-	public void incrementaEmUm() {
-		this.contador++;
-	}
-
-	public Integer getContador() {
-		return this.contador;
-	}
-
-	public HashTag getHashtag() {
-		return this.hashtag;
-	}
-
 	@Override
 	public int compareTo(TuplaHashtag outraTupla) {
 		if (getContador() == outraTupla.getContador()) {
@@ -44,6 +32,18 @@ public class TuplaHashtag implements Comparable<TuplaHashtag> {
 			}
 		}
 		return false;
+	}
+
+	public Integer getContador() {
+		return this.contador;
+	}
+
+	public HashTag getHashtag() {
+		return this.hashtag;
+	}
+
+	public void incrementaEmUm() {
+		this.contador++;
 	}
 
 	@Override

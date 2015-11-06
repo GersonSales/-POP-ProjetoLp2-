@@ -41,6 +41,32 @@ public class Usuario implements Comparable<Usuario> {
 
 	/**
 	 * Construtor sobrecarrecado da classe <code>Usuario</code>.<br>
+	 * que cria uma nova instancia de <code>Usuario</code> recebendo quase todas
+	 * as informacoes necessarias para a acriacao do mesmo, com excecao da
+	 * imagem, sendo assim passada uma imagem_padrao como parametro
+	 * 
+	 * @param nome
+	 *            String que define o nome do usuario.
+	 * @param email
+	 *            String que define o e-mail do usuario.
+	 * @param senha
+	 *            String que define a senha do usuario.
+	 * @param dataNascimento
+	 *            String que define a data de nascimento do usuario.
+	 * @throws EntradaException. Caso
+	 *             o seja recebido como parametro algum atributo de formatacao
+	 *             invalida.nome
+	 * @throws LogicaException. Caso
+	 *             haja algum erro durante o processo de gerenciamento de
+	 *             informacoes.
+	 */
+	public Usuario(String nome, String email, String senha,
+			String dataNascimento) throws EntradaException {
+		this(nome, email, senha, dataNascimento, IMG_PERFIL_PADRAO);
+	}
+
+	/**
+	 * Construtor sobrecarrecado da classe <code>Usuario</code>.<br>
 	 * que cria uma nova instancia de <code>Usuario</code> recebendo todas as
 	 * informacoes necessarias para a acriacao do mesmo.
 	 * 
@@ -80,232 +106,65 @@ public class Usuario implements Comparable<Usuario> {
 		this.tipoUsuario = new NormalPop();
 	}
 
-	/**
-	 * Construtor sobrecarrecado da classe <code>Usuario</code>.<br>
-	 * que cria uma nova instancia de <code>Usuario</code> recebendo quase todas
-	 * as informacoes necessarias para a acriacao do mesmo, com excecao da
-	 * imagem, sendo assim passada uma imagem_padrao como parametro
-	 * 
-	 * @param nome
-	 *            String que define o nome do usuario.
-	 * @param email
-	 *            String que define o e-mail do usuario.
-	 * @param senha
-	 *            String que define a senha do usuario.
-	 * @param dataNascimento
-	 *            String que define a data de nascimento do usuario.
-	 * @throws EntradaException. Caso
-	 *             o seja recebido como parametro algum atributo de formatacao
-	 *             invalida.nome
-	 * @throws LogicaException. Caso
-	 *             haja algum erro durante o processo de gerenciamento de
-	 *             informacoes.
-	 */
-	public Usuario(String nome, String email, String senha,
-			String dataNascimento) throws EntradaException {
-		this(nome, email, senha, dataNascimento, IMG_PERFIL_PADRAO);
+	public void aceitaAmizade(String emailUsuario) {
+		this.listaDeAmigos.aceitaAmizade(emailUsuario);
 	}
 
-	/**
-	 * Metodo <i>getNome</i> responsavel por retornar a String que representa o
-	 * nome do <code>Usuario</code>.
-	 * 
-	 * @return nome. String representante do nome de <code>Usuario</code>.
-	 */
-	public String getNome() {
-		return nome;
+	// RELACIONAMENTO ENTRE USUARIOS:
+	public void adicionaAmigo(String emailUsuario) {
+		this.listaDeAmigos.adicionaAmigo(emailUsuario);
 	}
 
-	/**
-	 * Metodo <i>setNome</i> responsavel tentar atribuir um novo nome ao
-	 * <code>Usuario</code>. Recebendo uma String(novo nome) como parametro e
-	 * verificando-o.
-	 * 
-	 * @param nome
-	 *            . String representante do novo nome do <code>Usuario</code>.
-	 * @throws NomeException. Caso
-	 *             nao seja recebido uma nome valido.
-	 */
-	public void setNome(String nome) throws NomeException {
-		this.nome = usuarioFormat.validaNome(nome);
+	public void adicionaPops(int popBonus) {
+		this.mural.adicionaPops(popBonus);
+		atualizaTipo();
 	}
 
-	/**
-	 * Metodo <i>getEmail</i> responsavel por retornar a String que representa o
-	 * email do <code>Usuario</code>.
-	 * 
-	 * @return email. String representante do email do <code>Usuario</code>.
-	 */
-	public String getEmail() {
-		return email;
+	public void atualizaTipo() {
+		int popularidade = this.mural.getPopularidade();
+
+		if (popularidade < 500) {
+			this.tipoUsuario = new NormalPop();
+		} else if (popularidade <= 1000) {
+			this.tipoUsuario = new CelebridadePop();
+		} else {
+			this.tipoUsuario = new IconePop();
+		}
 	}
 
-	/**
-	 * Metodo <i>setEmail</i> responsavel tentar atribuir um novo email ao
-	 * <code>Usuario</code>. Recebendo uma String(novo email) como parametro e
-	 * verificando-o.
-	 * 
-	 * @param email
-	 *            . String representante do novo email do <code>Usuario</code>.
-	 * @throws EmailException. Caso
-	 *             nao seja recebido uma email valido.
-	 */
-	public void setEmail(String email) throws EmailException {
-		this.email = usuarioFormat.validaEmail(email);
+	@Override
+	public int compareTo(Usuario outroUsuario) {
+		if (getPopularidade() == outroUsuario.getPopularidade()) {
+			return getEmail().compareToIgnoreCase(outroUsuario.getEmail());
+		}
+		return getPopularidade() - outroUsuario.getPopularidade();
 	}
 
-	/**
-	 * Metodo <i>getSenha</i> responsavel por retornar a String que representa a
-	 * senha do <code>Usuario</code>.
-	 * 
-	 * @return senha. String representante da senha do <code>Usuario</code>.
-	 */
-	public String getSenha() {
-		return senha;
+	public boolean contemAmigo(String emailUsuario) {
+		return this.listaDeAmigos.contemAmigo(emailUsuario);
 	}
 
-	/**
-	 * Metodo <i>setSenha</i> responsavel tentar atribuir uma nova senha ao
-	 * <code>Usuario</code>. Recebendo uma String(novo senha) como parametro e
-	 * verificando-a.
-	 * 
-	 * @param senha
-	 *            . String representante do novo senha do <code>Usuario</code>.
-	 * @throws SenhaException. Caso
-	 *             nao seja recebido uma senha valido.
-	 */
-	public void setSenha(String senha) throws SenhaException {
-		this.senha = usuarioFormat.validaSenha(senha);
+	public boolean contemPendencia(String emailUsuario) {
+		return this.listaDeAmigos.contemPendencia(emailUsuario);
 	}
 
-	/**
-	 * Metodo <i>getDataNascimento</i> responsavel por retornar a String que
-	 * representa a data de nascimento do <code>Usuario</code>.
-	 * 
-	 * @return dataDeNascimento. String representante da data em que o
-	 *         <code>Usuario</code> nasceu.
-	 */
-	public String getDataNascimento() {
-		return dataNascimento;
+	public void curtir(Postagem postagem) throws EntradaException {
+		this.tipoUsuario.curtir(postagem);
 	}
 
-	/**
-	 * Metodo <i>setDataNascimento</i> responsavel tentar atribuir uma nova data
-	 * de nascimento <code>Usuario</code>. Recebendo uma String(nova
-	 * dataDeNascimento) como parametro e verificando-a.
-	 * 
-	 * @param dataDeNascimento
-	 *            . String representante do nova data de nascimento do
-	 *            <code>Usuario</code>.
-	 * @throws DataException. Caso
-	 *             nao seja recebido uma data de nascimento valida.
-	 */
-	public void setDataNascimento(String dataNascimento) throws DataException {
-		this.dataNascimento = usuarioFormat
-				.validaDataNascimento(dataNascimento);
+	public void descurtir(Postagem postagem) throws EntradaException {
+		this.tipoUsuario.descurtir(postagem);
 	}
 
-	/**
-	 * Metodo <i>getImagemPerfil</i> responsavel por retornar a String que
-	 * representa o caminho da imagem de perfil do <code>Usuario</code>.
-	 * 
-	 * @return imagemPerfil. String representante a imagem de perfil do
-	 *         <code>Usuario</code>.
-	 */
-	public String getImagemPerfil() {
-		return imagemPerfil;
-	}
-
-	/**
-	 * Metodo <i>setImagemPerfil</i> responsavel tentar atribuir uma nova imagem
-	 * de perfil ao <code>Usuario</code>. Recebendo uma String(nova
-	 * imagemPerfil) como parametro e verificando-a.
-	 * 
-	 * @param imagemPerfil
-	 *            . String representante da nova imagem de perfil do
-	 *            <code>Usuario</code>.
-	 * @throws ImagemException. Caso
-	 *             nao seja recebido uma imagem valida.
-	 */
-	public void setImagemPerfil(String imagemPerfil) throws ImagemException {
-		this.imagemPerfil = usuarioFormat.validaImagem(imagemPerfil);
-	}
-
-	/**
-	 * Metodo <code>removeImagemPerfil</code> responsavel por modificar a imagem
-	 * do perfil para uma imagem definida como padrao.
-	 */
-	public void removeImagemPerfil() {
-		this.imagemPerfil = IMG_PERFIL_PADRAO;
-	}
-
-	/**
-	 * Metodo <i>postar</i> responsavel por delegar ao
-	 * <code>MuralDeUsuario</code> uma criacao de uma nova <code>Postagem</code>
-	 * .
-	 * 
-	 * @param texto
-	 *            . String representante do texto da postagem.
-	 * @param dataPostagem
-	 *            . String que representa a data da postagem.
-	 * @throws EntradaException. Caso
-	 *             seja recebido alguma String com informacoes invalidas.
-	 */
-	public void postar(String texto, String dataPostagem)
-			throws EntradaException {
-		this.mural.postar(texto, dataPostagem);
-	}
-
-	/**
-	 * Metodo sobrecarregado <i>getPostagem</i> responsavel por receber um
-	 * String como parametro que representa o atributo a ser pesquisado e um
-	 * Inteiro que representa o indice da lista de postagens a ser pesquisado.
-	 * Retornando assim a postagem e sua respectiva informacao. Delegando toda a
-	 * tarefa a <code>MuralDeUsuario</code>.
-	 * 
-	 * @param atributo
-	 *            . String que representa o atributo a ser pesquisado.
-	 * @param indice
-	 *            . Inteiro que identificara qual postagem sera escolhida.
-	 * @return mensagem/data/hashtag. String de informacoes cotida em
-	 *         <code>Postagem</code>.
-	 * @see <i>getPostagem(int indice);</i>.
-	 */
-	public String getPostagem(String atributo, int indice) {
-		return this.mural.getPostagem(atributo, indice);
-	}
-
-	/**
-	 * Metodo sobrecarregado <i>getPostagem</i> responsavel por receber como
-	 * parametro um Inteiro que representa um indice a ser escolhido da lista de
-	 * postagens. Delegando toda a tarefa a <code>MuralDeUsuario</code>.
-	 * 
-	 * @param indice
-	 *            . Inteiro represntando um indice.
-	 * @return <i>Postagem</i>. String de uma <i>Postagem</i>.
-	 */
-	public Postagem getPostagem(int indice) {
-		return this.mural.getPostagem(indice);
-	}
-
-	public int getPopularidade() {
-		return this.mural.getPopularidade();
-	}
-
-	public String getTipoUsuario() {
-		return this.tipoUsuario.toString();
-	}
-	
-	public int getPopsPost(int indice) {
-		return this.mural.getPopsPost(indice);
-	}
-	
-	public int qtdCurtidasDePost(int indice) throws ItemInexistenteException {
-		return this.mural.qtdCurtidasDePost(indice);
-	}
-	
-	public int qtdRejeicoesDePost(int indice) {
-		return this.mural.qtdRejeicoesDePost(indice);
+	@Override
+	public boolean equals(Object objeto) {
+		if (objeto instanceof Usuario) {
+			Usuario outroUsuario = (Usuario) objeto;
+			if (getEmail().equals(outroUsuario.getEmail())) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	/**
@@ -331,81 +190,230 @@ public class Usuario implements Comparable<Usuario> {
 		return this.mural.getConteudoPost(indice, postagem);
 	}
 
-	public void atualizaTipo() {
-		int popularidade = this.mural.getPopularidade();
-
-		if (popularidade < 500) {
-			this.tipoUsuario = new NormalPop();
-		} else if (popularidade <= 1000) {
-			this.tipoUsuario = new CelebridadePop();
-		} else {
-			this.tipoUsuario = new IconePop();
-		}
+	/**
+	 * Metodo <i>getDataNascimento</i> responsavel por retornar a String que
+	 * representa a data de nascimento do <code>Usuario</code>.
+	 * 
+	 * @return dataDeNascimento. String representante da data em que o
+	 *         <code>Usuario</code> nasceu.
+	 */
+	public String getDataNascimento() {
+		return dataNascimento;
 	}
 
-	// RELACIONAMENTO ENTRE USUARIOS:
-	public void adicionaAmigo(String emailUsuario) {
-		this.listaDeAmigos.adicionaAmigo(emailUsuario);
+	/**
+	 * Metodo <i>getEmail</i> responsavel por retornar a String que representa o
+	 * email do <code>Usuario</code>.
+	 * 
+	 * @return email. String representante do email do <code>Usuario</code>.
+	 */
+	public String getEmail() {
+		return email;
 	}
 
-	public void removeAmigo(String emailUsuario) {
-		this.listaDeAmigos.removeAmigo(emailUsuario);
+	/**
+	 * Metodo <i>getImagemPerfil</i> responsavel por retornar a String que
+	 * representa o caminho da imagem de perfil do <code>Usuario</code>.
+	 * 
+	 * @return imagemPerfil. String representante a imagem de perfil do
+	 *         <code>Usuario</code>.
+	 */
+	public String getImagemPerfil() {
+		return imagemPerfil;
 	}
 
-	public void rejeitaAmizade(String emailUsuario) {
-		this.listaDeAmigos.rejeitaAmizade(emailUsuario);
-	}
-
-	public void aceitaAmizade(String emailUsuario) {
-		this.listaDeAmigos.aceitaAmizade(emailUsuario);
-	}
-
-	public boolean contemPendencia(String emailUsuario) {
-		return this.listaDeAmigos.contemPendencia(emailUsuario);
-	}
-
-	public boolean contemAmigo(String emailUsuario) {
-		return this.listaDeAmigos.contemAmigo(emailUsuario);
-	}
-
-	public void curtir(Postagem postagem) throws EntradaException {
-		this.tipoUsuario.curtir(postagem);
-	}
-	
-	public void adicionaPops(int popBonus) {
-		this.mural.adicionaPops(popBonus);
-		atualizaTipo();
-	}
-
-	public void descurtir(Postagem postagem) throws EntradaException {
-		this.tipoUsuario.descurtir(postagem);
-	}
-
-	public int getQtdAmigos() {
-		return this.listaDeAmigos.getQtdAmigos();
-	}
-
-	public void notificaMe(String notificacao) {
-		this.notificacoes.recebeNotificacao(notificacao);
+	/**
+	 * Metodo <i>getNome</i> responsavel por retornar a String que representa o
+	 * nome do <code>Usuario</code>.
+	 * 
+	 * @return nome. String representante do nome de <code>Usuario</code>.
+	 */
+	public String getNome() {
+		return nome;
 	}
 
 	public int getNotificacoes() {
 		return this.notificacoes.getNotificacoes();
+	}
+	
+	public int getPopsPost(int indice) {
+		return this.mural.getPopsPost(indice);
+	}
+	
+	public int getPopularidade() {
+		return this.mural.getPopularidade();
+	}
+	
+	/**
+	 * Metodo sobrecarregado <i>getPostagem</i> responsavel por receber como
+	 * parametro um Inteiro que representa um indice a ser escolhido da lista de
+	 * postagens. Delegando toda a tarefa a <code>MuralDeUsuario</code>.
+	 * 
+	 * @param indice
+	 *            . Inteiro represntando um indice.
+	 * @return <i>Postagem</i>. String de uma <i>Postagem</i>.
+	 */
+	public Postagem getPostagem(int indice) {
+		return this.mural.getPostagem(indice);
+	}
+
+	/**
+	 * Metodo sobrecarregado <i>getPostagem</i> responsavel por receber um
+	 * String como parametro que representa o atributo a ser pesquisado e um
+	 * Inteiro que representa o indice da lista de postagens a ser pesquisado.
+	 * Retornando assim a postagem e sua respectiva informacao. Delegando toda a
+	 * tarefa a <code>MuralDeUsuario</code>.
+	 * 
+	 * @param atributo
+	 *            . String que representa o atributo a ser pesquisado.
+	 * @param indice
+	 *            . Inteiro que identificara qual postagem sera escolhida.
+	 * @return mensagem/data/hashtag. String de informacoes cotida em
+	 *         <code>Postagem</code>.
+	 * @see <i>getPostagem(int indice);</i>.
+	 */
+	public String getPostagem(String atributo, int indice) {
+		return this.mural.getPostagem(atributo, indice);
 	}
 
 	public String getProxNotificacao() throws ItemInexistenteException {
 		return this.notificacoes.getProxNotificacao();
 	}
 
-	@Override
-	public boolean equals(Object objeto) {
-		if (objeto instanceof Usuario) {
-			Usuario outroUsuario = (Usuario) objeto;
-			if (getEmail().equals(outroUsuario.getEmail())) {
-				return true;
-			}
-		}
-		return false;
+	public int getQtdAmigos() {
+		return this.listaDeAmigos.getQtdAmigos();
+	}
+
+	/**
+	 * Metodo <i>getSenha</i> responsavel por retornar a String que representa a
+	 * senha do <code>Usuario</code>.
+	 * 
+	 * @return senha. String representante da senha do <code>Usuario</code>.
+	 */
+	public String getSenha() {
+		return senha;
+	}
+
+	public String getTipoUsuario() {
+		return this.tipoUsuario.toString();
+	}
+
+	public void notificaMe(String notificacao) {
+		this.notificacoes.recebeNotificacao(notificacao);
+	}
+
+	/**
+	 * Metodo <i>postar</i> responsavel por delegar ao
+	 * <code>MuralDeUsuario</code> uma criacao de uma nova <code>Postagem</code>
+	 * .
+	 * 
+	 * @param texto
+	 *            . String representante do texto da postagem.
+	 * @param dataPostagem
+	 *            . String que representa a data da postagem.
+	 * @throws EntradaException. Caso
+	 *             seja recebido alguma String com informacoes invalidas.
+	 */
+	public void postar(String texto, String dataPostagem)
+			throws EntradaException {
+		this.mural.postar(texto, dataPostagem);
+	}
+
+	public int qtdCurtidasDePost(int indice) throws ItemInexistenteException {
+		return this.mural.qtdCurtidasDePost(indice);
+	}
+
+	public int qtdRejeicoesDePost(int indice) {
+		return this.mural.qtdRejeicoesDePost(indice);
+	}
+	
+	public void rejeitaAmizade(String emailUsuario) {
+		this.listaDeAmigos.rejeitaAmizade(emailUsuario);
+	}
+
+	public void removeAmigo(String emailUsuario) {
+		this.listaDeAmigos.removeAmigo(emailUsuario);
+	}
+
+	/**
+	 * Metodo <code>removeImagemPerfil</code> responsavel por modificar a imagem
+	 * do perfil para uma imagem definida como padrao.
+	 */
+	public void removeImagemPerfil() {
+		this.imagemPerfil = IMG_PERFIL_PADRAO;
+	}
+
+	/**
+	 * Metodo <i>setDataNascimento</i> responsavel tentar atribuir uma nova data
+	 * de nascimento <code>Usuario</code>. Recebendo uma String(nova
+	 * dataDeNascimento) como parametro e verificando-a.
+	 * 
+	 * @param dataDeNascimento
+	 *            . String representante do nova data de nascimento do
+	 *            <code>Usuario</code>.
+	 * @throws DataException. Caso
+	 *             nao seja recebido uma data de nascimento valida.
+	 */
+	public void setDataNascimento(String dataNascimento) throws DataException {
+		this.dataNascimento = usuarioFormat
+				.validaDataNascimento(dataNascimento);
+	}
+
+	/**
+	 * Metodo <i>setEmail</i> responsavel tentar atribuir um novo email ao
+	 * <code>Usuario</code>. Recebendo uma String(novo email) como parametro e
+	 * verificando-o.
+	 * 
+	 * @param email
+	 *            . String representante do novo email do <code>Usuario</code>.
+	 * @throws EmailException. Caso
+	 *             nao seja recebido uma email valido.
+	 */
+	public void setEmail(String email) throws EmailException {
+		this.email = usuarioFormat.validaEmail(email);
+	}
+
+	/**
+	 * Metodo <i>setImagemPerfil</i> responsavel tentar atribuir uma nova imagem
+	 * de perfil ao <code>Usuario</code>. Recebendo uma String(nova
+	 * imagemPerfil) como parametro e verificando-a.
+	 * 
+	 * @param imagemPerfil
+	 *            . String representante da nova imagem de perfil do
+	 *            <code>Usuario</code>.
+	 * @throws ImagemException. Caso
+	 *             nao seja recebido uma imagem valida.
+	 */
+	public void setImagemPerfil(String imagemPerfil) throws ImagemException {
+		this.imagemPerfil = usuarioFormat.validaImagem(imagemPerfil);
+	}
+
+	/**
+	 * Metodo <i>setNome</i> responsavel tentar atribuir um novo nome ao
+	 * <code>Usuario</code>. Recebendo uma String(novo nome) como parametro e
+	 * verificando-o.
+	 * 
+	 * @param nome
+	 *            . String representante do novo nome do <code>Usuario</code>.
+	 * @throws NomeException. Caso
+	 *             nao seja recebido uma nome valido.
+	 */
+	public void setNome(String nome) throws NomeException {
+		this.nome = usuarioFormat.validaNome(nome);
+	}
+
+	/**
+	 * Metodo <i>setSenha</i> responsavel tentar atribuir uma nova senha ao
+	 * <code>Usuario</code>. Recebendo uma String(novo senha) como parametro e
+	 * verificando-a.
+	 * 
+	 * @param senha
+	 *            . String representante do novo senha do <code>Usuario</code>.
+	 * @throws SenhaException. Caso
+	 *             nao seja recebido uma senha valido.
+	 */
+	public void setSenha(String senha) throws SenhaException {
+		this.senha = usuarioFormat.validaSenha(senha);
 	}
 
 	@Override
@@ -417,14 +425,6 @@ public class Usuario implements Comparable<Usuario> {
 		return "Nome: " + getNome() + fdl + "Idade: " + idade + fdl
 				+ "E-mail: " + getEmail() + fdl + "Tipo: " + getTipoUsuario()
 				+ fdl + "Popularidade: " + getPopularidade();
-	}
-
-	@Override
-	public int compareTo(Usuario outroUsuario) {
-		if (getPopularidade() == outroUsuario.getPopularidade()) {
-			return getEmail().compareToIgnoreCase(outroUsuario.getEmail());
-		}
-		return getPopularidade() - outroUsuario.getPopularidade();
 	}
 
 }

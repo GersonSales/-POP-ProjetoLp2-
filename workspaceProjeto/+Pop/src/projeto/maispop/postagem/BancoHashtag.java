@@ -8,15 +8,15 @@ import java.util.Set;
 
 public class BancoHashtag {
 
-	private static BancoHashtag instancia;
-	private List<TuplaHashtag> listaTuplas;
-
 	public static BancoHashtag getInstancia() {
 		if (instancia == null) {
 			instancia = new BancoHashtag();
 		}
 		return instancia;
 	}
+	private static BancoHashtag instancia;
+
+	private List<TuplaHashtag> listaTuplas;
 
 	private BancoHashtag() {
 		this.listaTuplas = new ArrayList<>();
@@ -40,16 +40,6 @@ public class BancoHashtag {
 		}
 	}
 
-	private void ordenaDecrescente() {
-		Collections.sort(this.listaTuplas, new Comparator<TuplaHashtag>() {
-			@Override
-			public int compare(TuplaHashtag tupla, TuplaHashtag outraTupla) {
-				return outraTupla.compareTo(tupla);
-			}
-
-		});
-	}
-
 	public String get3Melhores() {
 		ordenaDecrescente();
 		StringBuilder melhores = new StringBuilder();
@@ -60,6 +50,11 @@ public class BancoHashtag {
 		melhores.deleteCharAt(melhores.length() - 1);
 
 		return melhores.toString();
+	}
+
+	private void ordenaDecrescente() {
+		Collections.sort(this.listaTuplas,
+				(tupla, outraTupla) -> (outraTupla.compareTo(tupla)));
 	}
 
 }

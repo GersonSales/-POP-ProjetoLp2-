@@ -5,7 +5,11 @@ import projeto.maispop.excecoes.EntradaException;
 
 public class Audio extends Midia {
 
+	public static String getMarcacao() {
+		return TAG_INICIAL + ".+" + TAG_FINAL;
+	}
 	private static final CharSequence TAG_INICIAL = "<audio>";
+
 	private static final CharSequence TAG_FINAL = "</audio>";
 
 	public Audio(String conteudo) throws EntradaException {
@@ -15,10 +19,6 @@ public class Audio extends Midia {
 			throw new EntradaException("O audio deve iniciar com "
 					+ TAG_INICIAL + " e terminar com " + TAG_FINAL + ".");
 		}
-	}
-
-	public static String getMarcacao() {
-		return TAG_INICIAL + ".+" + TAG_FINAL;
 	}
 
 	@Override

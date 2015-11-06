@@ -2,7 +2,6 @@ package projeto.maispop.eatestes;
 
 import easyaccept.EasyAccept;
 
-//alteracao adson
 //alteracao master
 
 /**

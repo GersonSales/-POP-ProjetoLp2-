@@ -4,7 +4,11 @@ import projeto.maispop.excecoes.EntradaException;
 
 public class HashTag implements Postavel, Comparable<HashTag> {
 
+	public static String getMarcacao() {
+		return TAG_INICIAL + "\\S+";
+	}
 	private static final String TAG_INICIAL = "#";
+
 	private String conteudo;
 
 	public HashTag(String conteudo) throws EntradaException {
@@ -17,32 +21,9 @@ public class HashTag implements Postavel, Comparable<HashTag> {
 		this.conteudo = conteudo;
 	}
 
-	public static String getMarcacao() {
-		return TAG_INICIAL + "\\S+";
-	}
-
 	@Override
-	public String toString() {
-		return getConteudo().replace(" ", ",");
-	}
-
-	@Override
-	public String getConteudo() {
-		return this.conteudo;
-	}
-
-	@Override
-	public void setConteudo(String conteudo) {
-		this.conteudo = conteudo;
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result
-				+ ((conteudo == null) ? 0 : conteudo.hashCode());
-		return result;
+	public int compareTo(HashTag outraHashtag) {
+		return getConteudo().compareTo(outraHashtag.getConteudo());
 	}
 
 	@Override
@@ -62,8 +43,27 @@ public class HashTag implements Postavel, Comparable<HashTag> {
 	}
 
 	@Override
-	public int compareTo(HashTag outraHashtag) {
-		return getConteudo().compareTo(outraHashtag.getConteudo());
+	public String getConteudo() {
+		return this.conteudo;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((conteudo == null) ? 0 : conteudo.hashCode());
+		return result;
+	}
+
+	@Override
+	public void setConteudo(String conteudo) {
+		this.conteudo = conteudo;
+	}
+
+	@Override
+	public String toString() {
+		return getConteudo().replace(" ", ",");
 	}
 
 }

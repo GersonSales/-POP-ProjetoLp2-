@@ -9,6 +9,28 @@ import projeto.maispop.postagem.Postagem;
 public class TestePostagem {
 
 	@Test
+	public void adicionaHashtag() {
+		try {
+			Postagem postagem = new Postagem("", "12/12/2012 12:12:12");
+
+			Assert.assertEquals("", postagem.getHashTags());
+
+			postagem.adicionaHashTag("#testar");
+
+			Assert.assertEquals("#testar", postagem.getHashTags());
+
+			postagem.adicionaHashTag("#postagem");
+
+			Assert.assertEquals("#testar,#postagem", postagem.getHashTags());
+
+		} catch (Exception erro) {
+			System.out.println(erro.getMessage());
+			Assert.fail();
+		}
+
+	}
+
+	@Test
 	public void criacaoInvalida() {
 		// Quantidade de caracteres invalida
 		try {
@@ -118,28 +140,6 @@ public class TestePostagem {
 		} catch (Exception erro) {
 			Assert.fail();
 		}
-	}
-
-	@Test
-	public void adicionaHashtag() {
-		try {
-			Postagem postagem = new Postagem("", "12/12/2012 12:12:12");
-
-			Assert.assertEquals("", postagem.getHashTags());
-
-			postagem.adicionaHashTag("#testar");
-
-			Assert.assertEquals("#testar", postagem.getHashTags());
-
-			postagem.adicionaHashTag("#postagem");
-
-			Assert.assertEquals("#testar,#postagem", postagem.getHashTags());
-
-		} catch (Exception erro) {
-			System.out.println(erro.getMessage());
-			Assert.fail();
-		}
-
 	}
 
 	@Test

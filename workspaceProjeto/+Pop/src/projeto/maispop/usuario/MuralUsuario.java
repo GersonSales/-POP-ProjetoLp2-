@@ -31,22 +31,60 @@ public class MuralUsuario {
 		this.popularidadeBonus = 0;
 	}
 
+	public void adicionaPops(int popBonus) {
+		this.popularidadeBonus = this.popularidadeBonus + popBonus;
+	}
+
+	public int dimensaoMural() {
+		return this.postagens.size();
+	}
+
 	/**
-	 * Metodo <i>postar</i> responsavel por criar uma nova instancia de
-	 * <code>Postagem</code> e adiciona-la a lista de postagens.
+	 * Metodo <i>getConteudoPost</i> responsavel por receber dois Inteiros como
+	 * parametro, um representando a postagem escolhida da lista de postagens e
+	 * outro representando o conteudo da postagem escolhida.
 	 * 
-	 * @param texto
-	 *            . String recebida como parametro que representa o texto que
-	 *            contera a postagem
-	 * @param dataPostagem
-	 *            . String que representa a Data e Hora da postagem.
+	 * @param indice
+	 *            . Inteiro representante do conteudo da postagem.
+	 * @param postagem
+	 *            . Inteiro representando a postagem a ser escolhida da lista de
+	 *            postagens.
+	 * @return conteudo. String representante do conteudo escolhido pelo indice.
+	 * 
 	 * @throws EntradaException. Caso
-	 *             seja recebido alguma String(texto, DataPostagem) incorreta.
+	 *             o usuario digite uma uma entrada desconhecida.
+	 * @throws ItemInexistenteException. Caso
+	 *             o item nao exista na <code>Postagem</code>.
 	 */
-	public void postar(String texto, String dataPostagem)
-			throws EntradaException {
-		Postagem novaPostagem = new Postagem(texto, dataPostagem);
-		this.postagens.add(novaPostagem);
+	public String getConteudoPost(int indice, int postagem)
+			throws EntradaException, ItemInexistenteException {
+		return this.postagens.get(postagem).getConteudo(indice);
+	}
+
+	public int getPopsPost(int indice) {
+		return this.postagens.get(indice).getPopularidade();
+	}
+
+	public int getPopularidade() {
+		int popularidadeTotal = 0;
+		for (Postagem postagem : postagens) {
+			popularidadeTotal = popularidadeTotal + postagem.getPopularidade();
+		}
+
+		return popularidadeTotal + this.popularidadeBonus;
+	}
+
+	/**
+	 * Metodo sobrecarregado <i>getPostagem</i> responsavel por receber como
+	 * parametro um Inteiro que representa um indice a ser escolhido da lista de
+	 * postagens.
+	 * 
+	 * @param indice
+	 *            . Inteiro represntando um indice.
+	 * @return <i>Postagem</i>. String de uma <i>Postagem</i>.
+	 */
+	public Postagem getPostagem(int indice) {
+		return this.postagens.get(indice);
 	}
 
 	/**
@@ -78,8 +116,22 @@ public class MuralUsuario {
 		}
 	}
 
-	public int getPopsPost(int indice) {
-		return this.postagens.get(indice).getPopularidade();
+	/**
+	 * Metodo <i>postar</i> responsavel por criar uma nova instancia de
+	 * <code>Postagem</code> e adiciona-la a lista de postagens.
+	 * 
+	 * @param texto
+	 *            . String recebida como parametro que representa o texto que
+	 *            contera a postagem
+	 * @param dataPostagem
+	 *            . String que representa a Data e Hora da postagem.
+	 * @throws EntradaException. Caso
+	 *             seja recebido alguma String(texto, DataPostagem) incorreta.
+	 */
+	public void postar(String texto, String dataPostagem)
+			throws EntradaException {
+		Postagem novaPostagem = new Postagem(texto, dataPostagem);
+		this.postagens.add(novaPostagem);
 	}
 
 	public int qtdCurtidasDePost(int indice) throws ItemInexistenteException {
@@ -90,60 +142,8 @@ public class MuralUsuario {
 		return this.postagens.get(indice).getCurtir();
 	}
 
-	public int dimensaoMural() {
-		return this.postagens.size();
-	}
-
 	public int qtdRejeicoesDePost(int indice) {
 		return this.postagens.get(indice).getDescurtir();
-	}
-
-	/**
-	 * Metodo sobrecarregado <i>getPostagem</i> responsavel por receber como
-	 * parametro um Inteiro que representa um indice a ser escolhido da lista de
-	 * postagens.
-	 * 
-	 * @param indice
-	 *            . Inteiro represntando um indice.
-	 * @return <i>Postagem</i>. String de uma <i>Postagem</i>.
-	 */
-	public Postagem getPostagem(int indice) {
-		return this.postagens.get(indice);
-	}
-
-	public void adicionaPops(int popBonus) {
-		this.popularidadeBonus = this.popularidadeBonus + popBonus;
-	}
-
-	/**
-	 * Metodo <i>getConteudoPost</i> responsavel por receber dois Inteiros como
-	 * parametro, um representando a postagem escolhida da lista de postagens e
-	 * outro representando o conteudo da postagem escolhida.
-	 * 
-	 * @param indice
-	 *            . Inteiro representante do conteudo da postagem.
-	 * @param postagem
-	 *            . Inteiro representando a postagem a ser escolhida da lista de
-	 *            postagens.
-	 * @return conteudo. String representante do conteudo escolhido pelo indice.
-	 * 
-	 * @throws EntradaException. Caso
-	 *             o usuario digite uma uma entrada desconhecida.
-	 * @throws ItemInexistenteException. Caso
-	 *             o item nao exista na <code>Postagem</code>.
-	 */
-	public String getConteudoPost(int indice, int postagem)
-			throws EntradaException, ItemInexistenteException {
-		return this.postagens.get(postagem).getConteudo(indice);
-	}
-
-	public int getPopularidade() {
-		int popularidadeTotal = 0;
-		for (Postagem postagem : postagens) {
-			popularidadeTotal = popularidadeTotal + postagem.getPopularidade();
-		}
-
-		return popularidadeTotal + this.popularidadeBonus;
 	}
 
 }

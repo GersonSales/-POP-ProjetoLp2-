@@ -11,12 +11,12 @@ public abstract class Midia implements Postavel{
 		return this.conteudo;
 	}
 
-	public void setConteudo(String conteudo) {
-		this.conteudo = conteudo;
-	}
-
 	public void reproduzir() {
 		System.out.println("Reproduzindo: " + this.conteudo);
+	}
+
+	public void setConteudo(String conteudo) {
+		this.conteudo = conteudo;
 	}
 
 }

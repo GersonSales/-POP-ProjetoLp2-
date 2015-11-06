@@ -35,84 +35,45 @@ public class Postagem {
 
 	}
 
-	/**
-	 * Metodo <i>getData</i> responsavel por retornar uma String representendo a
-	 * data de criacao da postagem.
-	 * 
-	 * @return dataPostagem. String representando Data e Hora da postagem.
-	 */
-	public String getData() {
-		return this.dataPostagem;
+	public void adicionaHashTag(String hashTag) throws EntradaException {
+		HashTag novaHashTag = new HashTag(hashTag);
+		if (this.hashtags.add(novaHashTag)) {
+			BancoHashtag.getInstancia().adiciona(novaHashTag);
+		}
 	}
 
 	/**
-	 * Metodo <i>organizaPostagem</i> responsavel por atribuir a
-	 * <code>FabricaMidia</code> a resposabilidade de 'qubrar' a string passada
-	 * como parametro e transforma-la em <code>Midia</code>.
+	 * Metodo <i>curtir</i> responsavel por incrementar as 'curtidas' da
+	 * postagem na quantidade recebida como parametro.
 	 * 
-	 * @param conteudo
-	 *            ; String a ser pecorrida.
-	 * @throws EntradaException
-	 *             ; Caso o conteudo passado nao atenda os requisitos.
+	 * @param curtida
+	 *            . Inteiro a servir de incremento.
 	 */
-	private void organizaPostagem(String conteudo) throws EntradaException {
-		// this.listaMidia = FabricaPostavel.getListaMidia(conteudo);
-
-		for (Postavel postavel : FabricaPostavel.getListaPostavel(conteudo)) {
-			if (postavel instanceof HashTag) {
-				this.hashtags.add((HashTag) postavel);
-			} else {
-				this.listaMidia.add(postavel);
-			}
-
-		}
+	public void curtir(int curtir) {
+		this.popularidade = getPopularidade() + curtir;
+		this.curtir = getCurtir() + 1;
 	}
 
-	public String getMensagem() {
-		String saida = "";
-		for (Postavel midia : this.listaMidia) {
-			if (!(midia instanceof HashTag)) {
-				saida = saida == "" ? midia.getConteudo() : saida + " "
-						+ midia.getConteudo();
-			}
-		}
-
-		return saida;
-
-	}
-
-	public String getHashTags() {
-		String saida = "";
-		for (HashTag hashtag : this.hashtags) {
-			saida = saida == "" ? hashtag.getConteudo() : saida + ","
-					+ hashtag.getConteudo();
-		}
-
-		return saida;
+	public void descurtir(int descurtir) {
+		this.popularidade = getPopularidade() - descurtir;
+		this.descurtir = getDescurtir() + 1;
 	}
 
 	private int dimensaoListaMidia() {
 		return this.listaMidia.size();
 	}
 
-	public String getConteudo(int indice) throws ItemInexistenteException,
-			EntradaException {
-		if (indice < 0) {
-			throw new EntradaException(
-					"O indice deve ser maior ou igual a zero.");
+	@Override
+	public boolean equals(Object objeto) {
+		if (objeto instanceof Postagem) {
+			Postagem outraPostagem = (Postagem) objeto;
+			if (getData().equals(outraPostagem.getData())) {
+				if (getMensagem().equals(outraPostagem.getMensagem())) {
+					return true;
+				}
+			}
 		}
-		Integer ultimoIndiceValido = dimensaoListaMidia();
-		if (indice > this.listaMidia.size() - 1) {
-			throw new ItemInexistenteException(ultimoIndiceValido.toString());
-
-		}
-		Postavel conteudo = this.listaMidia.get(indice);
-		if (conteudo instanceof HashTag) {
-			return null;
-		} else {
-			return conteudo.toString();
-		}
-
+		return false;
 	}
 
 	/**
@@ -150,7 +111,74 @@ public class Postagem {
 
 	}
 
+	public String getConteudo(int indice) throws ItemInexistenteException,
+			EntradaException {
+		if (indice < 0) {
+			throw new EntradaException(
+					"O indice deve ser maior ou igual a zero.");
+		}
+		Integer ultimoIndiceValido = dimensaoListaMidia();
+		if (indice > this.listaMidia.size() - 1) {
+			throw new ItemInexistenteException(ultimoIndiceValido.toString());
+
+		}
+		Postavel conteudo = this.listaMidia.get(indice);
+		if (conteudo instanceof HashTag) {
+			return null;
+		} else {
+			return conteudo.toString();
+		}
+
+	}
+
 	// <Metodos temporariamente em desuso>
+
+	/**
+	 * Metodo <i>getCurtir</i> responsavel por retornar um inteiro representando
+	 * as 'curtidas' da postagem.
+	 * 
+	 * @return curtir. Inteiro representante de curtir.
+	 */
+	public int getCurtir() {
+		return this.curtir;
+	}
+
+	/**
+	 * Metodo <i>getData</i> responsavel por retornar uma String representendo a
+	 * data de criacao da postagem.
+	 * 
+	 * @return dataPostagem. String representando Data e Hora da postagem.
+	 */
+	public String getData() {
+		return this.dataPostagem;
+	}
+
+	public int getDescurtir() {
+		return this.descurtir;
+	}
+
+	public String getHashTags() {
+		String saida = "";
+		for (HashTag hashtag : this.hashtags) {
+			saida = saida == "" ? hashtag.getConteudo() : saida + ","
+					+ hashtag.getConteudo();
+		}
+
+		return saida;
+	}
+
+	public String getMensagem() {
+		String saida = "";
+		for (Postavel midia : this.listaMidia) {
+			if (!(midia instanceof HashTag)) {
+				saida = saida == "" ? midia.getConteudo() : saida + " "
+						+ midia.getConteudo();
+			}
+		}
+
+		return saida;
+
+	}
 
 	/**
 	 * Metodo <i>getPoularidade</i> responsavel por retornar um numero inteiro
@@ -163,54 +191,26 @@ public class Postagem {
 	}
 
 	/**
-	 * Metodo <i>getCurtir</i> responsavel por retornar um inteiro representando
-	 * as 'curtidas' da postagem.
+	 * Metodo <i>organizaPostagem</i> responsavel por atribuir a
+	 * <code>FabricaMidia</code> a resposabilidade de 'qubrar' a string passada
+	 * como parametro e transforma-la em <code>Midia</code>.
 	 * 
-	 * @return curtir. Inteiro representante de curtir.
+	 * @param conteudo
+	 *            ; String a ser pecorrida.
+	 * @throws EntradaException
+	 *             ; Caso o conteudo passado nao atenda os requisitos.
 	 */
-	public int getCurtir() {
-		return this.curtir;
-	}
+	private void organizaPostagem(String conteudo) throws EntradaException {
+		// this.listaMidia = FabricaPostavel.getListaMidia(conteudo);
 
-	public int getDescurtir() {
-		return this.descurtir;
-	}
-
-	/**
-	 * Metodo <i>curtir</i> responsavel por incrementar as 'curtidas' da
-	 * postagem na quantidade recebida como parametro.
-	 * 
-	 * @param curtida
-	 *            . Inteiro a servir de incremento.
-	 */
-	public void curtir(int curtir) {
-		this.popularidade = getPopularidade() + curtir;
-		this.curtir = getCurtir() + 1;
-	}
-
-	public void descurtir(int descurtir) {
-		this.popularidade = getPopularidade() - descurtir;
-		this.descurtir = getDescurtir() + 1;
-	}
-
-	public void adicionaHashTag(String hashTag) throws EntradaException {
-		HashTag novaHashTag = new HashTag(hashTag);
-		if (this.hashtags.add(novaHashTag)) {
-			BancoHashtag.getInstancia().adiciona(novaHashTag);
-		}
-	}
-
-	@Override
-	public boolean equals(Object objeto) {
-		if (objeto instanceof Postagem) {
-			Postagem outraPostagem = (Postagem) objeto;
-			if (getData().equals(outraPostagem.getData())) {
-				if (getMensagem().equals(outraPostagem.getMensagem())) {
-					return true;
-				}
+		for (Postavel postavel : FabricaPostavel.getListaPostavel(conteudo)) {
+			if (postavel instanceof HashTag) {
+				this.hashtags.add((HashTag) postavel);
+			} else {
+				this.listaMidia.add(postavel);
 			}
+
 		}
-		return false;
 	}
 
 	@Override

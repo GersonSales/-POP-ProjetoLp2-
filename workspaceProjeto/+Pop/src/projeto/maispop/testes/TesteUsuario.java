@@ -10,6 +10,64 @@ import projeto.maispop.usuario.Usuario;
 public class TesteUsuario {
 
 	@Test
+	public void alteracaoInvalida() {
+
+		try {
+			Usuario marcos = new Usuario("marcos", "marcos@email.com",
+					"senhaMarcos", "02/02/1992");
+
+			// Nome invalido:
+			try {
+				marcos.setNome("");
+				Assert.fail();
+			} catch (EntradaException erro) {
+				Assert.assertEquals("Nome dx usuarix nao pode ser vazio.",
+						erro.getMessage());
+				Assert.assertEquals("marcos", marcos.getNome());
+			} catch (Throwable erro) {
+				Assert.fail();
+			}
+
+			// Senha invalida:
+			try {
+				marcos.setSenha("");
+				Assert.fail();
+			} catch (EntradaException erro) {
+				Assert.assertEquals("Senha invalida!", erro.getMessage());
+				Assert.assertEquals("senhaMarcos", marcos.getSenha());
+			} catch (Throwable erro) {
+				Assert.fail();
+			}
+
+			//E-mail invalido:
+			try {
+				marcos.setEmail("");
+				Assert.fail();
+			} catch (EntradaException erro) {
+				Assert.assertEquals("Formato de e-mail esta invalido.", erro.getMessage());
+				Assert.assertEquals("marcos@email.com", marcos.getEmail());
+			} catch (Throwable erro) {
+				Assert.fail();
+			}
+
+			//Data invalida:
+			try {
+				marcos.setDataNascimento("");
+				Assert.fail();
+			} catch (EntradaException erro) {
+				Assert.assertEquals("Formato de data esta invalida.", erro.getMessage());
+				Assert.assertEquals("1992-02-02", marcos.getDataNascimento());
+			} catch (Throwable erro) {
+				Assert.fail();
+			}
+			
+			
+		} catch (Throwable erro) {
+			Assert.fail();
+		}
+	}
+
+	@Test
 	public void criacaoInvalida() {
 		// Nome invalido:
 		try {
@@ -116,61 +174,22 @@ public class TesteUsuario {
 			Assert.fail();
 		}
 	}
-
+	
+	
 	@Test
-	public void alteracaoInvalida() {
-
+	public void igualdade() {
 		try {
 			Usuario marcos = new Usuario("marcos", "marcos@email.com",
 					"senhaMarcos", "02/02/1992");
-
-			// Nome invalido:
-			try {
-				marcos.setNome("");
-				Assert.fail();
-			} catch (EntradaException erro) {
-				Assert.assertEquals("Nome dx usuarix nao pode ser vazio.",
-						erro.getMessage());
-				Assert.assertEquals("marcos", marcos.getNome());
-			} catch (Throwable erro) {
-				Assert.fail();
-			}
-
-			// Senha invalida:
-			try {
-				marcos.setSenha("");
-				Assert.fail();
-			} catch (EntradaException erro) {
-				Assert.assertEquals("Senha invalida!", erro.getMessage());
-				Assert.assertEquals("senhaMarcos", marcos.getSenha());
-			} catch (Throwable erro) {
-				Assert.fail();
-			}
-
-			//E-mail invalido:
-			try {
-				marcos.setEmail("");
-				Assert.fail();
-			} catch (EntradaException erro) {
-				Assert.assertEquals("Formato de e-mail esta invalido.", erro.getMessage());
-				Assert.assertEquals("marcos@email.com", marcos.getEmail());
-			} catch (Throwable erro) {
-				Assert.fail();
-			}
-
-			//Data invalida:
-			try {
-				marcos.setDataNascimento("");
-				Assert.fail();
-			} catch (EntradaException erro) {
-				Assert.assertEquals("Formato de data esta invalida.", erro.getMessage());
-				Assert.assertEquals("1992-02-02", marcos.getDataNascimento());
-			} catch (Throwable erro) {
-				Assert.fail();
-			}
+			Usuario joaoMarcos = new Usuario("joaoMarcos", "marcos@email.com",
+					"senhaJoaoMarcos", "02/04/1994");
 			
+			Assert.assertEquals(true, marcos.equals(joaoMarcos));
 			
-		} catch (Throwable erro) {
+			joaoMarcos.setEmail("joaoMarcos@email.com");
+			Assert.assertEquals(false, marcos.equals(joaoMarcos));
+			
+		}catch(Throwable erro) {
 			Assert.fail();
 		}
 	}
@@ -208,25 +227,6 @@ public class TesteUsuario {
 			Assert.assertEquals(1010, marcos.getPopularidade());
 			
 		}catch (Throwable erro) {
-			Assert.fail();
-		}
-	}
-	
-	
-	@Test
-	public void igualdade() {
-		try {
-			Usuario marcos = new Usuario("marcos", "marcos@email.com",
-					"senhaMarcos", "02/02/1992");
-			Usuario joaoMarcos = new Usuario("joaoMarcos", "marcos@email.com",
-					"senhaJoaoMarcos", "02/04/1994");
-			
-			Assert.assertEquals(true, marcos.equals(joaoMarcos));
-			
-			joaoMarcos.setEmail("joaoMarcos@email.com");
-			Assert.assertEquals(false, marcos.equals(joaoMarcos));
-			
-		}catch(Throwable erro) {
 			Assert.fail();
 		}
 	}

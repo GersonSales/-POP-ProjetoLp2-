@@ -9,14 +9,14 @@ public enum FabricaPostavel {
 
 	IMAGEM {
 		@Override
-		public String getMarcacao() {
-			return Imagem.getMarcacao();
-			
+		public Postavel getInstancia(String conteudo) throws EntradaException {
+			return new Imagem(conteudo);
 		}
 
 		@Override
-		public Postavel getInstancia(String conteudo) throws EntradaException {
-			return new Imagem(conteudo);
+		public String getMarcacao() {
+			return Imagem.getMarcacao();
+			
 		}
 	},
 
@@ -57,10 +57,6 @@ public enum FabricaPostavel {
 		}
 	};
  
-	public abstract Postavel getInstancia(String conteudo) throws EntradaException;
-
-	public abstract String getMarcacao();
-
 	public static List<Postavel> getListaPostavel(String conteudo)
 			throws EntradaException {
 		List<Postavel> listaPostavel = new ArrayList<>();
@@ -91,5 +87,9 @@ public enum FabricaPostavel {
 
 		return listaPostavel;
 	}
+
+	public abstract Postavel getInstancia(String conteudo) throws EntradaException;
+
+	public abstract String getMarcacao();
 
 }

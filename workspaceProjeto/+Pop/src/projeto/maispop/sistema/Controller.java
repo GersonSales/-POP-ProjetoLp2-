@@ -22,11 +22,54 @@ public class Controller {
 		this.bancoDeUsuarios = new BancoDeUsuarios();
 	}
 
-	public void cadastraUsuario(String nome, String email, String senha,
-			String dataNascimento, String imagem) throws EntradaException,
-			UsuarioExistenteException {
-		this.bancoDeUsuarios.cadastraUsuario(nome, email, senha,
-				dataNascimento, imagem);
+	public void aceitaAmizade(String emailUsuario)
+			throws UsuarioInexistenteException, SolicitacaoException {
+		Usuario amigo = this.bancoDeUsuarios.getUsuario(emailUsuario);
+
+		if (!(this.usuarioLogado.contemPendencia(emailUsuario))) {
+			throw new SolicitacaoException(amigo.getNome()
+					+ " nao lhe enviou solicitacoes de amizade.");
+		}
+
+		this.usuarioLogado.aceitaAmizade(emailUsuario);
+
+		amigo.aceitaAmizade(this.usuarioLogado.getEmail());
+
+		amigo.notificaMe(this.usuarioLogado.getNome() + " aceitou sua amizade.");
+	}
+
+	public void adicionaAmigo(String emailUsuario)
+			throws UsuarioInexistenteException {
+		this.usuarioLogado.adicionaAmigo(emailUsuario);
+
+		Usuario amigo = this.bancoDeUsuarios.getUsuario(emailUsuario);
+		amigo.adicionaAmigo(this.usuarioLogado.getEmail());
+
+		amigo.notificaMe(this.usuarioLogado.getNome() + " quer sua amizade.");
+	}
+
+	public void adicionaPops(int popBonus) {
+		this.usuarioLogado.adicionaPops(popBonus);
+	}
+
+	public void atualizaPerfil(String atributo, String valor)
+			throws UsuarioInexistenteException, EntradaException {
+		if (this.usuarioLogado == null) {
+			throw new UsuarioInexistenteException(
+					"Nenhum usuarix esta logadx no +pop.");
+		}
+		this.bancoDeUsuarios.atualizaPerfil(atributo, valor,
+				this.usuarioLogado.getEmail());
+	}
+
+	public void atualizaPerfil(String atributo, String valor, String antigoValor)
+			throws UsuarioInexistenteException, EntradaException {
+		if (this.usuarioLogado == null) {
+			throw new UsuarioInexistenteException(
+					"Nenhum usuarix esta logadx no +pop.");
+		}
+		this.bancoDeUsuarios.atualizaPerfil(atributo, valor, antigoValor,
+				this.usuarioLogado.getEmail());
 	}
 
 	public void cadastraUsuario(String nome, String email, String senha,
@@ -36,8 +79,60 @@ public class Controller {
 				.cadastraUsuario(nome, email, senha, dataNascimento);
 	}
 
-	public void removeUsuario(String email) throws UsuarioInexistenteException {
-		this.bancoDeUsuarios.removeUsuario(email);
+	public void cadastraUsuario(String nome, String email, String senha,
+			String dataNascimento, String imagem) throws EntradaException,
+			UsuarioExistenteException {
+		this.bancoDeUsuarios.cadastraUsuario(nome, email, senha,
+				dataNascimento, imagem);
+	}
+
+	public void curtirPost(String emailUsuario, int postagem)
+			throws UsuarioInexistenteException, EntradaException {
+		Usuario amigo = bancoDeUsuarios.getUsuario(emailUsuario);
+
+		if (!(this.usuarioLogado.contemAmigo(emailUsuario))) {
+			throw new UsuarioInexistenteException();
+		}
+
+		Postagem postagemAmigo = amigo.getPostagem(postagem);
+		this.usuarioLogado.curtir(postagemAmigo);
+		amigo.notificaMe(this.usuarioLogado.getNome() + " curtiu seu post de "
+				+ postagemAmigo.getData() + ".");
+
+		amigo.atualizaTipo();
+	}
+
+	public void descurtirPost(String emailUsuario, int postagem)
+			throws UsuarioInexistenteException, EntradaException {
+
+		Usuario amigo = bancoDeUsuarios.getUsuario(emailUsuario);
+
+		if (!(this.usuarioLogado.contemAmigo(emailUsuario))) {
+			throw new UsuarioInexistenteException();
+		}
+
+		Postagem postagemAmigo = amigo.getPostagem(postagem);
+		this.usuarioLogado.descurtir(postagemAmigo);
+		amigo.notificaMe(this.usuarioLogado.getNome()
+				+ " descurtiu seu post de " + postagemAmigo.getData() + ".");
+
+		amigo.atualizaTipo();
+	}
+
+	public String exibeRanking() {
+		return this.bancoDeUsuarios.exibeRanking();
+	}
+
+	public void fechaSistema() throws LogicaException {
+		if (this.usuarioLogado != null) {
+			throw new LogicaException(
+					"Nao foi possivel fechar o sistema. Um usuarix ainda esta logadx.");
+		}
+	}
+
+	public String getConteudo(int indice, int postagem)
+			throws EntradaException, ItemInexistenteException {
+		return this.usuarioLogado.getConteudoPost(indice, postagem);
 	}
 
 	public String getInfoUsuario(String atributo) throws EntradaException,
@@ -51,24 +146,48 @@ public class Controller {
 		return this.bancoDeUsuarios.getInfoUsuario(atributo, email);
 	}
 
-	public void atualizaPerfil(String atributo, String valor, String antigoValor)
-			throws UsuarioInexistenteException, EntradaException {
-		if (this.usuarioLogado == null) {
-			throw new UsuarioInexistenteException(
-					"Nenhum usuarix esta logadx no +pop.");
-		}
-		this.bancoDeUsuarios.atualizaPerfil(atributo, valor, antigoValor,
-				this.usuarioLogado.getEmail());
+	public int getNotificacoes() {
+		return this.usuarioLogado.getNotificacoes();
+	}
+	
+	public int getPopsPost(int indice) {
+		return this.usuarioLogado.getPopsPost(indice);
 	}
 
-	public void atualizaPerfil(String atributo, String valor)
-			throws UsuarioInexistenteException, EntradaException {
-		if (this.usuarioLogado == null) {
-			throw new UsuarioInexistenteException(
-					"Nenhum usuarix esta logadx no +pop.");
+	public int getPopsUsuario() {
+		return this.usuarioLogado.getPopularidade();
+	}
+	
+
+	public int getPopsUsuario(String emailUsuario)
+			throws UsuarioExistenteException, UsuarioInexistenteException {
+		if (this.usuarioLogado != null) {
+			throw new UsuarioExistenteException("Um usuarix ainda esta logadx.");
 		}
-		this.bancoDeUsuarios.atualizaPerfil(atributo, valor,
-				this.usuarioLogado.getEmail());
+
+		return this.bancoDeUsuarios.getUsuario(emailUsuario).getPopularidade();
+	}
+
+	public String getPopularidade() {
+		return this.usuarioLogado.getTipoUsuario();
+	}
+
+	public String getPostagem(int postagem) {
+		return this.usuarioLogado.getPostagem(postagem).toString();
+	}
+
+	public String getPostagem(String atributo, int indice) {
+		return this.usuarioLogado.getPostagem(atributo, indice);
+	}
+
+	// RELACIONEMTO ENTRE USUARIOS:
+
+	public String getProxNotificacao() throws ItemInexistenteException {
+		return this.usuarioLogado.getProxNotificacao();
+	}
+
+	public int getQtdAmigos() {
+		return this.usuarioLogado.getQtdAmigos();
 	}
 
 	public void login(String email, String senha) throws LogicaException,
@@ -90,64 +209,24 @@ public class Controller {
 
 	}
 
+	public void logout() throws LogarDeslogarException {
+		String erro = "Nao eh possivel realizar logout.";
+
+		if (this.usuarioLogado == null) {
+			throw new LogarDeslogarException(erro
+					+ " Nenhum usuarix esta logadx no +pop.");
+		}
+
+		this.usuarioLogado = null;
+	}
+
+	public String melhoresHashtags() {
+		return BancoHashtag.getInstancia().get3Melhores();
+	}
+
 	public void postar(String texto, String dataPostagem)
 			throws EntradaException {
 		this.usuarioLogado.postar(texto, dataPostagem);
-	}
-
-	public void adicionaPops(int popBonus) {
-		this.usuarioLogado.adicionaPops(popBonus);
-	}
-
-	public String getPostagem(int postagem) {
-		return this.usuarioLogado.getPostagem(postagem).toString();
-	}
-
-	public String getPostagem(String atributo, int indice) {
-		return this.usuarioLogado.getPostagem(atributo, indice);
-	}
-
-	public String getConteudo(int indice, int postagem)
-			throws EntradaException, ItemInexistenteException {
-		return this.usuarioLogado.getConteudoPost(indice, postagem);
-	}
-
-	public void curtirPost(String emailUsuario, int postagem)
-			throws UsuarioInexistenteException, EntradaException {
-		Usuario amigo = bancoDeUsuarios.getUsuario(emailUsuario);
-
-		if (!(this.usuarioLogado.contemAmigo(emailUsuario))) {
-			throw new UsuarioInexistenteException();
-		}
-
-		Postagem postagemAmigo = amigo.getPostagem(postagem);
-		this.usuarioLogado.curtir(postagemAmigo);
-		amigo.notificaMe(this.usuarioLogado.getNome() + " curtiu seu post de "
-				+ postagemAmigo.getData() + ".");
-
-		amigo.atualizaTipo();
-	}
-
-	public String getPopularidade() {
-		return this.usuarioLogado.getTipoUsuario();
-	}
-	
-	public int getPopsUsuario() {
-		return this.usuarioLogado.getPopularidade();
-	}
-
-	public int getPopsUsuario(String emailUsuario)
-			throws UsuarioExistenteException, UsuarioInexistenteException {
-		if (this.usuarioLogado != null) {
-			throw new UsuarioExistenteException("Um usuarix ainda esta logadx.");
-		}
-
-		return this.bancoDeUsuarios.getUsuario(emailUsuario).getPopularidade();
-	}
-	
-
-	public int getPopsPost(int indice) {
-		return this.usuarioLogado.getPopsPost(indice);
 	}
 
 	public int qtdCurtidasDePost(int indice) throws ItemInexistenteException {
@@ -156,45 +235,6 @@ public class Controller {
 
 	public int qtdRejeicoesDePost(int indice) {
 		return this.usuarioLogado.qtdRejeicoesDePost(indice);
-	}
-
-	public void descurtirPost(String emailUsuario, int postagem)
-			throws UsuarioInexistenteException, EntradaException {
-
-		Usuario amigo = bancoDeUsuarios.getUsuario(emailUsuario);
-
-		if (!(this.usuarioLogado.contemAmigo(emailUsuario))) {
-			throw new UsuarioInexistenteException();
-		}
-
-		Postagem postagemAmigo = amigo.getPostagem(postagem);
-		this.usuarioLogado.descurtir(postagemAmigo);
-		amigo.notificaMe(this.usuarioLogado.getNome()
-				+ " descurtiu seu post de " + postagemAmigo.getData() + ".");
-
-		amigo.atualizaTipo();
-	}
-
-	// RELACIONEMTO ENTRE USUARIOS:
-
-	public void adicionaAmigo(String emailUsuario)
-			throws UsuarioInexistenteException {
-		this.usuarioLogado.adicionaAmigo(emailUsuario);
-
-		Usuario amigo = this.bancoDeUsuarios.getUsuario(emailUsuario);
-		amigo.adicionaAmigo(this.usuarioLogado.getEmail());
-
-		amigo.notificaMe(this.usuarioLogado.getNome() + " quer sua amizade.");
-	}
-
-	public void removeAmigo(String emailUsuario)
-			throws UsuarioInexistenteException {
-		this.usuarioLogado.removeAmigo(emailUsuario);
-
-		Usuario amigo = this.bancoDeUsuarios.getUsuario(emailUsuario);
-		amigo.removeAmigo(this.usuarioLogado.getEmail());
-		amigo.notificaMe(this.usuarioLogado.getNome()
-				+ " removeu a sua amizade.");
 	}
 
 	public void rejeitaAmizade(String emailUsuario)
@@ -212,60 +252,21 @@ public class Controller {
 				+ " rejeitou sua amizade.");
 	}
 
-	public void aceitaAmizade(String emailUsuario)
-			throws UsuarioInexistenteException, SolicitacaoException {
-		Usuario amigo = this.bancoDeUsuarios.getUsuario(emailUsuario);
-
-		if (!(this.usuarioLogado.contemPendencia(emailUsuario))) {
-			throw new SolicitacaoException(amigo.getNome()
-					+ " nao lhe enviou solicitacoes de amizade.");
-		}
-
-		this.usuarioLogado.aceitaAmizade(emailUsuario);
-
-		amigo.aceitaAmizade(this.usuarioLogado.getEmail());
-
-		amigo.notificaMe(this.usuarioLogado.getNome() + " aceitou sua amizade.");
-	}
-
-	public int getQtdAmigos() {
-		return this.usuarioLogado.getQtdAmigos();
-	}
-
-	public int getNotificacoes() {
-		return this.usuarioLogado.getNotificacoes();
-	}
-
-	public String getProxNotificacao() throws ItemInexistenteException {
-		return this.usuarioLogado.getProxNotificacao();
-	}
-
-	public void logout() throws LogarDeslogarException {
-		String erro = "Nao eh possivel realizar logout.";
-
-		if (this.usuarioLogado == null) {
-			throw new LogarDeslogarException(erro
-					+ " Nenhum usuarix esta logadx no +pop.");
-		}
-
-		this.usuarioLogado = null;
-	}
-
-	public void fechaSistema() throws LogicaException {
-		if (this.usuarioLogado != null) {
-			throw new LogicaException(
-					"Nao foi possivel fechar o sistema. Um usuarix ainda esta logadx.");
-		}
-	}
-
 	// Teste de Ranking
 
-	public String exibeRanking() {
-		return this.bancoDeUsuarios.exibeRanking();
+	public void removeAmigo(String emailUsuario)
+			throws UsuarioInexistenteException {
+		this.usuarioLogado.removeAmigo(emailUsuario);
+
+		Usuario amigo = this.bancoDeUsuarios.getUsuario(emailUsuario);
+		amigo.removeAmigo(this.usuarioLogado.getEmail());
+		amigo.notificaMe(this.usuarioLogado.getNome()
+				+ " removeu a sua amizade.");
 	}
 
-	public String melhoresHashtags() {
-		return BancoHashtag.getInstancia().get3Melhores();
+	public void removeUsuario(String email) throws UsuarioInexistenteException {
+		this.bancoDeUsuarios.removeUsuario(email);
 	}
+
 
 }

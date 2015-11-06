@@ -15,10 +15,6 @@ public class Notificacoes {
 	this.notificacoes = new ArrayList<>();
     }
 
-    public void recebeNotificacao(String notificacao) {
-	this.notificacoes.add(notificacao);
-    }
-
     public int getNotificacoes() {
 	return this.notificacoes.size();
     }
@@ -28,6 +24,10 @@ public class Notificacoes {
 	    throw new ItemInexistenteException("Nao ha mais notificacoes.");
 	}
 	return notificacoes.remove(0);
+    }
+
+    public void recebeNotificacao(String notificacao) {
+	this.notificacoes.add(notificacao);
     }
     
    

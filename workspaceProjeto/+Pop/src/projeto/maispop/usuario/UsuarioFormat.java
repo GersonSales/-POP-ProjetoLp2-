@@ -12,11 +12,6 @@ import projeto.maispop.excecoes.SenhaException;
 
 public class UsuarioFormat {
 
-	private static UsuarioFormat instancia;
-
-	private UsuarioFormat() {
-	}
-
 	public static UsuarioFormat getInstancia() {
 		if (instancia == null) {
 			instancia = new UsuarioFormat();
@@ -24,21 +19,9 @@ public class UsuarioFormat {
 		return instancia;
 	}
 
-	public String validaNome(String nome) throws NomeException {
-		String padraoNome = "(\\w+(\\s)*)+";
-		if (nome.matches(padraoNome)) {
-			return nome;
-		}
-		throw new NomeException("Nome dx usuarix nao pode ser vazio.");
-	}
+	private static UsuarioFormat instancia;
 
-	public String validaSenha(String senha) throws SenhaException {
-		String padraoSenha = ".*[^\\s]";
-		if (senha.matches(padraoSenha)) {
-			return senha;
-		}
-
-		throw new SenhaException();
+	private UsuarioFormat() {
 	}
 
 	public String validaDataNascimento(String dataNascimento)
@@ -80,6 +63,23 @@ public class UsuarioFormat {
 		}
 
 		throw new ImagemException();
+	}
+
+	public String validaNome(String nome) throws NomeException {
+		String padraoNome = "(\\w+(\\s)*)+";
+		if (nome.matches(padraoNome)) {
+			return nome;
+		}
+		throw new NomeException("Nome dx usuarix nao pode ser vazio.");
+	}
+
+	public String validaSenha(String senha) throws SenhaException {
+		String padraoSenha = ".*[^\\s]";
+		if (senha.matches(padraoSenha)) {
+			return senha;
+		}
+
+		throw new SenhaException();
 	}
 
 }

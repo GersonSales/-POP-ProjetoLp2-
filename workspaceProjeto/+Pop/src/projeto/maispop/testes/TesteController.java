@@ -1,6 +1,5 @@
 package projeto.maispop.testes;
 
-import static org.junit.Assert.*;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -13,11 +12,6 @@ public class TesteController {
 
 	Controller controller;
 	
-	@Before
-	public void test() {
-		controller = new Controller();
-	}
-
 	@Test
 	public void relacionametoUsuarios() {
 		try {
@@ -56,5 +50,10 @@ public class TesteController {
 			System.out.println(erro.getMessage());
 			Assert.fail();
 		}
+	}
+
+	@Before
+	public void test() {
+		controller = new Controller();
 	}
 }

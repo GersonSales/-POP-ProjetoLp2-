@@ -12,6 +12,32 @@ import projeto.maispop.postagem.Postavel;
 public class TesteFabricaPostavel {
 
 	@Test
+	public void criacaoEmConjunto() {
+		try {
+			List<Postavel> listaPostavel = FabricaPostavel
+					.getListaPostavel("O Encontro de amanha estara otimo. Vamos falar sobre os problemas do preconceito na escola. <imagem>imagens/encontro_vinheta.jpg</imagem> <imagem>imagens/encontro_preview.jpg</imagem> #encontro #SemPreconceito");
+
+			Assert.assertEquals(
+					"O Encontro de amanha estara otimo. Vamos falar sobre os problemas do preconceito na escola.",
+					listaPostavel.get(0).toString());
+
+			Assert.assertEquals("$arquivo_imagem:imagens/encontro_vinheta.jpg",
+					listaPostavel.get(1).toString());
+
+			Assert.assertEquals("$arquivo_imagem:imagens/encontro_preview.jpg",
+					listaPostavel.get(2).toString());
+
+			Assert.assertEquals("#encontro", listaPostavel.get(3).toString());
+
+			Assert.assertEquals("#SemPreconceito", listaPostavel.get(4)
+					.toString());
+		} catch (Exception erro) {
+			Assert.fail();
+		}
+
+	}
+
+	@Test
 	public void criacaoIndividualInvalida() {
 		// criacao Hashtag
 		try {
@@ -94,31 +120,5 @@ public class TesteFabricaPostavel {
 		} catch (Exception erro) {
 			Assert.fail();
 		}
-	}
-
-	@Test
-	public void criacaoEmConjunto() {
-		try {
-			List<Postavel> listaPostavel = FabricaPostavel
-					.getListaPostavel("O Encontro de amanha estara otimo. Vamos falar sobre os problemas do preconceito na escola. <imagem>imagens/encontro_vinheta.jpg</imagem> <imagem>imagens/encontro_preview.jpg</imagem> #encontro #SemPreconceito");
-
-			Assert.assertEquals(
-					"O Encontro de amanha estara otimo. Vamos falar sobre os problemas do preconceito na escola.",
-					listaPostavel.get(0).toString());
-
-			Assert.assertEquals("$arquivo_imagem:imagens/encontro_vinheta.jpg",
-					listaPostavel.get(1).toString());
-
-			Assert.assertEquals("$arquivo_imagem:imagens/encontro_preview.jpg",
-					listaPostavel.get(2).toString());
-
-			Assert.assertEquals("#encontro", listaPostavel.get(3).toString());
-
-			Assert.assertEquals("#SemPreconceito", listaPostavel.get(4)
-					.toString());
-		} catch (Exception erro) {
-			Assert.fail();
-		}
-
 	}
 }
