@@ -52,7 +52,7 @@ public class Hashtag implements Postavel, Comparable<Hashtag> {
 	/** Comparara dois objetos em relacao a grandeza de cada um. */
 	@Override
 	public int compareTo(Hashtag outraHashtag) {
-		return getConteudo().compareTo(outraHashtag.getConteudo());
+		return getConteudo().compareToIgnoreCase(outraHashtag.getConteudo());
 	}
 
 	/**
