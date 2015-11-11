@@ -8,6 +8,7 @@ import projeto.maispop.excecoes.SenhaException;
 import projeto.maispop.excecoes.SolicitacaoException;
 import projeto.maispop.excecoes.UsuarioExistenteException;
 import projeto.maispop.excecoes.UsuarioInexistenteException;
+import projeto.maispop.usuario.Amigavel;
 import projeto.maispop.usuario.Usuario;
 import projeto.maispop.postagem.BancoHashtag;
 import projeto.maispop.postagem.Postagem;
@@ -24,26 +25,28 @@ public class Controller {
 
 	public void aceitaAmizade(String emailUsuario)
 			throws UsuarioInexistenteException, SolicitacaoException {
-		Usuario amigo = this.bancoDeUsuarios.getUsuario(emailUsuario);
+		Amigavel amigo = this.bancoDeUsuarios.getUsuario(emailUsuario);
 
 		if (!(this.usuarioLogado.contemPendencia(emailUsuario))) {
 			throw new SolicitacaoException(amigo.getNome()
 					+ " nao lhe enviou solicitacoes de amizade.");
 		}
 
-		this.usuarioLogado.aceitaAmizade(emailUsuario);
+		this.usuarioLogado.aceitaAmizade(amigo);
 
-		amigo.aceitaAmizade(this.usuarioLogado.getEmail());
+		amigo.aceitaAmizade(this.usuarioLogado);
 
 		amigo.notificaMe(this.usuarioLogado.getNome() + " aceitou sua amizade.");
 	}
 
 	public void adicionaAmigo(String emailUsuario)
 			throws UsuarioInexistenteException {
-		this.usuarioLogado.adicionaAmigo(emailUsuario);
-
+		
 		Usuario amigo = this.bancoDeUsuarios.getUsuario(emailUsuario);
-		amigo.adicionaAmigo(this.usuarioLogado.getEmail());
+		
+		this.usuarioLogado.adicionaAmigo(amigo);
+
+		amigo.adicionaAmigo(this.usuarioLogado);
 
 		amigo.notificaMe(this.usuarioLogado.getNome() + " quer sua amizade.");
 	}
@@ -239,14 +242,14 @@ public class Controller {
 
 	public void rejeitaAmizade(String emailUsuario)
 			throws UsuarioInexistenteException, SolicitacaoException {
-		Usuario amigo = this.bancoDeUsuarios.getUsuario(emailUsuario);
+		Amigavel amigo = this.bancoDeUsuarios.getUsuario(emailUsuario);
 
 		if (!(this.usuarioLogado.contemPendencia(emailUsuario))) {
 			throw new SolicitacaoException(amigo.getNome()
 					+ " nao lhe enviou solicitacoes de amizade.");
 		}
 
-		this.usuarioLogado.rejeitaAmizade(emailUsuario);
+		this.usuarioLogado.rejeitaAmizade(amigo);
 
 		amigo.notificaMe(this.usuarioLogado.getNome()
 				+ " rejeitou sua amizade.");
@@ -256,16 +259,26 @@ public class Controller {
 
 	public void removeAmigo(String emailUsuario)
 			throws UsuarioInexistenteException {
-		this.usuarioLogado.removeAmigo(emailUsuario);
-
 		Usuario amigo = this.bancoDeUsuarios.getUsuario(emailUsuario);
-		amigo.removeAmigo(this.usuarioLogado.getEmail());
+
+		this.usuarioLogado.removeAmigo(amigo);
+		amigo.removeAmigo(this.usuarioLogado);
 		amigo.notificaMe(this.usuarioLogado.getNome()
 				+ " removeu a sua amizade.");
 	}
 
 	public void removeUsuario(String email) throws UsuarioInexistenteException {
 		this.bancoDeUsuarios.removeUsuario(email);
+	}
+	
+	//TentativaFeed
+
+	public void imprimeFeed() {
+		this.usuarioLogado.imprimeFeed();
+	}
+
+	public void atualizaFeed() {
+		this.usuarioLogado.atualizaFeed();
 	}
 
 

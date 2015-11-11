@@ -239,4 +239,13 @@ public class Facade {
 	}
 	
 	
+	//Tentatica Feed
+	public void imprimeFeed() {
+		this.controller.imprimeFeed();
+	}
+	
+	public void atualizaFeed() {
+		this.controller.atualizaFeed();
+	}
+	
 }

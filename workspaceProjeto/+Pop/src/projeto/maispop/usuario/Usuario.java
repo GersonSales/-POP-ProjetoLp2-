@@ -2,6 +2,8 @@ package projeto.maispop.usuario;
 
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.ArrayList;
+import java.util.List;
 
 import projeto.maispop.postagem.Postagem;
 import projeto.maispop.excecoes.DataException;
@@ -22,15 +24,16 @@ import projeto.maispop.excecoes.SenhaException;
  * @see ListaDeAmigos
  * @see MuralUsuario
  */
-public class Usuario implements Comparable<Usuario> {
+public class Usuario implements Amigavel, Comparable<Usuario> {
 	private String nome;
 	private String email;
 	private String senha;
 	private String dataNascimento;
 	private String imagemPerfil;
 
-	private ListaDeAmigos listaDeAmigos;
+	private ListaDeAmigosAmigaveis listaDeAmigos;
 	private Notificacoes notificacoes;
+	private FeedUsuario feedUsuario;
 
 	private MuralUsuario mural;
 
@@ -99,20 +102,22 @@ public class Usuario implements Comparable<Usuario> {
 		this.dataNascimento = usuarioFormat
 				.validaDataNascimento(dataNascimento);
 
-		this.listaDeAmigos = new ListaDeAmigos();
+		this.listaDeAmigos = new ListaDeAmigosAmigaveis();
 		this.notificacoes = new Notificacoes();
+		this.feedUsuario = new FeedUsuario(listaDeAmigos);
+
 		this.mural = new MuralUsuario();
 
 		this.tipoUsuario = new NormalPop();
 	}
 
-	public void aceitaAmizade(String emailUsuario) {
-		this.listaDeAmigos.aceitaAmizade(emailUsuario);
+	public void aceitaAmizade(Amigavel amigo) {
+		this.listaDeAmigos.aceitaAmizade(amigo);
 	}
 
 	// RELACIONAMENTO ENTRE USUARIOS:
-	public void adicionaAmigo(String emailUsuario) {
-		this.listaDeAmigos.adicionaAmigo(emailUsuario);
+	public void adicionaAmigo(Amigavel amigo) {
+		this.listaDeAmigos.adicionaAmigo(amigo);
 	}
 
 	public void adicionaPops(int popBonus) {
@@ -235,15 +240,15 @@ public class Usuario implements Comparable<Usuario> {
 	public int getNotificacoes() {
 		return this.notificacoes.getNotificacoes();
 	}
-	
+
 	public int getPopsPost(int indice) {
 		return this.mural.getPopsPost(indice);
 	}
-	
+
 	public int getPopularidade() {
 		return this.mural.getPopularidade();
 	}
-	
+
 	/**
 	 * Metodo sobrecarregado <i>getPostagem</i> responsavel por receber como
 	 * parametro um Inteiro que representa um indice a ser escolhido da lista de
@@ -326,13 +331,13 @@ public class Usuario implements Comparable<Usuario> {
 	public int qtdRejeicoesDePost(int indice) {
 		return this.mural.qtdRejeicoesDePost(indice);
 	}
-	
-	public void rejeitaAmizade(String emailUsuario) {
-		this.listaDeAmigos.rejeitaAmizade(emailUsuario);
+
+	public void rejeitaAmizade(Amigavel amigo) {
+		this.listaDeAmigos.rejeitaAmizade(amigo);
 	}
 
-	public void removeAmigo(String emailUsuario) {
-		this.listaDeAmigos.removeAmigo(emailUsuario);
+	public void removeAmigo(Amigavel amigo) {
+		this.listaDeAmigos.removeAmigo(amigo);
 	}
 
 	/**
@@ -425,6 +430,25 @@ public class Usuario implements Comparable<Usuario> {
 		return "Nome: " + getNome() + fdl + "Idade: " + idade + fdl
 				+ "E-mail: " + getEmail() + fdl + "Tipo: " + getTipoUsuario()
 				+ fdl + "Popularidade: " + getPopularidade();
+	}
+
+	// tentativa de implementar o feed
+	public List<Postagem> getFeedPostagem() {
+		List<Postagem> postagens = new ArrayList<>();
+		for (int i = 0; i < this.tipoUsuario.getFeedQtdPostagem(); i++) {
+			postagens.add(this.mural.getPostagem(i));
+		}
+
+		return postagens;
+	}
+
+	public void imprimeFeed() {
+		this.feedUsuario.imprimeFeed();
+	}
+
+	public void atualizaFeed() {
+		this.feedUsuario.atualizar();
+		
 	}
 
 }

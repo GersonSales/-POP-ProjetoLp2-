@@ -9,7 +9,6 @@ import java.util.Set;
  * suas amizades na rede social <i>+Pop</i>.
  * 
  * @author Gerson Sales.
- * @version 0.3
  * @see Usuario
  *
  */

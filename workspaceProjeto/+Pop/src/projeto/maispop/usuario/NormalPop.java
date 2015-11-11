@@ -3,6 +3,8 @@ package projeto.maispop.usuario;
 import projeto.maispop.postagem.Postagem;
 
 public class NormalPop implements TipoUsuario {
+	
+	private static final int QTD_FEED = 2;
 
     @Override
     public void curtir(Postagem postagem) {
@@ -18,4 +20,9 @@ public class NormalPop implements TipoUsuario {
     public String toString() {
     	return "Normal Pop";
     }
+
+	@Override
+	public int getFeedQtdPostagem() {
+		return QTD_FEED;
+	}
 }

@@ -4,7 +4,9 @@ import projeto.maispop.excecoes.EntradaException;
 import projeto.maispop.postagem.Postagem;
 
 public class IconePop implements TipoUsuario {
+	private static final int QTD_FEED = 6;
 
+	
 	@Override
 	public void curtir(Postagem postagem) throws EntradaException {
 		postagem.curtir(50);
@@ -20,6 +22,11 @@ public class IconePop implements TipoUsuario {
 	@Override
 	public String toString() {
 		return "Icone Pop";
+	}
+
+	@Override
+	public int getFeedQtdPostagem() {
+		return QTD_FEED;
 	}
 
 }

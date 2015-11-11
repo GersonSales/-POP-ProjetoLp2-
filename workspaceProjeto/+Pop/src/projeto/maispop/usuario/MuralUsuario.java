@@ -13,7 +13,6 @@ import projeto.maispop.postagem.Postagem;
  * midias.
  * 
  * @author Gerson Sales.
- * @version 0.4
  * @see Postagem
  *
  */
