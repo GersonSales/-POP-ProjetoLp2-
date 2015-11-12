@@ -21,7 +21,7 @@ import projeto.maispop.excecoes.SenhaException;
  * 
  * @author Gerson Sales
  * @version 0.4
- * @see ListaDeAmigos
+ * @see Casa
  * @see MuralUsuario
  */
 public class Usuario implements Amigavel, Comparable<Usuario> {
@@ -31,9 +31,8 @@ public class Usuario implements Amigavel, Comparable<Usuario> {
 	private String dataNascimento;
 	private String imagemPerfil;
 
-	private ListaDeAmigosAmigaveis listaDeAmigos;
 	private Notificacoes notificacoes;
-	private FeedUsuario feedUsuario;
+	private RelacionamentoAmigavel relacionamentoAmigavel;
 
 	private MuralUsuario mural;
 
@@ -102,9 +101,8 @@ public class Usuario implements Amigavel, Comparable<Usuario> {
 		this.dataNascimento = usuarioFormat
 				.validaDataNascimento(dataNascimento);
 
-		this.listaDeAmigos = new ListaDeAmigosAmigaveis();
 		this.notificacoes = new Notificacoes();
-		this.feedUsuario = new FeedUsuario(listaDeAmigos);
+		this.relacionamentoAmigavel = new RelacionamentoAmigavel();
 
 		this.mural = new MuralUsuario();
 
@@ -112,12 +110,12 @@ public class Usuario implements Amigavel, Comparable<Usuario> {
 	}
 
 	public void aceitaAmizade(Amigavel amigo) {
-		this.listaDeAmigos.aceitaAmizade(amigo);
+		this.relacionamentoAmigavel.aceitaAmizade(amigo);
 	}
 
 	// RELACIONAMENTO ENTRE USUARIOS:
 	public void adicionaAmigo(Amigavel amigo) {
-		this.listaDeAmigos.adicionaAmigo(amigo);
+		this.relacionamentoAmigavel.adicionaAmigo(amigo);
 	}
 
 	public void adicionaPops(int popBonus) {
@@ -146,11 +144,11 @@ public class Usuario implements Amigavel, Comparable<Usuario> {
 	}
 
 	public boolean contemAmigo(String emailUsuario) {
-		return this.listaDeAmigos.contemAmigo(emailUsuario);
+		return this.relacionamentoAmigavel.contemAmigo(emailUsuario);
 	}
 
 	public boolean contemPendencia(String emailUsuario) {
-		return this.listaDeAmigos.contemPendencia(emailUsuario);
+		return this.relacionamentoAmigavel.contemPendencia(emailUsuario);
 	}
 
 	public void curtir(Postagem postagem) throws EntradaException {
@@ -286,7 +284,7 @@ public class Usuario implements Amigavel, Comparable<Usuario> {
 	}
 
 	public int getQtdAmigos() {
-		return this.listaDeAmigos.getQtdAmigos();
+		return this.relacionamentoAmigavel.getQtdAmigos();
 	}
 
 	/**
@@ -333,11 +331,11 @@ public class Usuario implements Amigavel, Comparable<Usuario> {
 	}
 
 	public void rejeitaAmizade(Amigavel amigo) {
-		this.listaDeAmigos.rejeitaAmizade(amigo);
+		this.relacionamentoAmigavel.rejeitaAmizade(amigo);
 	}
 
 	public void removeAmigo(Amigavel amigo) {
-		this.listaDeAmigos.removeAmigo(amigo);
+		this.relacionamentoAmigavel.removeAmigo(amigo);
 	}
 
 	/**
@@ -436,18 +434,20 @@ public class Usuario implements Amigavel, Comparable<Usuario> {
 	public List<Postagem> getFeedPostagem() {
 		List<Postagem> postagens = new ArrayList<>();
 		for (int i = 0; i < this.tipoUsuario.getFeedQtdPostagem(); i++) {
-			postagens.add(this.mural.getPostagem(i));
+			if (i < this.mural.dimensaoMural()) {
+				postagens.add(this.mural.getPostagem(i));
+			}
 		}
 
 		return postagens;
 	}
 
 	public void imprimeFeed() {
-		this.feedUsuario.imprimeFeed();
+		this.relacionamentoAmigavel.imprimeFeed();
 	}
 
 	public void atualizaFeed() {
-		this.feedUsuario.atualizar();
+		this.relacionamentoAmigavel.atualizarFeed();
 		
 	}
 

@@ -1,57 +1,66 @@
 package projeto.maispop.usuario;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
-/**
- * Classe <code>ListaDeAmigos</code> que serve
- * wrapper da classe <i>HashSet<i> para que o <i>Usuario<i> possia manipular
- * suas amizades na rede social <i>+Pop</i>.
- * 
- * @author Gerson Sales.
- * @see Usuario
- *
- */
-public class ListaDeAmigos {
-    private Set<String> listaDeAmigos;
-    private Set<String> pendentes;
+public class ListaDeAmigos implements Iterable<Amigavel> {
 
-    public ListaDeAmigos() {
-	this.listaDeAmigos = new HashSet<>();
-	this.pendentes = new HashSet<>();
+	private List<Amigavel> listaDeAmigos;
+	private Set<Amigavel> pendentes;
 
-    }
+	public ListaDeAmigos() {
+		this.listaDeAmigos = new ArrayList<>();
+		this.pendentes = new HashSet<>();
 
-    public void aceitaAmizade(String emailUsuario) {
-	this.listaDeAmigos.add(emailUsuario);
-	this.pendentes.remove(emailUsuario);
-    }
+	}
 
-    public void adicionaAmigo(String emailUsuario) {
-	this.pendentes.add(emailUsuario);
-    }
+	public void aceitaAmizade(Amigavel amigo) {
+		this.listaDeAmigos.add(amigo);
+		this.pendentes.remove(amigo);
+	}
 
-    public boolean contemAmigo(String emailUsuario) {
-	return this.listaDeAmigos.contains(emailUsuario);
-    }
-    
-    public boolean contemPendencia(String emailUsuario) {
-	return this.pendentes.contains(emailUsuario);
-    }
-    
-    public int getQtdAmigos() {
-	return this.listaDeAmigos.size();
-    }
-    
-    public void rejeitaAmizade(String emailUsuario) {
-	this.pendentes.remove(emailUsuario);
+	public void adicionaAmigo(Amigavel amigo) {
+		this.pendentes.add(amigo);
+	}
 
-    }
+	public boolean contemAmigo(String emailUsuario) {
+		for (Amigavel amigavel : listaDeAmigos) {
+			if (amigavel.getEmail().equals(emailUsuario)) {
+				return true;
+			}
+		}
+		return false;
+	}
 
-    public void removeAmigo(String emailUsuario) {
-	this.listaDeAmigos.remove(emailUsuario);
-    }
-    
-    
+	public boolean contemPendencia(String emailUsuario) {
+		for (Amigavel amigavel : pendentes) {
+			if (amigavel.getEmail().equals(emailUsuario)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public int getQtdAmigos() {
+		return this.listaDeAmigos.size();
+	}
+
+	@Override
+	public Iterator<Amigavel> iterator() {
+		return this.listaDeAmigos.iterator();
+	}
+
+	public void rejeitaAmizade(Amigavel amigo) {
+		this.pendentes.remove(amigo);
+
+	}
+
+
+	public void removeAmigo(Amigavel amigo) {
+		this.listaDeAmigos.remove(amigo);
+	}
 
 }

@@ -1,7 +1,7 @@
 iniciaSistema
 
-#login email="naza_foguete@hotmail.com" senha="belzinha"
-login email="madonna@email.com" senha="iamawesome"
+login email="naza_foguete@hotmail.com" senha="belzinha"
+#login email="madonna@email.com" senha="iamawesome"
 
 imprimeFeed
 
