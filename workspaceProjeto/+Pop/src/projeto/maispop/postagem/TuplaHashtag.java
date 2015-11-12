@@ -1,5 +1,7 @@
 package projeto.maispop.postagem;
 
+import java.io.Serializable;
+
 /**
  * A <code>TuplaHashtag</code> class representa o armazenamento em forma de
  * tupla do objeto <code>Hashtag</code> e um campo de ocorrencia. Para ser
@@ -9,8 +11,12 @@ package projeto.maispop.postagem;
  * @author Gerson Sales
  *
  */
-public class TuplaHashtag implements Comparable<TuplaHashtag> {
+public class TuplaHashtag implements Comparable<TuplaHashtag>, Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1642985231043936732L;
 	private Hashtag hashtag;
 	private Integer contador;
 

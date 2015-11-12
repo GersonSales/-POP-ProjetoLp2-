@@ -1,5 +1,6 @@
 package projeto.maispop.usuario;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
@@ -20,11 +21,14 @@ import projeto.maispop.excecoes.SenhaException;
  * sistema de usuarios da rede social <i>+Pop</i>.
  * 
  * @author Gerson Sales
- * @version 0.4
- * @see Casa
+ * @see ListaDeAmigos
  * @see MuralUsuario
  */
-public class Usuario implements Amigavel, Comparable<Usuario> {
+public class Usuario implements Amigavel, Comparable<Usuario>, Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -678578987933813785L;
 	private String nome;
 	private String email;
 	private String senha;
@@ -450,5 +454,12 @@ public class Usuario implements Amigavel, Comparable<Usuario> {
 		this.relacionamentoAmigavel.atualizarFeed();
 		
 	}
+	
+	
+	///tentativa de manipular arquivos
+	public void salvarPostagens() {
+		this.mural.salvarPostagens(this.email);
+	}
+	
 
 }

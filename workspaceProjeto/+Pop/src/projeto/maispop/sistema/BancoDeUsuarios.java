@@ -1,5 +1,6 @@
 package projeto.maispop.sistema;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -15,8 +16,13 @@ import projeto.maispop.excecoes.UsuarioExistenteException;
 import projeto.maispop.excecoes.UsuarioInexistenteException;
 import projeto.maispop.usuario.Usuario;
 
-public class BancoDeUsuarios {
+public class BancoDeUsuarios implements Serializable{
 
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 648341662953227140L;
 	private List<Usuario> usuarios;
 	private Set<Usuario> ranking;
 
@@ -187,6 +193,12 @@ public class BancoDeUsuarios {
 			}
 		}
 		return false;
+	}
+	
+	public void salvarPostagensUsuarios() {
+		for (Usuario usuario : this.usuarios) {
+			usuario.salvarPostagens();
+		}
 	}
 
 }

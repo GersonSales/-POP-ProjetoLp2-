@@ -1,5 +1,7 @@
 package projeto.maispop.postagem;
 
+import java.io.Serializable;
+
 /**
  * Interface que representa um objeto <code>Postavel</code>. Fazendo com que a
  * classe que implemente-a possa fazer parte de uma <code>Postagem</code>.
@@ -8,7 +10,7 @@ package projeto.maispop.postagem;
  * @see Postagem
  *
  */
-public interface Postavel {
+public interface Postavel extends Serializable{
 	/**
 	 * Tem o intuito de retornar a representacao em forma de string de
 	 * <code>Postavel</code>.

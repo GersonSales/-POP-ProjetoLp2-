@@ -1,14 +1,17 @@
+
+
 iniciaSistema
 
-login email="naza_foguete@hotmail.com" senha="belzinha"
-#login email="madonna@email.com" senha="iamawesome"
 
-imprimeFeed
 
-atualizaFeed
-
-imprimeFeed
-
+login email="fafa_bernardes@email.com.br" senha="fafa_S2"
 logout
 
+login email="naza_foguete@hotmail.com" senha="belzinha"
+
+salvarPostagens
+
+
+logout
+#
 fechaSistema

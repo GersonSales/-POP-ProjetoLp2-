@@ -1,5 +1,6 @@
 package projeto.maispop.postagem;
 
+import java.io.Serializable;
 import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -12,8 +13,12 @@ import projeto.maispop.excecoes.DataException;
 import projeto.maispop.excecoes.EntradaException;
 import projeto.maispop.excecoes.ItemInexistenteException;
 
-public class Postagem {
+public class Postagem implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2347003503715322665L;
 	private List<Postavel> listaMidia;
 	private Set<Hashtag> hashtags;
 
@@ -177,6 +182,42 @@ public class Postagem {
 		}
 
 		return saida;
+
+	}
+
+	public String getAudio() {
+		StringBuilder audios = new StringBuilder();
+		for (Postavel postavel : this.listaMidia) {
+			if (postavel instanceof Audio) {
+				audios.append(postavel + " ");
+			}
+
+		}
+		return audios.toString();
+	}
+
+	public String getImagem() {
+		StringBuilder imagens = new StringBuilder();
+		for (Postavel postavel : this.listaMidia) {
+			if (postavel instanceof Imagem) {
+				imagens.append(postavel + " ");
+
+			}
+
+		}
+		return imagens.toString();
+	}
+
+	public String getTexto() {
+		StringBuilder texto = new StringBuilder();
+		for (Postavel postavel : this.listaMidia) {
+			if (postavel instanceof Mensagem) {
+				texto.append(postavel + " ");
+
+			}
+
+		}
+		return texto.toString();
 
 	}
 

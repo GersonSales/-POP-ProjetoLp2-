@@ -1,5 +1,7 @@
 package projeto.maispop.sistema;
 
+import java.io.Serializable;
+
 import projeto.maispop.excecoes.EntradaException;
 import projeto.maispop.excecoes.ItemInexistenteException;
 import projeto.maispop.excecoes.LogarDeslogarException;
@@ -13,8 +15,12 @@ import projeto.maispop.usuario.Usuario;
 import projeto.maispop.postagem.BancoHashtag;
 import projeto.maispop.postagem.Postagem;
 
-public class Controller {
+public class Controller implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 475182940955791385L;
 	private Usuario usuarioLogado;
 	private BancoDeUsuarios bancoDeUsuarios;
 
@@ -41,9 +47,9 @@ public class Controller {
 
 	public void adicionaAmigo(String emailUsuario)
 			throws UsuarioInexistenteException {
-		
+
 		Usuario amigo = this.bancoDeUsuarios.getUsuario(emailUsuario);
-		
+
 		this.usuarioLogado.adicionaAmigo(amigo);
 
 		amigo.adicionaAmigo(this.usuarioLogado);
@@ -128,8 +134,7 @@ public class Controller {
 
 	public void fechaSistema() throws LogicaException {
 		if (this.usuarioLogado != null) {
-			throw new LogicaException(
-					"Nao foi possivel fechar o sistema. Um usuarix ainda esta logadx.");
+			throw new LogicaException("Um usuarix ainda esta logadx.");
 		}
 	}
 
@@ -152,7 +157,7 @@ public class Controller {
 	public int getNotificacoes() {
 		return this.usuarioLogado.getNotificacoes();
 	}
-	
+
 	public int getPopsPost(int indice) {
 		return this.usuarioLogado.getPopsPost(indice);
 	}
@@ -160,7 +165,6 @@ public class Controller {
 	public int getPopsUsuario() {
 		return this.usuarioLogado.getPopularidade();
 	}
-	
 
 	public int getPopsUsuario(String emailUsuario)
 			throws UsuarioExistenteException, UsuarioInexistenteException {
@@ -270,8 +274,8 @@ public class Controller {
 	public void removeUsuario(String email) throws UsuarioInexistenteException {
 		this.bancoDeUsuarios.removeUsuario(email);
 	}
-	
-	//TentativaFeed
+
+	// TentativaFeed
 
 	public void imprimeFeed() {
 		this.usuarioLogado.imprimeFeed();
@@ -281,5 +285,13 @@ public class Controller {
 		this.usuarioLogado.atualizaFeed();
 	}
 
+	// tentativa arquivos
+	public void salvarPostagens() {
+		this.usuarioLogado.salvarPostagens();
+	}
+
+	public void salvarPostagensUsuarios() {
+		this.bancoDeUsuarios.salvarPostagensUsuarios();
+	}
 
 }

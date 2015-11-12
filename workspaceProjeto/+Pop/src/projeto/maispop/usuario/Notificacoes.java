@@ -1,15 +1,18 @@
 package projeto.maispop.usuario;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import projeto.maispop.excecoes.ItemInexistenteException;
 
-//CLASSE INUTILIZADA, FAVOR DESCONSIDERAR.
-public class Notificacoes {
+public class Notificacoes implements Serializable{
 
-    private List<String> notificacoes;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -2626302444850300572L;
+	private List<String> notificacoes;
 
     public Notificacoes() {
 	this.notificacoes = new ArrayList<>();

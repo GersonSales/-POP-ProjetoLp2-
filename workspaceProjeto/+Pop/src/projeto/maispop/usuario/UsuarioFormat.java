@@ -1,5 +1,6 @@
 package projeto.maispop.usuario;
 
+import java.io.Serializable;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -10,7 +11,12 @@ import projeto.maispop.excecoes.ImagemException;
 import projeto.maispop.excecoes.NomeException;
 import projeto.maispop.excecoes.SenhaException;
 
-public class UsuarioFormat {
+public class UsuarioFormat implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7419071248247701469L;
 
 	public static UsuarioFormat getInstancia() {
 		if (instancia == null) {

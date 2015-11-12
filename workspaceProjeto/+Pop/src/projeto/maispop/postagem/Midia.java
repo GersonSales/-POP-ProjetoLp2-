@@ -1,5 +1,7 @@
 package projeto.maispop.postagem;
 
+import java.io.Serializable;
+
 /**
  * O <code>Midia</code> class representa um objeto tipo <code>Midia</code>. Esta
  * classe armazenara todas informacoes necessarias para a verificacao e
@@ -8,7 +10,11 @@ package projeto.maispop.postagem;
  * @author Gerson Sales
  * @see Postavel
  */
-public abstract class Midia implements Postavel {
+public abstract class Midia implements Postavel, Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7288012489040362176L;
 	private String conteudo;
 
 	/**

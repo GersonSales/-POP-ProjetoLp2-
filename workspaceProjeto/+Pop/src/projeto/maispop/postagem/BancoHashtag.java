@@ -1,5 +1,6 @@
 package projeto.maispop.postagem;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -14,7 +15,12 @@ import java.util.Set;
  * @see TuplaHashtag
  * @see Hashtag
  */
-public class BancoHashtag {
+public class BancoHashtag implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -346226610209046179L;
 
 	/**
 	 * Metodo pertencente a classe, responsavel por retornar a instancia de

@@ -1,12 +1,17 @@
 package projeto.maispop.usuario;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import projeto.maispop.postagem.Postagem;
 
-public class RelacionamentoAmigavel {
+public class RelacionamentoAmigavel implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5810837237730036538L;
 	private ListaDeAmigos listaDeAmigos;
 	private List<Postagem> postagens;
 
@@ -22,7 +27,7 @@ public class RelacionamentoAmigavel {
 	public void adicionaAmigo(Amigavel amigo) {
 		this.listaDeAmigos.adicionaAmigo(amigo);
 	}
-	
+
 	public void atualizarFeed() {
 		this.postagens.clear();
 		for (Amigavel amigo : this.listaDeAmigos) {
@@ -30,19 +35,19 @@ public class RelacionamentoAmigavel {
 		}
 
 	}
-	
+
 	public boolean contemAmigo(String emailUsuario) {
 		return this.listaDeAmigos.contemAmigo(emailUsuario);
 	}
-	
+
 	public boolean contemPendencia(String emailUsuario) {
 		return this.listaDeAmigos.contemPendencia(emailUsuario);
 	}
-	
+
 	public int getQtdAmigos() {
 		return this.listaDeAmigos.getQtdAmigos();
 	}
-	
+
 	public void imprimeFeed() {
 		System.out.println("INICIO DA IMPRESSAO");
 		for (Postagem postagem : this.postagens) {
@@ -50,11 +55,11 @@ public class RelacionamentoAmigavel {
 		}
 		System.out.println("FIM DA IMPRESSAO");
 	}
-	
+
 	public void rejeitaAmizade(Amigavel amigo) {
 		this.listaDeAmigos.rejeitaAmizade(amigo);
 	}
-	
+
 	public void removeAmigo(Amigavel amigo) {
 		this.listaDeAmigos.removeAmigo(amigo);
 	}

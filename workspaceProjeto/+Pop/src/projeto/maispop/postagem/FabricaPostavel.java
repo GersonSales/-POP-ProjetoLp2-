@@ -1,11 +1,12 @@
 package projeto.maispop.postagem;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import projeto.maispop.excecoes.EntradaException;
 
-public enum FabricaPostavel {
+public enum FabricaPostavel implements Serializable{
 
 	IMAGEM {
 		@Override

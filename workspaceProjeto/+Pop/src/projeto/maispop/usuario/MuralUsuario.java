@@ -1,11 +1,13 @@
 package projeto.maispop.usuario;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import projeto.maispop.excecoes.EntradaException;
 import projeto.maispop.excecoes.ItemInexistenteException;
 import projeto.maispop.postagem.Postagem;
+import projeto.maispop.sistema.GerenciadorES;
 
 /**
  * Classe <code>MuralUsuario</code> representa a <i>linha do tempo</i> de um
@@ -16,8 +18,12 @@ import projeto.maispop.postagem.Postagem;
  * @see Postagem
  *
  */
-public class MuralUsuario {
+public class MuralUsuario implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8920493615005290571L;
 	private List<Postagem> postagens;
 	private int popularidadeBonus;
 
@@ -143,6 +149,28 @@ public class MuralUsuario {
 
 	public int qtdRejeicoesDePost(int indice) {
 		return this.postagens.get(indice).getDescurtir();
+	}
+
+	public void salvarPostagens(String titulo) {
+		StringBuilder postagensString = new StringBuilder();
+
+		StringBuilder postagemString;
+		int contador = 0;
+		
+		for (Postagem postagem : postagens) {
+			contador++;
+			postagemString = new StringBuilder();
+			postagemString.append("Post #" + contador +  " " + postagem.getData() + "\nConteudo:\n"
+					+ postagem.getTexto() + "\nAudio: " + postagem.getAudio()
+					+ "\nImagem: " + postagem.getImagem() + "\n"
+					+ postagem.getHashTags() + "\n+Pop: "
+					+ postagem.getPopularidade() + "\n\n");
+			
+			postagensString.append(postagemString.toString());
+
+		}
+		GerenciadorES.gravarTexto("./postagens/", titulo, postagensString.toString());
+
 	}
 
 }
