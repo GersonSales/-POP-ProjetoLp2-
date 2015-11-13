@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Set;
 
 import projeto.maispop.excecoes.EntradaException;
+import projeto.maispop.excecoes.EscritaException;
 import projeto.maispop.excecoes.LogicaException;
 import projeto.maispop.excecoes.RequisicaoException;
 import projeto.maispop.excecoes.SenhaException;
@@ -195,7 +196,7 @@ public class BancoDeUsuarios implements Serializable{
 		return false;
 	}
 	
-	public void salvarPostagensUsuarios() {
+	public void salvarPostagensUsuarios() throws EscritaException {
 		for (Usuario usuario : this.usuarios) {
 			usuario.salvarPostagens();
 		}

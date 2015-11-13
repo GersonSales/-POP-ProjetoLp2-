@@ -10,6 +10,7 @@ import projeto.maispop.postagem.Postagem;
 import projeto.maispop.excecoes.DataException;
 import projeto.maispop.excecoes.EmailException;
 import projeto.maispop.excecoes.EntradaException;
+import projeto.maispop.excecoes.EscritaException;
 import projeto.maispop.excecoes.ImagemException;
 import projeto.maispop.excecoes.ItemInexistenteException;
 import projeto.maispop.excecoes.LogicaException;
@@ -457,7 +458,7 @@ public class Usuario implements Amigavel, Comparable<Usuario>, Serializable {
 	
 	
 	///tentativa de manipular arquivos
-	public void salvarPostagens() {
+	public void salvarPostagens() throws EscritaException {
 		this.mural.salvarPostagens(this.email);
 	}
 	

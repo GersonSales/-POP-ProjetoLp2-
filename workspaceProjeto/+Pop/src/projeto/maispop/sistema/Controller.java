@@ -3,6 +3,7 @@ package projeto.maispop.sistema;
 import java.io.Serializable;
 
 import projeto.maispop.excecoes.EntradaException;
+import projeto.maispop.excecoes.EscritaException;
 import projeto.maispop.excecoes.ItemInexistenteException;
 import projeto.maispop.excecoes.LogarDeslogarException;
 import projeto.maispop.excecoes.LogicaException;
@@ -286,11 +287,11 @@ public class Controller implements Serializable{
 	}
 
 	// tentativa arquivos
-	public void salvarPostagens() {
+	public void salvarPostagens() throws EscritaException {
 		this.usuarioLogado.salvarPostagens();
 	}
 
-	public void salvarPostagensUsuarios() {
+	public void salvarPostagensUsuarios() throws EscritaException {
 		this.bancoDeUsuarios.salvarPostagensUsuarios();
 	}
 

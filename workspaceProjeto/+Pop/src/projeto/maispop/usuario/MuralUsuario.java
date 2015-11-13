@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import projeto.maispop.excecoes.EntradaException;
+import projeto.maispop.excecoes.EscritaException;
 import projeto.maispop.excecoes.ItemInexistenteException;
 import projeto.maispop.postagem.Postagem;
 import projeto.maispop.sistema.GerenciadorES;
@@ -151,7 +152,7 @@ public class MuralUsuario implements Serializable{
 		return this.postagens.get(indice).getDescurtir();
 	}
 
-	public void salvarPostagens(String titulo) {
+	public void salvarPostagens(String titulo) throws EscritaException {
 		StringBuilder postagensString = new StringBuilder();
 
 		StringBuilder postagemString;
