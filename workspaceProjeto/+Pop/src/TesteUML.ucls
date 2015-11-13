@@ -129,7 +129,7 @@
   </class>  
   <class id="15" language="java" name="projeto.maispop.usuario.Notificacoes" project="+Pop" 
     file="/+Pop/src/projeto/maispop/usuario/Notificacoes.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="2561" y="1478"/>    
+    <position height="-1" width="-1" x="2570" y="1478"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -395,10 +395,10 @@
   <association id="67">    
     <end type="SOURCE" refId="19" navigable="false">      
       <attribute id="68" name="notificacoes">        
-        <position height="0" width="0" x="0" y="0"/>      
+        <position height="0" width="0" x="9" y="16"/>      
       </attribute>      
       <multiplicity id="69" minimum="0" maximum="1">        
-        <position height="0" width="0" x="0" y="0"/>      
+        <position height="0" width="0" x="9" y="16"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="15" navigable="true"/>    
