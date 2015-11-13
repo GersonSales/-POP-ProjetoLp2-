@@ -6,6 +6,7 @@ import java.time.format.DateTimeFormatter;
 import projeto.maispop.postagem.Postagem;
 
 public class CelebridadePop implements TipoUsuario {
+	private static final long serialVersionUID = -2234336052784070571L;
 	private static final int QTD_FEED = 4;
 
 	@Override

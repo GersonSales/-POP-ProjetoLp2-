@@ -4,6 +4,7 @@ import projeto.maispop.postagem.Postagem;
 
 public class NormalPop implements TipoUsuario {
 	
+	private static final long serialVersionUID = 5903352679915063650L;
 	private static final int QTD_FEED = 2;
 
     @Override

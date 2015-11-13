@@ -11,6 +11,8 @@ import projeto.maispop.excecoes.EntradaException;
  */
 public class Imagem extends Midia {
 	
+	private static final long serialVersionUID = 2919863538511814646L;
+
 	/**
 	 * Retorna a formatacao adequada para a representacao do objeto
 	 * <code>Imagem</code>.

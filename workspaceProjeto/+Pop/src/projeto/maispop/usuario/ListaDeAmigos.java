@@ -9,6 +9,7 @@ import java.util.Set;
 
 public class ListaDeAmigos implements Iterable<Amigavel>, Serializable {
 
+	private static final long serialVersionUID = 4369180364480947175L;
 	private List<Amigavel> listaDeAmigos;
 	private Set<Amigavel> pendentes;
 

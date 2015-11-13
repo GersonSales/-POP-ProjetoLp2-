@@ -12,6 +12,8 @@ import projeto.maispop.excecoes.EntradaException;
  */
 public class Audio extends Midia {
 
+	private static final long serialVersionUID = -3158309023696281505L;
+
 	/**
 	 * Retorna a formatacao adequada para a representacao do objeto
 	 * <code>Audio</code>.

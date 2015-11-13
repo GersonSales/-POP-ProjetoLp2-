@@ -12,6 +12,8 @@ import projeto.maispop.excecoes.EntradaException;
  */
 public class Mensagem implements Postavel {
 
+	private static final long serialVersionUID = -8593602982356135802L;
+
 	/**
 	 * Retorna a formatacao adequada para a representacao do objeto
 	 * <code>Mensagem</code>.

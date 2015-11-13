@@ -4,6 +4,7 @@ import projeto.maispop.excecoes.EntradaException;
 import projeto.maispop.postagem.Postagem;
 
 public class IconePop implements TipoUsuario {
+	private static final long serialVersionUID = 4267898189282577383L;
 	private static final int QTD_FEED = 6;
 
 	

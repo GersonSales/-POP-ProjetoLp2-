@@ -13,6 +13,8 @@ import projeto.maispop.excecoes.EntradaException;
  */
 public class Hashtag implements Postavel, Comparable<Hashtag> {
 
+	private static final long serialVersionUID = 5869536888630180039L;
+
 	/**
 	 * Retorna a formatacao adequada para a representacao do objeto
 	 * <code>Hashtag</code>.
