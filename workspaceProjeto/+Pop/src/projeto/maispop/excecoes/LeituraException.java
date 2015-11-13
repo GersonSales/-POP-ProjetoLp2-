@@ -1,6 +1,6 @@
 package projeto.maispop.excecoes;
 
-public class LeituraException extends LogicaException {
+public class LeituraException extends ArquivoException {
 
 	private static final long serialVersionUID = 1270850325126247474L;
 	public LeituraException() {

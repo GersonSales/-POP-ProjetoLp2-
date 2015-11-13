@@ -1,6 +1,6 @@
 package projeto.maispop.excecoes;
 
-public class EscritaException extends LogicaException {
+public class EscritaException extends ArquivoException {
 
 	private static final long serialVersionUID = 8118685297198076141L;
 	
