@@ -6,25 +6,16 @@ import java.util.List;
 public class Main {
 	
 	@SuppressWarnings("unchecked")//cast da lista(linha 23)
-	public static void main(String[] args)  {
-		List<Double> listaReais = new ArrayList<>();
+	public static void main(String[] args) throws Exception  {
 		
 		for (int i = 0; i < 100; i ++) {
-			listaReais.add(Math.random() * 100);
+			LeituraEscrita.escreveTodos(Math.random() * 100);
 		}
 		
 		try {
-			LeituraEscrita.escreveTodos(listaReais);
-			System.out.println(listaReais);
+			System.out.println(LeituraEscrita.leObjetos());
 			
-			listaReais = null;
-			System.out.println(listaReais);
 			
-			listaReais = (List<Double>) LeituraEscrita.leObjetos();
-			System.out.println(listaReais);
-			
-
-			System.out.println("Media: " + Main.calculaMedia());
 		}catch (Exception erro) {
 			System.out.println(erro.getMessage());
 		}

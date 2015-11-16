@@ -19,10 +19,6 @@ import projeto.maispop.usuario.Usuario;
 
 public class BancoDeUsuarios implements Serializable{
 
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 648341662953227140L;
 	private List<Usuario> usuarios;
 	private Set<Usuario> ranking;

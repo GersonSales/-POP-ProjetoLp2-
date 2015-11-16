@@ -67,7 +67,6 @@ public enum FabricaPostavel implements Serializable {
 		String[] postagemSplit = conteudo.split(" ");
 
 		for (String string : postagemSplit) {
-
 			for (FabricaPostavel fabPost : FabricaPostavel.values()) {
 				if (string.matches(fabPost.getMarcacao())) {
 					listaPostavel.add(fabPost.getInstancia(string));

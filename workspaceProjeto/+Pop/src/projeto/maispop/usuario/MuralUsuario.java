@@ -21,9 +21,6 @@ import projeto.maispop.sistema.GerenciadorES;
  */
 public class MuralUsuario implements Serializable{
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 8920493615005290571L;
 	private List<Postagem> postagens;
 	private int popularidadeBonus;

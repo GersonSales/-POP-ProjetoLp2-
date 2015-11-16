@@ -13,9 +13,6 @@ import projeto.maispop.excecoes.SenhaException;
 
 public class UsuarioFormat implements Serializable{
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -7419071248247701469L;
 
 	public static UsuarioFormat getInstancia() {

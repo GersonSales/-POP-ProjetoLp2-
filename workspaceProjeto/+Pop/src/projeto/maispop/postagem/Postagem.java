@@ -15,9 +15,6 @@ import projeto.maispop.excecoes.ItemInexistenteException;
 
 public class Postagem implements Serializable{
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 2347003503715322665L;
 	private List<Postavel> listaMidia;
 	private Set<Hashtag> hashtags;
