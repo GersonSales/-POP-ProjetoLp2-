@@ -22,7 +22,7 @@ public class Hashtag implements Postavel, Comparable<Hashtag> {
 	 * @return O resultado da String.
 	 */
 	public static String getMarcacao() {
-		return TAG_INICIAL + "\\S+";
+		return "\\S+";
 	}
 
 	private static final String TAG_INICIAL = "#";
@@ -42,9 +42,9 @@ public class Hashtag implements Postavel, Comparable<Hashtag> {
 	 *             de criacao;
 	 */
 	public Hashtag(String conteudo) throws EntradaException {
-		if (!(conteudo.matches(getMarcacao()))) {
+		if (!(conteudo.matches(TAG_INICIAL + getMarcacao()))) {
 			throw new EntradaException(
-					"As hashtags devem comecar com '#'. Erro na hashtag: '"
+					"As hashtags devem comecar com '" + TAG_INICIAL + "'. Erro na hashtag: '"
 							+ conteudo + "'.");
 		}
 

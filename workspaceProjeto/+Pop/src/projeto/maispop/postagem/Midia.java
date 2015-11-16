@@ -40,6 +40,10 @@ public abstract class Midia implements Postavel, Serializable {
 		return this.conteudo;
 	}
 
+	public static String getMarcacao() {
+		return "(\\s<(\\w|\\W)*>|\\s#|#)(\\w|\\s)*";
+		
+	}
 	/**
 	 * Altera o campo conteudo anteriormente inicializado na construcao da
 	 * classe <code>Midia</code>.

@@ -6,7 +6,7 @@ import java.util.List;
 
 import projeto.maispop.excecoes.EntradaException;
 
-public enum FabricaPostavel implements Serializable{
+public enum FabricaPostavel implements Serializable {
 
 	IMAGEM {
 		@Override
@@ -17,7 +17,7 @@ public enum FabricaPostavel implements Serializable{
 		@Override
 		public String getMarcacao() {
 			return Imagem.getMarcacao();
-			
+
 		}
 	},
 
@@ -57,34 +57,24 @@ public enum FabricaPostavel implements Serializable{
 			return Mensagem.getMarcacao();
 		}
 	};
- 
-	public static List<Postavel> getListaPostavel(String conteudo)
-			throws EntradaException {
-		List<Postavel> listaPostavel = new ArrayList<>();
-		String[] postagemSplit = conteudo.split(" ");
-		String texto = "";
 
-		boolean adiciona = true;
+	public static List<Postavel> getListaPostavel(String conteudo) throws EntradaException {
+		List<Postavel> listaPostavel = new ArrayList<>();
+		String apenasTexto = conteudo.replaceAll(Midia.getMarcacao(), "");
+		listaPostavel.add(MENSAGEM.getInstancia(apenasTexto));
+		conteudo = conteudo.replaceAll(Mensagem.getMarcacao(), "");
+
+		String[] postagemSplit = conteudo.split(" ");
+
 		for (String string : postagemSplit) {
 
 			for (FabricaPostavel fabPost : FabricaPostavel.values()) {
 				if (string.matches(fabPost.getMarcacao())) {
 					listaPostavel.add(fabPost.getInstancia(string));
-					adiciona = false;
 					break;
 				}
-
-				if (fabPost == FabricaPostavel.HASHTAG && !adiciona) {
-					listaPostavel.add(fabPost.getInstancia(string));
-				}
-			}
-
-			if (adiciona) {
-				texto = texto == "" ? texto + string : texto + " " + string;
-				continue;
 			}
 		}
-		listaPostavel.add(0, FabricaPostavel.MENSAGEM.getInstancia(texto));
 
 		return listaPostavel;
 	}

@@ -21,7 +21,7 @@ public class Mensagem implements Postavel {
 	 * @return O resultado da String.
 	 */
 	public static String getMarcacao() {
-		return "Mensagem";
+		return "^[a-zA-Z0-9\\s.,!?:'-('-.'.]{0,200}";
 	}
 
 	private String conteudo;
@@ -43,7 +43,7 @@ public class Mensagem implements Postavel {
 			throw new EntradaException(
 					"O limite maximo da mensagem sao 200 caracteres.");
 		}
-
+		
 		this.conteudo = conteudo;
 	}
 
