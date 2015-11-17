@@ -21,7 +21,7 @@ public class Mensagem implements Postavel {
 	 * @return O resultado da String.
 	 */
 	public static String getMarcacao() {
-		return "^[a-zA-Z0-9\\s.,!?:'-('-.'.]{0,200}";
+		return "^[a-zA-Z0-9\\s\\w\\W&&[^<>#]]{0,200}";
 	}
 
 	private String conteudo;
