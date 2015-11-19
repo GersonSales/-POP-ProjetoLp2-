@@ -13,7 +13,7 @@ import projeto.maispop.excecoes.DataException;
 import projeto.maispop.excecoes.EntradaException;
 import projeto.maispop.excecoes.ItemInexistenteException;
 
-public class Postagem implements Serializable{
+public class Postagem implements Serializable {
 
 	private static final long serialVersionUID = 2347003503715322665L;
 	private List<Postavel> listaMidia;
@@ -49,7 +49,7 @@ public class Postagem implements Serializable{
 	 * postagem na quantidade recebida como parametro.
 	 * 
 	 * @param curtida
-	 *            . Inteiro a servir de incremento.
+	 *            Incrementara a quantidade de "curtir".
 	 */
 	public void curtir(int curtir) {
 		this.popularidade = getPopularidade() + curtir;
@@ -133,10 +133,8 @@ public class Postagem implements Serializable{
 
 	}
 
-	// <Metodos temporariamente em desuso>
-
 	/**
-	 * Metodo <i>getCurtir</i> responsavel por retornar um inteiro representando
+	 * Responsavel por retornar um inteiro representando
 	 * as 'curtidas' da postagem.
 	 * 
 	 * @return curtir. Inteiro representante de curtir.
@@ -146,7 +144,7 @@ public class Postagem implements Serializable{
 	}
 
 	/**
-	 * Metodo <i>getData</i> responsavel por retornar uma String representendo a
+	 * Responsavel por retornar uma String representendo a
 	 * data de criacao da postagem.
 	 * 
 	 * @return dataPostagem. String representando Data e Hora da postagem.
@@ -155,20 +153,33 @@ public class Postagem implements Serializable{
 		return this.dataPostagem;
 	}
 
+	/**
+	 * Retorna a quantidade de rejeicoes que a postagem possui.
+	 * @return Total de rejeicoes.
+	 */
 	public int getDescurtir() {
 		return this.descurtir;
 	}
 
+	/**
+	 * Retorna a representacao em string dos audios presentes na postagem.
+	 * 
+	 * @return A String resultante
+	 */
 	public String getHashTags() {
 		String saida = "";
 		for (Hashtag hashtag : this.hashtags) {
 			saida = saida == "" ? hashtag.getConteudo() : saida + ","
 					+ hashtag.getConteudo();
 		}
-
 		return saida;
 	}
 
+	/**
+	 * Retorna a representacao em string da mensaem presente na postagem.
+	 * 
+	 * @return A String resultante
+	 */
 	public String getMensagem() {
 		String saida = "";
 		for (Postavel midia : this.listaMidia) {
@@ -177,45 +188,52 @@ public class Postagem implements Serializable{
 						+ midia.getConteudo();
 			}
 		}
-
 		return saida;
-
 	}
 
+	/**
+	 * Retorna a representacao em string dos audios presentes na postagem.
+	 * 
+	 * @return A String resultante
+	 */
 	public String getAudio() {
 		StringBuilder audios = new StringBuilder();
 		for (Postavel postavel : this.listaMidia) {
 			if (postavel instanceof Audio) {
 				audios.append(postavel + " ");
 			}
-
 		}
 		return audios.toString();
 	}
 
+	/**
+	 * Retorna a representacao em string das imagens presentes na postagem.
+	 * 
+	 * @return A String resultante.
+	 */
 	public String getImagem() {
 		StringBuilder imagens = new StringBuilder();
 		for (Postavel postavel : this.listaMidia) {
 			if (postavel instanceof Imagem) {
 				imagens.append(postavel + " ");
-
 			}
-
 		}
 		return imagens.toString();
 	}
 
+	/**
+	 * Retorna a representacao em string do texto presente na postagem.
+	 * 
+	 * @return A String resultante.
+	 */
 	public String getTexto() {
 		StringBuilder texto = new StringBuilder();
 		for (Postavel postavel : this.listaMidia) {
 			if (postavel instanceof Mensagem) {
 				texto.append(postavel + " ");
-
 			}
-
 		}
 		return texto.toString();
-
 	}
 
 	/**
@@ -239,8 +257,6 @@ public class Postagem implements Serializable{
 	 *             ; Caso o conteudo passado nao atenda os requisitos.
 	 */
 	private void organizaPostagem(String conteudo) throws EntradaException {
-		// this.listaMidia = FabricaPostavel.getListaMidia(conteudo);
-
 		for (Postavel postavel : FabricaPostavel.getListaPostavel(conteudo)) {
 			if (postavel instanceof Hashtag) {
 				this.hashtags.add((Hashtag) postavel);
@@ -251,6 +267,11 @@ public class Postagem implements Serializable{
 		}
 	}
 
+	/**
+	 * Retorna a representacao em string da <code>Postagem</code>.
+	 * 
+	 * @return String resultante.
+	 */
 	@Override
 	public String toString() {
 		String postagem = "";
