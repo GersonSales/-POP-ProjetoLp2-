@@ -22,6 +22,7 @@ public class Facade {
 	private Controller controller;
 
 	public Facade() {
+		this.controller = new Controller();
 	}
 
 	public void aceitaAmizade(String emailUsuario)
@@ -36,6 +37,14 @@ public class Facade {
 		}
 	}
 
+	public String getPostFeedNoticiasRecentes(int indice) {
+		return this.controller.getPostFeedNoticiasRecentes(indice);
+	}
+	
+	public String getPostFeedNoticiasMaisPopulares(int indice) {
+		return this.controller.getPostFeedNoticiasMaisPopulares(indice);
+	}
+	
 	public void adicionaAmigo(String emailUsuario)
 			throws UsuarioInexistenteException, EscritaException {
 		try {
@@ -293,23 +302,21 @@ public class Facade {
 
 	public void iniciaSistema() throws Exception {
 		gravarLog();
-		try {
-			this.controller = (Controller) GerenciadorES.leObjeto(DIR_CONTROL,
-					TITULO_CONTROL);
-
-		} catch (LogicaException erro) {
-			gravarLog(erro);
-			throw new LogicaException("Nao foi possivel iniciar o sistema. "
-					+ erro.getMessage());
-		} catch (Exception erro) {
-			gravarLog(erro);
-			throw erro;
-		}
-
-		if (this.controller == null) {
-			this.controller = new Controller();
-
-		}
+//		try {
+//			this.controller = (Controller)GerenciadorES.leObjeto(DIR_CONTROL,TITULO_CONTROL);
+//
+//		} catch (LogicaException erro) {
+//			gravarLog(erro);
+//			throw new LogicaException("Nao foi possivel iniciar o sistema. "
+//					+ erro.getMessage());
+//		} catch (Exception erro) {
+//			gravarLog(erro);
+//			throw erro;
+//		}
+//
+//		if (this.controller == null) {
+//			this.controller = new Controller();
+//		}
 	}
 
 	public void login(String email, String senha) throws LogicaException,

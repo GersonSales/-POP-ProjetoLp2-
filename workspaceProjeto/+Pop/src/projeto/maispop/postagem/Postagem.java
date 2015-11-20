@@ -168,6 +168,10 @@ public class Postagem implements Serializable {
 	public String getData() {
 		return this.dataPostagem;
 	}
+	
+	public LocalDateTime getDataReal() {
+		return LocalDateTime.parse(getData());
+	}
 
 	/**
 	 * Retorna a quantidade de rejeicoes que a postagem possui.

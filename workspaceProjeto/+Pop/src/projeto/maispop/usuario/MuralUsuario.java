@@ -19,7 +19,7 @@ import projeto.maispop.sistema.GerenciadorES;
  * @see Postagem
  *
  */
-public class MuralUsuario implements Serializable{
+public class MuralUsuario implements Serializable {
 
 	private static final long serialVersionUID = 8920493615005290571L;
 	private List<Postagem> postagens;
@@ -90,6 +90,15 @@ public class MuralUsuario implements Serializable{
 		return this.postagens.get(indice);
 	}
 
+	public List<Postagem> getPostagens(int quandidade) {
+		List<Postagem> postagens = new ArrayList<Postagem>();
+		for (int i = 0; i < dimensaoMural(); i++) {
+			postagens.add(this.postagens.get(i));
+		}
+
+		return postagens;
+	}
+
 	/**
 	 * Metodo sobrecarregado <i>getPostagem</i> responsavel por receber um
 	 * String como parametro que representa o atributo a ser pesquisado e um
@@ -155,18 +164,19 @@ public class MuralUsuario implements Serializable{
 
 		StringBuilder postagemString;
 		int contador = 0;
-		
+
 		for (Postagem postagem : postagens) {
 			contador++;
 			postagemString = new StringBuilder();
-			postagemString.append("Post #" + contador +  " " + postagem.toStringPostagem());
-			
+			postagemString.append("Post #" + contador + " "
+					+ postagem.toStringPostagem());
+
 			postagensString.append(postagemString.toString() + sl);
 
 		}
-		GerenciadorES.gravarTexto("./postagens/", titulo, postagensString.toString());
+		GerenciadorES.gravarTexto("./postagens/", titulo,
+				postagensString.toString());
 
 	}
 
 }
-

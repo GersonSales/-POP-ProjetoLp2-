@@ -51,7 +51,7 @@ public class RelacionamentoAmigavel implements Serializable {
 
 	public void ordenarPorData() {
 		Collections.sort(this.postagens, (postagem, outraPostagem) -> (postagem
-				.getData().compareTo(outraPostagem.getData())));
+				.getDataReal().compareTo(outraPostagem.getDataReal())));
 	}
 
 	public void ordenarPorPop() {
@@ -75,6 +75,16 @@ public class RelacionamentoAmigavel implements Serializable {
 
 	public void removeAmigo(Amigavel amigo) {
 		this.listaDeAmigos.removeAmigo(amigo);
+	}
+
+	public String getPostFeedNoticiasRecentes(int indice) {
+		ordenarPorData();
+		return this.postagens.get(indice).toString();
+	}
+
+	public String getPostFeedNoticiasMaisPopulares(int indice) {
+		ordenarPorPop();
+		return this.postagens.get(indice).toString();
 	}
 
 }

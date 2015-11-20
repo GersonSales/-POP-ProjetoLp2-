@@ -69,7 +69,7 @@ public class UsuarioFormat implements Serializable{
 	}
 
 	public String validaNome(String nome) throws NomeException {
-		String padraoNome = "(\\w+(\\s)*)+";
+		String padraoNome = "(\\w+.(\\s)*)+";
 		if (nome.matches(padraoNome)) {
 			return nome;
 		}

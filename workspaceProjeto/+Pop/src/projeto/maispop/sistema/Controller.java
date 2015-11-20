@@ -276,6 +276,9 @@ public class Controller implements Serializable{
 		this.bancoDeUsuarios.removeUsuario(email);
 	}
 
+	public String getPostFeedNoticiasRecentes(int indice) {
+		return this.usuarioLogado.getPostFeedNoticiasRecentes(indice);
+	}
 	// TentativaFeed
 
 	public void imprimeFeed() {
@@ -293,6 +296,10 @@ public class Controller implements Serializable{
 
 	public void salvarPostagensUsuarios() throws EscritaException {
 		this.bancoDeUsuarios.salvarPostagensUsuarios();
+	}
+
+	public String getPostFeedNoticiasMaisPopulares(int indice) {
+		return this.usuarioLogado.getPostFeedNoticiasMaisPopulares(indice);
 	}
 
 }

@@ -1,5 +1,0 @@
-iniciaSistema
-
-salvarPostagensUsuarios
-
-fechaSistema

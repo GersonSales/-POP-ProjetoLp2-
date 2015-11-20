@@ -118,6 +118,11 @@ public class Usuario implements Amigavel, Comparable<Usuario>, Serializable {
 		this.relacionamentoAmigavel.aceitaAmizade(amigo);
 	}
 
+	public String getPostFeedNoticiasRecentes(int indice) {
+		return this.relacionamentoAmigavel.getPostFeedNoticiasRecentes(indice);
+
+	}
+
 	// RELACIONAMENTO ENTRE USUARIOS:
 	public void adicionaAmigo(Amigavel amigo) {
 		this.relacionamentoAmigavel.adicionaAmigo(amigo);
@@ -437,14 +442,8 @@ public class Usuario implements Amigavel, Comparable<Usuario>, Serializable {
 
 	// tentativa de implementar o feed
 	public List<Postagem> getFeedPostagem() {
-		List<Postagem> postagens = new ArrayList<>();
-		for (int i = 0; i < this.tipoUsuario.getFeedQtdPostagem(); i++) {
-			if (i < this.mural.dimensaoMural()) {
-				postagens.add(this.mural.getPostagem(i));
-			}
-		}
+		return this.mural.getPostagens(this.tipoUsuario.getFeedQtdPostagem());
 
-		return postagens;
 	}
 
 	public void imprimeFeed() {
@@ -453,14 +452,17 @@ public class Usuario implements Amigavel, Comparable<Usuario>, Serializable {
 
 	public void atualizaFeed() {
 		this.relacionamentoAmigavel.atualizarFeed();
-		
+
 	}
-	
-	
-	///tentativa de manipular arquivos
+
+	// /tentativa de manipular arquivos
 	public void salvarPostagens() throws EscritaException {
 		this.mural.salvarPostagens(this.email);
 	}
-	
+
+	public String getPostFeedNoticiasMaisPopulares(int indice) {
+		return this.relacionamentoAmigavel
+				.getPostFeedNoticiasMaisPopulares(indice);
+	}
 
 }
