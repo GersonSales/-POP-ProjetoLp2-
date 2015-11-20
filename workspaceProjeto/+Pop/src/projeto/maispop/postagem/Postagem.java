@@ -38,7 +38,10 @@ public class Postagem implements Serializable {
 	}
 
 	public void adicionaHashTag(String hashTag) throws EntradaException {
-		Hashtag novaHashTag = new Hashtag(hashTag);
+
+		Hashtag novaHashTag = (Hashtag) FabricaPostavel.HASHTAG
+				.getInstancia(hashTag);// new Hashtag(hashTag);
+		
 		if (this.hashtags.add(novaHashTag)) {
 			BancoHashtag.getInstancia().adiciona(novaHashTag);
 		}
@@ -78,6 +81,19 @@ public class Postagem implements Serializable {
 		return false;
 	}
 
+	public String toStringPostagem() {
+		StringBuilder toString = new StringBuilder();
+		String sl = System.getProperty("line.separator");
+		toString.append(getData());
+		toString.append(sl + "Conteudo:" + sl);
+		for (Postavel postavel : this.listaMidia) {
+			toString.append(postavel + sl);
+		}
+		toString.append(getHashTags() + sl);
+		toString.append("+Pop: " + getPopularidade() + sl);
+		return toString.toString();
+	}
+
 	/**
 	 * Metodo <i>formatData</i> responsavem por receber uma String representando
 	 * uma data no formato dd/MM/aaaa e retornar uma nova String contendo os
@@ -91,7 +107,7 @@ public class Postagem implements Serializable {
 	 * @throws DataException
 	 */
 	public String formatData(String dataPostagem) throws DataException {
-
+		
 		String padraoData = "[0-9]{2,2}/[0-9]{2,2}/[0-9]{4,4} [0-2]{1}[0-9]{1}:[0-6]{1}[0-9]{1}:[0-6]{1}[0-9]{1}";
 
 		if (!(dataPostagem.matches(padraoData))) {
@@ -134,8 +150,8 @@ public class Postagem implements Serializable {
 	}
 
 	/**
-	 * Responsavel por retornar um inteiro representando
-	 * as 'curtidas' da postagem.
+	 * Responsavel por retornar um inteiro representando as 'curtidas' da
+	 * postagem.
 	 * 
 	 * @return curtir. Inteiro representante de curtir.
 	 */
@@ -144,8 +160,8 @@ public class Postagem implements Serializable {
 	}
 
 	/**
-	 * Responsavel por retornar uma String representendo a
-	 * data de criacao da postagem.
+	 * Responsavel por retornar uma String representendo a data de criacao da
+	 * postagem.
 	 * 
 	 * @return dataPostagem. String representando Data e Hora da postagem.
 	 */
@@ -155,6 +171,7 @@ public class Postagem implements Serializable {
 
 	/**
 	 * Retorna a quantidade de rejeicoes que a postagem possui.
+	 * 
 	 * @return Total de rejeicoes.
 	 */
 	public int getDescurtir() {

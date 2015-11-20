@@ -2,6 +2,7 @@ package projeto.maispop.usuario;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import projeto.maispop.postagem.Postagem;
@@ -48,7 +49,19 @@ public class RelacionamentoAmigavel implements Serializable {
 		return this.listaDeAmigos.getQtdAmigos();
 	}
 
+	public void ordenarPorData() {
+		Collections.sort(this.postagens, (postagem, outraPostagem) -> (postagem
+				.getData().compareTo(outraPostagem.getData())));
+	}
+
+	public void ordenarPorPop() {
+		Collections
+				.sort(this.postagens, (postagem, outraPostagem) -> (postagem
+						.getPopularidade() - outraPostagem.getPopularidade()));
+	}
+
 	public void imprimeFeed() {
+		ordenarPorData();
 		System.out.println("INICIO DA IMPRESSAO");
 		for (Postagem postagem : this.postagens) {
 			System.out.println(postagem);

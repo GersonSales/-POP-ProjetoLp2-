@@ -29,7 +29,7 @@ public enum FabricaPostavel implements Serializable {
 		 *             sem a formatacao correta.
 		 */
 		@Override
-		public Postavel getInstancia(String conteudo) throws EntradaException {
+		public Imagem getInstancia(String conteudo) throws EntradaException {
 			return new Imagem(conteudo);
 		}
 
@@ -57,7 +57,7 @@ public enum FabricaPostavel implements Serializable {
 		 *             sem a formatacao correta.
 		 */
 		@Override
-		public Postavel getInstancia(String conteudo) throws EntradaException {
+		public Audio getInstancia(String conteudo) throws EntradaException {
 			return new Audio(conteudo);
 		}
 
@@ -84,7 +84,7 @@ public enum FabricaPostavel implements Serializable {
 		 *             sem a formatacao correta.
 		 */
 		@Override
-		public Postavel getInstancia(String conteudo) throws EntradaException {
+		public Hashtag getInstancia(String conteudo) throws EntradaException {
 			return new Hashtag(conteudo);
 		}
 
@@ -113,7 +113,7 @@ public enum FabricaPostavel implements Serializable {
 		 *             conteudo sem a formatacao correta.
 		 */
 		@Override
-		public Postavel getInstancia(String conteudo) throws EntradaException {
+		public Mensagem getInstancia(String conteudo) throws EntradaException {
 			return new Mensagem(conteudo);
 		}
 

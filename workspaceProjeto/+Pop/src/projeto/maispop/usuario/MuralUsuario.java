@@ -151,6 +151,7 @@ public class MuralUsuario implements Serializable{
 
 	public void salvarPostagens(String titulo) throws EscritaException {
 		StringBuilder postagensString = new StringBuilder();
+		String sl = System.getProperty("line.separator");
 
 		StringBuilder postagemString;
 		int contador = 0;
@@ -158,13 +159,9 @@ public class MuralUsuario implements Serializable{
 		for (Postagem postagem : postagens) {
 			contador++;
 			postagemString = new StringBuilder();
-			postagemString.append("Post #" + contador +  " " + postagem.getData() + "\nConteudo:\n"
-					+ postagem.getTexto() + "\nAudio: " + postagem.getAudio()
-					+ "\nImagem: " + postagem.getImagem() + "\n"
-					+ postagem.getHashTags() + "\n+Pop: "
-					+ postagem.getPopularidade() + "\n\n");
+			postagemString.append("Post #" + contador +  " " + postagem.toStringPostagem());
 			
-			postagensString.append(postagemString.toString());
+			postagensString.append(postagemString.toString() + sl);
 
 		}
 		GerenciadorES.gravarTexto("./postagens/", titulo, postagensString.toString());
@@ -172,3 +169,4 @@ public class MuralUsuario implements Serializable{
 	}
 
 }
+
