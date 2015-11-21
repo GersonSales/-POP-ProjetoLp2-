@@ -279,17 +279,11 @@ public class Controller implements Serializable{
 	public String getPostFeedNoticiasRecentes(int indice) {
 		return this.usuarioLogado.getPostFeedNoticiasRecentes(indice);
 	}
-	// TentativaFeed
-
-	public void imprimeFeed() {
-		this.usuarioLogado.imprimeFeed();
-	}
 
 	public void atualizaFeed() {
 		this.usuarioLogado.atualizaFeed();
 	}
 
-	// tentativa arquivos
 	public void salvarPostagens() throws EscritaException {
 		this.usuarioLogado.salvarPostagens();
 	}

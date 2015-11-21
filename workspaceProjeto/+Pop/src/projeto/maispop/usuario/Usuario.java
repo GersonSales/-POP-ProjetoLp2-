@@ -3,7 +3,6 @@ package projeto.maispop.usuario;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.Period;
-import java.util.ArrayList;
 import java.util.List;
 
 import projeto.maispop.postagem.Postagem;
@@ -444,10 +443,6 @@ public class Usuario implements Amigavel, Comparable<Usuario>, Serializable {
 	public List<Postagem> getFeedPostagem() {
 		return this.mural.getPostagens(this.tipoUsuario.getFeedQtdPostagem());
 
-	}
-
-	public void imprimeFeed() {
-		this.relacionamentoAmigavel.imprimeFeed();
 	}
 
 	public void atualizaFeed() {

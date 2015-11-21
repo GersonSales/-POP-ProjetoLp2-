@@ -104,7 +104,6 @@ expect "Mil tronos eu tivesse, mil tronos eu daria! #abolicao #leiAurea #epicwin
 expect "Isabel eh feia, mas eh uma princesa! #amoMinhaFilha (1871-07-09 12:30:00)" getPostFeedNoticiasRecentes post=1
 expect "Viva o imperio! <imagem>imagens/imperioBR.jpg</imagem> #paz #estabilidade #monarquia (1860-01-01 00:00:01)" getPostFeedNoticiasRecentes post=0
 
-imprimeFeed
 
 #Posts mais populares.
 expect "A monarquia tropeca, mas nao cai. #baileDaIlhaFiscal #epicwin (1889-11-09 22:54:00)" getPostFeedNoticiasMaisPopulares post=11

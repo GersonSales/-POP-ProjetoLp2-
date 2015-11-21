@@ -19,14 +19,13 @@ public class Postagem implements Serializable {
 	private List<Postavel> listaMidia;
 	private Set<Hashtag> hashtags;
 
-	private String dataPostagem;
+	private LocalDateTime dataPostagem;
 
 	private int popularidade;
 	private int curtir;
 	private int descurtir;
 
-	public Postagem(String conteudo, String dataPostagem)
-			throws EntradaException {
+	public Postagem(String conteudo, String dataPostagem) throws EntradaException {
 		this.listaMidia = new ArrayList<>();
 		this.hashtags = new LinkedHashSet<>();
 
@@ -39,9 +38,9 @@ public class Postagem implements Serializable {
 
 	public void adicionaHashTag(String hashTag) throws EntradaException {
 
-		Hashtag novaHashTag = (Hashtag) FabricaPostavel.HASHTAG
-				.getInstancia(hashTag);// new Hashtag(hashTag);
-		
+		Hashtag novaHashTag = (Hashtag) FabricaPostavel.HASHTAG.getInstancia(hashTag);// new
+																						// Hashtag(hashTag);
+
 		if (this.hashtags.add(novaHashTag)) {
 			BancoHashtag.getInstancia().adiciona(novaHashTag);
 		}
@@ -102,12 +101,13 @@ public class Postagem implements Serializable {
 	 * 
 	 * @param dataPostagem
 	 *            . String recebida como paramero para aplicacao do novo padrao.
+	 * @return
 	 * @return novaData. String representando uma data como um novo padrao de
 	 *         formatacao.
 	 * @throws DataException
 	 */
-	public String formatData(String dataPostagem) throws DataException {
-		
+	public LocalDateTime formatData(String dataPostagem) throws DataException {
+
 		String padraoData = "[0-9]{2,2}/[0-9]{2,2}/[0-9]{4,4} [0-2]{1}[0-9]{1}:[0-6]{1}[0-9]{1}:[0-6]{1}[0-9]{1}";
 
 		if (!(dataPostagem.matches(padraoData))) {
@@ -115,13 +115,8 @@ public class Postagem implements Serializable {
 		}
 
 		try {
-			DateTimeFormatter padrao = DateTimeFormatter
-					.ofPattern("dd/MM/yyyy HH:mm:ss");
-			DateTimeFormatter novoPadrao = DateTimeFormatter
-					.ofPattern("yyyy-MM-dd HH:mm:ss");
-			String novaData = LocalDateTime.parse(dataPostagem, padrao).format(
-					novoPadrao);
-			return novaData;
+			DateTimeFormatter padrao = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+			return LocalDateTime.parse(dataPostagem, padrao);
 
 		} catch (DateTimeException erro) {
 			throw new DataException("Data nao existe.");
@@ -129,11 +124,9 @@ public class Postagem implements Serializable {
 
 	}
 
-	public String getConteudo(int indice) throws ItemInexistenteException,
-			EntradaException {
+	public String getConteudo(int indice) throws ItemInexistenteException, EntradaException {
 		if (indice < 0) {
-			throw new EntradaException(
-					"O indice deve ser maior ou igual a zero.");
+			throw new EntradaException("O indice deve ser maior ou igual a zero.");
 		}
 		Integer ultimoIndiceValido = dimensaoListaMidia();
 		if (indice > this.listaMidia.size() - 1) {
@@ -166,11 +159,11 @@ public class Postagem implements Serializable {
 	 * @return dataPostagem. String representando Data e Hora da postagem.
 	 */
 	public String getData() {
-		return this.dataPostagem;
+		return this.dataPostagem.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 	}
-	
+
 	public LocalDateTime getDataReal() {
-		return LocalDateTime.parse(getData());
+		return this.dataPostagem;
 	}
 
 	/**
@@ -190,8 +183,7 @@ public class Postagem implements Serializable {
 	public String getHashTags() {
 		String saida = "";
 		for (Hashtag hashtag : this.hashtags) {
-			saida = saida == "" ? hashtag.getConteudo() : saida + ","
-					+ hashtag.getConteudo();
+			saida = saida == "" ? hashtag.getConteudo() : saida + "," + hashtag.getConteudo();
 		}
 		return saida;
 	}
@@ -205,8 +197,7 @@ public class Postagem implements Serializable {
 		String saida = "";
 		for (Postavel midia : this.listaMidia) {
 			if (!(midia instanceof Hashtag)) {
-				saida = saida == "" ? midia.getConteudo() : saida + " "
-						+ midia.getConteudo();
+				saida = saida == "" ? midia.getConteudo() : saida + " " + midia.getConteudo();
 			}
 		}
 		return saida;
@@ -297,15 +288,13 @@ public class Postagem implements Serializable {
 	public String toString() {
 		String postagem = "";
 		for (Postavel postavel : this.listaMidia) {
-			postagem = postagem == "" ? postavel.toString() : postagem + " "
-					+ postavel.getConteudo();
+			postagem = postagem == "" ? postavel.toString() : postagem + " " + postavel.getConteudo();
 		}
 		for (Hashtag hashTag : hashtags) {
-			postagem = postagem == "" ? hashTag.toString() : postagem + " "
-					+ hashTag.getConteudo();
+			postagem = postagem == "" ? hashTag.toString() : postagem + " " + hashTag.getConteudo();
 
 		}
-		postagem = postagem + " (" + this.dataPostagem + ")";
+		postagem = postagem + " (" + getData() + ")";
 		return postagem;
 	}
 

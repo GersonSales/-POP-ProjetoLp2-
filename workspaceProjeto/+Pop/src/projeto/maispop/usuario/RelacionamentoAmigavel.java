@@ -50,23 +50,13 @@ public class RelacionamentoAmigavel implements Serializable {
 	}
 
 	public void ordenarPorData() {
-		Collections.sort(this.postagens, (postagem, outraPostagem) -> (postagem
-				.getDataReal().compareTo(outraPostagem.getDataReal())));
+		Collections.sort(this.postagens,
+				(postagem, outraPostagem) -> (postagem.getDataReal().compareTo(outraPostagem.getDataReal())));
 	}
 
 	public void ordenarPorPop() {
-		Collections
-				.sort(this.postagens, (postagem, outraPostagem) -> (postagem
-						.getPopularidade() - outraPostagem.getPopularidade()));
-	}
-
-	public void imprimeFeed() {
-		ordenarPorData();
-		System.out.println("INICIO DA IMPRESSAO");
-		for (Postagem postagem : this.postagens) {
-			System.out.println(postagem);
-		}
-		System.out.println("FIM DA IMPRESSAO");
+		Collections.sort(this.postagens,
+				(postagem, outraPostagem) -> (postagem.getPopularidade() - outraPostagem.getPopularidade()));
 	}
 
 	public void rejeitaAmizade(Amigavel amigo) {

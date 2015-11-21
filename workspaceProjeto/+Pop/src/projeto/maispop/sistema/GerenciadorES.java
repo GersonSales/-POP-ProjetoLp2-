@@ -14,10 +14,17 @@ import java.io.ObjectOutputStream;
 import projeto.maispop.excecoes.EscritaException;
 import projeto.maispop.excecoes.LeituraException;
 
+/**
+ * Classe responsavel por criar a persistencia em arquivos. Tem seus metodos
+ * pois nao se trata de um objeto e sim de um utilitario.
+ * 
+ * @author Gerson Sales
+ *
+ */
 public class GerenciadorES {
 
-	public static void gravarTexto(String caminho, String titulo, String texto,
-			boolean acrescentar) throws EscritaException {
+	public static void gravarTexto(String caminho, String titulo, String texto, boolean acrescentar)
+			throws EscritaException {
 		try {
 			File diretorio = new File(caminho);
 			if (!(diretorio.exists())) {
@@ -37,11 +44,11 @@ public class GerenciadorES {
 		}
 	}
 
-	public static void gravarTexto(String caminho, String titulo, String texto) throws EscritaException{
+	public static void gravarTexto(String caminho, String titulo, String texto) throws EscritaException {
 		gravarTexto(caminho, titulo, texto, false);
 	}
 
-	public static void gravaObjeto(String caminho, String titulo, Object objeto) throws EscritaException{
+	public static void gravaObjeto(String caminho, String titulo, Object objeto) throws EscritaException {
 		try {
 			File diretorio = new File(caminho);
 			if (!(diretorio.exists())) {
@@ -50,10 +57,8 @@ public class GerenciadorES {
 
 			File arquivo = new File(caminho + titulo);
 			FileOutputStream fluxoSaida = new FileOutputStream(arquivo);
-			BufferedOutputStream fluxoBuffer = new BufferedOutputStream(
-					fluxoSaida);
-			ObjectOutputStream fluxoSaidaObjeto = new ObjectOutputStream(
-					fluxoBuffer);
+			BufferedOutputStream fluxoBuffer = new BufferedOutputStream(fluxoSaida);
+			ObjectOutputStream fluxoSaidaObjeto = new ObjectOutputStream(fluxoBuffer);
 
 			fluxoSaidaObjeto.writeObject(objeto);
 
@@ -65,8 +70,7 @@ public class GerenciadorES {
 
 	}
 
-	public static Object leObjeto(String caminho, String titulo)
-			throws LeituraException {
+	public static Object leObjeto(String caminho, String titulo) throws LeituraException {
 		try {
 			File arquivo = new File(caminho + titulo);
 			if (!(arquivo.exists())) {
@@ -74,10 +78,8 @@ public class GerenciadorES {
 			}
 
 			FileInputStream fluxoEntrada = new FileInputStream(arquivo);
-			BufferedInputStream buffEntrada = new BufferedInputStream(
-					fluxoEntrada);
-			ObjectInputStream fluxoEntradaObjeto = new ObjectInputStream(
-					buffEntrada);
+			BufferedInputStream buffEntrada = new BufferedInputStream(fluxoEntrada);
+			ObjectInputStream fluxoEntradaObjeto = new ObjectInputStream(buffEntrada);
 
 			Object objeto = fluxoEntradaObjeto.readObject();
 
@@ -90,21 +92,17 @@ public class GerenciadorES {
 		}
 	}
 
-	public static void gravarLog(String caminho, String titulo,
-			String... variaveis) throws EscritaException {
-		String methodName = Thread.currentThread().getStackTrace()[3]
-				.getMethodName();
+	public static void gravarLog(String caminho, String titulo, String... variaveis) throws EscritaException {
+		String methodName = Thread.currentThread().getStackTrace()[3].getMethodName();
 		StringBuilder mensagem = new StringBuilder();
 		for (String variavel : variaveis) {
 			mensagem.append("|" + variavel + "|");
 		}
-		GerenciadorES.gravarTexto(caminho, titulo, methodName + "(" + mensagem
-				+ ")", true);
+		gravarTexto(caminho, titulo, methodName + "(" + mensagem + ")", true);
 	}
 
 	public static void gravarLog(String caminho, String titulo, Throwable erro) throws EscritaException {
-		GerenciadorES.gravarTexto(caminho, titulo,
-				"<!----Erro: " + erro.getMessage() + "----!>", true);
+		gravarTexto(caminho, titulo, "<!----Erro: " + erro.getMessage() + "----!>", true);
 	}
 
 }
