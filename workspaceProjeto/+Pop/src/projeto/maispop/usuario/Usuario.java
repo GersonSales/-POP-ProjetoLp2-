@@ -59,15 +59,14 @@ public class Usuario implements Amigavel, Comparable<Usuario>, Serializable {
 	 *            String que define a senha do usuario.
 	 * @param dataNascimento
 	 *            String que define a data de nascimento do usuario.
-	 * @throws EntradaException. Caso
-	 *             o seja recebido como parametro algum atributo de formatacao
-	 *             invalida.nome
-	 * @throws LogicaException. Caso
-	 *             haja algum erro durante o processo de gerenciamento de
+	 * @throws EntradaException.
+	 *             Caso o seja recebido como parametro algum atributo de
+	 *             formatacao invalida.nome
+	 * @throws LogicaException.
+	 *             Caso haja algum erro durante o processo de gerenciamento de
 	 *             informacoes.
 	 */
-	public Usuario(String nome, String email, String senha,
-			String dataNascimento) throws EntradaException {
+	public Usuario(String nome, String email, String senha, String dataNascimento) throws EntradaException {
 		this(nome, email, senha, dataNascimento, IMG_PERFIL_PADRAO);
 	}
 
@@ -87,23 +86,22 @@ public class Usuario implements Amigavel, Comparable<Usuario>, Serializable {
 	 * @param imagemPerfil
 	 *            String que indica o caminho da imagem que sera usada no
 	 *            perfil.
-	 * @throws EntradaException. Caso
-	 *             o seja recebido como parametro algum atributo de formatacao
-	 *             invalida.
-	 * @throws LogicaException. Caso
-	 *             haja algum erro durante o processo de gerenciamento de
+	 * @throws EntradaException.
+	 *             Caso o seja recebido como parametro algum atributo de
+	 *             formatacao invalida.
+	 * @throws LogicaException.
+	 *             Caso haja algum erro durante o processo de gerenciamento de
 	 *             informacoes.
 	 */
-	public Usuario(String nome, String email, String senha,
-			String dataNascimento, String imagemPerfil) throws EntradaException {
+	public Usuario(String nome, String email, String senha, String dataNascimento, String imagemPerfil)
+			throws EntradaException {
 		this.usuarioFormat = UsuarioFormat.getInstancia();
 
 		this.nome = usuarioFormat.validaNome(nome);
 		this.email = usuarioFormat.validaEmail(email);
 		this.senha = usuarioFormat.validaSenha(senha);
 		this.imagemPerfil = usuarioFormat.validaImagem(imagemPerfil);
-		this.dataNascimento = usuarioFormat
-				.validaDataNascimento(dataNascimento);
+		this.dataNascimento = usuarioFormat.validaDataNascimento(dataNascimento);
 
 		this.notificacoes = new Notificacoes();
 		this.relacionamentoAmigavel = new RelacionamentoAmigavel();
@@ -192,13 +190,12 @@ public class Usuario implements Amigavel, Comparable<Usuario>, Serializable {
 	 *            postagens.
 	 * @return conteudo. String representante do conteudo escolhido pelo indice.
 	 * 
-	 * @throws EntradaException. Caso
-	 *             o usuario digite uma uma entrada desconhecida.
-	 * @throws ItemInexistenteException. Caso
-	 *             o item nao exista na <code>Postagem</code>.
+	 * @throws EntradaException.
+	 *             Caso o usuario digite uma uma entrada desconhecida.
+	 * @throws ItemInexistenteException.
+	 *             Caso o item nao exista na <code>Postagem</code>.
 	 */
-	public String getConteudoPost(int indice, int postagem)
-			throws EntradaException, ItemInexistenteException {
+	public String getConteudoPost(int indice, int postagem) throws EntradaException, ItemInexistenteException {
 		return this.mural.getConteudoPost(indice, postagem);
 	}
 
@@ -323,11 +320,10 @@ public class Usuario implements Amigavel, Comparable<Usuario>, Serializable {
 	 *            . String representante do texto da postagem.
 	 * @param dataPostagem
 	 *            . String que representa a data da postagem.
-	 * @throws EntradaException. Caso
-	 *             seja recebido alguma String com informacoes invalidas.
+	 * @throws EntradaException.
+	 *             Caso seja recebido alguma String com informacoes invalidas.
 	 */
-	public void postar(String texto, String dataPostagem)
-			throws EntradaException {
+	public void postar(String texto, String dataPostagem) throws EntradaException {
 		this.mural.postar(texto, dataPostagem);
 	}
 
@@ -361,14 +357,13 @@ public class Usuario implements Amigavel, Comparable<Usuario>, Serializable {
 	 * dataDeNascimento) como parametro e verificando-a.
 	 * 
 	 * @param dataDeNascimento
-	 *            . String representante do nova data de nascimento do
+	 *            String representante do nova data de nascimento do
 	 *            <code>Usuario</code>.
-	 * @throws DataException. Caso
-	 *             nao seja recebido uma data de nascimento valida.
+	 * @throws DataException
+	 *             Caso nao seja recebido uma data de nascimento valida.
 	 */
 	public void setDataNascimento(String dataNascimento) throws DataException {
-		this.dataNascimento = usuarioFormat
-				.validaDataNascimento(dataNascimento);
+		this.dataNascimento = usuarioFormat.validaDataNascimento(dataNascimento);
 	}
 
 	/**
@@ -378,8 +373,8 @@ public class Usuario implements Amigavel, Comparable<Usuario>, Serializable {
 	 * 
 	 * @param email
 	 *            . String representante do novo email do <code>Usuario</code>.
-	 * @throws EmailException. Caso
-	 *             nao seja recebido uma email valido.
+	 * @throws EmailException.
+	 *             Caso nao seja recebido uma email valido.
 	 */
 	public void setEmail(String email) throws EmailException {
 		this.email = usuarioFormat.validaEmail(email);
@@ -393,8 +388,8 @@ public class Usuario implements Amigavel, Comparable<Usuario>, Serializable {
 	 * @param imagemPerfil
 	 *            . String representante da nova imagem de perfil do
 	 *            <code>Usuario</code>.
-	 * @throws ImagemException. Caso
-	 *             nao seja recebido uma imagem valida.
+	 * @throws ImagemException.
+	 *             Caso nao seja recebido uma imagem valida.
 	 */
 	public void setImagemPerfil(String imagemPerfil) throws ImagemException {
 		this.imagemPerfil = usuarioFormat.validaImagem(imagemPerfil);
@@ -407,8 +402,8 @@ public class Usuario implements Amigavel, Comparable<Usuario>, Serializable {
 	 * 
 	 * @param nome
 	 *            . String representante do novo nome do <code>Usuario</code>.
-	 * @throws NomeException. Caso
-	 *             nao seja recebido uma nome valido.
+	 * @throws NomeException.
+	 *             Caso nao seja recebido uma nome valido.
 	 */
 	public void setNome(String nome) throws NomeException {
 		this.nome = usuarioFormat.validaNome(nome);
@@ -421,8 +416,8 @@ public class Usuario implements Amigavel, Comparable<Usuario>, Serializable {
 	 * 
 	 * @param senha
 	 *            . String representante do novo senha do <code>Usuario</code>.
-	 * @throws SenhaException. Caso
-	 *             nao seja recebido uma senha valido.
+	 * @throws SenhaException.
+	 *             Caso nao seja recebido uma senha valido.
 	 */
 	public void setSenha(String senha) throws SenhaException {
 		this.senha = usuarioFormat.validaSenha(senha);
@@ -431,12 +426,10 @@ public class Usuario implements Amigavel, Comparable<Usuario>, Serializable {
 	@Override
 	public String toString() {
 		String fdl = System.getProperty("line.separator");
-		int idade = Period.between(LocalDate.parse(getDataNascimento()),
-				LocalDate.now()).getYears();
+		int idade = Period.between(LocalDate.parse(getDataNascimento()), LocalDate.now()).getYears();
 
-		return "Nome: " + getNome() + fdl + "Idade: " + idade + fdl
-				+ "E-mail: " + getEmail() + fdl + "Tipo: " + getTipoUsuario()
-				+ fdl + "Popularidade: " + getPopularidade();
+		return "Nome: " + getNome() + fdl + "Idade: " + idade + fdl + "E-mail: " + getEmail() + fdl + "Tipo: "
+				+ getTipoUsuario() + fdl + "Popularidade: " + getPopularidade();
 	}
 
 	// tentativa de implementar o feed
@@ -456,8 +449,7 @@ public class Usuario implements Amigavel, Comparable<Usuario>, Serializable {
 	}
 
 	public String getPostFeedNoticiasMaisPopulares(int indice) {
-		return this.relacionamentoAmigavel
-				.getPostFeedNoticiasMaisPopulares(indice);
+		return this.relacionamentoAmigavel.getPostFeedNoticiasMaisPopulares(indice);
 	}
 
 }
