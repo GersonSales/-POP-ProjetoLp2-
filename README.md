@@ -4,4 +4,6 @@ Diagrama de classe:
 
 Diagrama de Excecoes:
 ![Diagrama de Excecoes](https://raw.githubusercontent.com/GersonSales/ProjetoLp2/master/.DiagramaDeExcecoes.png) 
-i
+primeira alteracao
+segunda alteracao
+
