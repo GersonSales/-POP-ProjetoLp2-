@@ -1,4 +1,4 @@
-# Projeto LP2 - MaisPop(Finalizado)
+# Projeto LP2 - MaisPop(Finalizado).
 Diagrama de classe:
 ![Diagrama de Classe](https://raw.githubusercontent.com/GersonSales/ProjetoLp2/master/.DiagramaDeClasse.png)
 
